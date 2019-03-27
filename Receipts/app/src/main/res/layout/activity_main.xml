@@ -18,6 +18,8 @@
         android:scaleType="centerCrop"
         android:src="@drawable/receipt" />
 
+    <!-- this text view causes the crashes -->
+    <!-- android:layout_below="@id/receipt" maybe not be correct-->
     <TextView
         android:id="@+id/textView"
         android:fontFamily="sans-serif-medium"
@@ -84,6 +86,6 @@
         android:layout_below="@id/login"
         android:layout_centerHorizontal="true"
         android:textColor="@color/rebeccaPurple"
-        android:textSize="20dp" />
+        android:textSize="20dp" />-->
 
 </RelativeLayout>
