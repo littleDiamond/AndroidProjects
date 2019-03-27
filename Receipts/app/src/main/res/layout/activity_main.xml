@@ -15,51 +15,50 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="64dp"
+        android:contentDescription="ReceiptLogo"
         android:scaleType="centerCrop"
         android:src="@drawable/receipt" />
 
-    <!-- this text view causes the crashes -->
-    <!-- android:layout_below="@id/receipt" maybe not be correct-->
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/welcomeText"
         android:fontFamily="sans-serif-medium"
-        android:textFontWeight="sans-serif-medium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/welcome"
         android:layout_marginTop="32dp"
         android:layout_centerHorizontal="true"
         android:textSize="32sp"
-        android:textColor="@color/rebeccaPurple"
-        android:layout_below="@id/receipt"/>
+        android:textColor="@color/rebeccapurple"
+        android:layout_below="@id/receipt" />
 
     <EditText
-        android:id="@+id/user_name"
-        android:layout_width="wrap_content"
+        android:id="@+id/username"
+        android:layout_width="220dp"
         android:layout_height="35dp"
-        android:layout_below="@+id/textView"
+        android:layout_below="@id/welcomeText"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="64dp"
         android:background="@color/lightGrey"
-        android:drawableLeft="@drawable/ic_action_user"
+        android:drawableStart="@drawable/ic_action_user"
         android:ems="10"
-        android:hint="Username"
+        android:hint="@string/username"
         android:inputType="textPersonName"
-        android:textSize="16dp" />
+        android:textSize="16sp"
+        android:autofillHints="" />
 
     <EditText
         android:id="@+id/password"
-        android:layout_width="wrap_content"
+        android:layout_width="220dp"
         android:layout_height="35dp"
         android:layout_marginTop="24dp"
-        android:layout_below="@id/user_name"
-        android:drawableLeft="@drawable/ic_action_password"
-        android:layout_alignLeft="@id/user_name"
-        android:layout_alignStart="@id/user_name"
-        android:hint="Password"
+        android:layout_below="@id/username"
+        android:drawableStart="@drawable/ic_action_password"
+        android:layout_alignStart="@id/username"
+        android:hint="@string/password"
         android:ems="10"
         android:background="@color/lightGrey"
-        android:inputType="textPassword" />
+        android:inputType="textPassword"
+        android:autofillHints="" />
 
     <Button
         android:id="@+id/login"
@@ -67,14 +66,14 @@
         android:layout_height="40dp"
         android:layout_below="@id/password"
         android:layout_centerHorizontal="true"
-        android:background="@color/rebeccaPurple"
+        android:background="@color/rebeccapurple"
         android:layout_marginTop="64dp"
         android:text="@string/login"
         android:textAllCaps="false"
-        android:textSize="20dp"
+        android:textSize="20sp"
         android:textColor="@color/lightGrey"
         android:layout_centerInParent="true"
-        android:onClick="logIn"/>
+        android:onClick="logIn" />
 
     <TextView
         android:id="@+id/textView2"
@@ -85,7 +84,7 @@
         android:text="@string/signup"
         android:layout_below="@id/login"
         android:layout_centerHorizontal="true"
-        android:textColor="@color/rebeccaPurple"
-        android:textSize="20dp" />-->
+        android:textColor="@color/rebeccapurple"
+        android:textSize="20sp" />
 
 </RelativeLayout>
