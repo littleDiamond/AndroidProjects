@@ -7,10 +7,10 @@ public class TestClass2 {
     public static ArrayList<Student> createStudent(){
         ArrayList<Student> studentList = new ArrayList<Student>();
 
-        String answer="";
+        char answer = 'Y';
 
         Scanner input = new Scanner(System.in);
-        while( true ){
+        while( answer != 'N' ){
 
             System.out.println("Enter student's first name: ");
             String firstName = input.next();
@@ -23,12 +23,12 @@ public class TestClass2 {
             studentList.add(newStudent);
 
             System.out.println("Enter another(y/n)?");
-            answer = input.next();
+            char answer = input.next().toUpperCase();
 
-            if ( answer.toLowerCase().equals("n") )
-            {
-                break;
-            }
+         //   if ( answer.toLowerCase().equals("n") )
+         //   {
+         //       break;
+         //   }
         }
 
         return studentList;
