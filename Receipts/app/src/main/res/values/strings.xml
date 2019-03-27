@@ -3,4 +3,7 @@
     <string name="welcome">Welcome to receipts!</string>
     <string name="login">Log in</string>
     <string name="signup">Register here</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="receiptlogo">ReceiptLogo</string>
 </resources>

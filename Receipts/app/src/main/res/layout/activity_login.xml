@@ -6,16 +6,16 @@
     android:layout_height="match_parent"
     tools:context=".LoginActivity">
 
-<!--<EditText
+<EditText
     android:id="@+id/catelog"
     android:layout_width="wrap_content"
     android:layout_height="20dp"
     android:layout_marginTop="24dp"
-    android:layout_below="@id/user_name"
+    android:layout_below="@id/username"
     android:drawableLeft="@drawable/ic_action_password"
     android:hint="Password"
     android:ems="10"
     android:background="@color/lightGrey"
-    android:inputType="textPassword"/>-->
+    android:inputType="textPassword"/>
 
 </LinearLayoutLayout>
