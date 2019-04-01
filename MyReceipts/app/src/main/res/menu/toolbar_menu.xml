@@ -3,18 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/my_account"
-        android:icon="@drawable/ic_action_user"
+        android:icon="@drawable/ic_supervisor_account"
         android:title="My account"
         app:showAsAction="ifRoom">
 
         <menu>
             <item
-                android:id="@+id/seller"
-                android:title="Seller" />
+                android:id="@+id/operator"
+                android:title="Operator" />
 
             <item
-                android:id="@+id/buyer"
-                android:title="Buyer" />
+                android:id="@+id/user"
+                android:title="User" />
         </menu>
 
     </item>
