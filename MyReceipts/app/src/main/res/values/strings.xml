@@ -5,7 +5,10 @@
     <string name="signUp">Register here</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
-    <string name="todo">TODO</string>
+    <string name="feedbackText">We are always working to improve Myreceipt app experience,
+        so we would love to hear what is working and how we can do better. We will respond the feedback or bug reports as soon
+        as we can. If you have a question or need help resolving a problem, you will find answer in the help center.</string>
+
     <string name="title_activity_settings">Settings</string>
 
     <!-- Strings related to Settings -->

@@ -17,7 +17,6 @@ import android.widget.Toast;
 public class log_inActivity extends AppCompatActivity {
     private Button btn_create_list;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,7 +27,6 @@ public class log_inActivity extends AppCompatActivity {
          */
         Intent intent = getIntent();
         String text = intent.getStringExtra(MainActivity.EXTRA_TEXT);
-
         TextView hello_user = findViewById(R.id.hello_user);
         hello_user.setText(text);
 
@@ -37,8 +35,6 @@ public class log_inActivity extends AppCompatActivity {
          */
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        ActionBar ab = getSupportActionBar();
-        ab.setDisplayHomeAsUpEnabled(true);
 
         /**
          * Tap create list button and open item_list activity
@@ -76,25 +72,22 @@ public class log_inActivity extends AppCompatActivity {
                 Toast.makeText(this, "My account selected", Toast.LENGTH_SHORT).show();
                 return true;
 
-            case R.id.operator:
-                Toast.makeText(this, "Seller selected", Toast.LENGTH_SHORT).show();
+            case R.id.log_out:
+                Toast.makeText(this, "Log out selected", Toast.LENGTH_SHORT).show();
                 return true;
 
             case R.id.user:
-                Toast.makeText(this, "Buyer selected", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "User selected", Toast.LENGTH_SHORT).show();
                 return true;
 
-            case R.id.help_feedback:
+            case R.id.help:
                 Intent help = new Intent (this, helpActivity.class);
                 startActivity(help);
                 return true;
 
-            case R.id.help:
-                Toast.makeText(this, "Help selected", Toast.LENGTH_SHORT).show();
-                return true;
-
             case R.id.feedback:
-                Toast.makeText(this, "Feedback selected", Toast.LENGTH_SHORT).show();
+                Intent feedback = new Intent (this, feedbackActivity.class);
+                startActivity(feedback);
                 return true;
 
             case R.id.setting:

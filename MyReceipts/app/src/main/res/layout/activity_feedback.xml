@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".feedbackActivity">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
+
+    <TextView
+        android:id="@+id/feedback_text1"
+        android:textSize="28sp"
+        android:text="How are we doing?"
+        android:fontFamily="sans-serif-medium"
+        android:textColor="@color/rebeccaPurple"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"/>
+
+
+    <TextView
+        android:id="@+id/feedback_text2"
+        android:textSize="25sp"
+        android:text="@string/feedbackText"
+        android:fontFamily="sans-serif-light"
+        android:textColor="@color/rebeccaPurple"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"/>
+
+    <Button
+        android:id="@+id/btn_help"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:drawableLeft="@drawable/ic_help"
+        android:hint="Create account"
+        android:textAllCaps="false"
+        android:textSize="25sp"
+        android:textColor="@color/rebeccaPurple"
+        android:fontFamily="sans-serif-medium"
+        android:text="  Get to help" />
+
+    <Button
+        android:id="@+id/btn_report_bug"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:drawableLeft="@drawable/ic_bug_report_black_24dp"
+        android:hint="Create account"
+        android:textAllCaps="false"
+        android:textSize="25sp"
+        android:textColor="@color/rebeccaPurple"
+        android:fontFamily="sans-serif-medium"
+        android:text="  Report a bug" />
+
+    <Button
+        android:id="@+id/btn_product_feedback"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:drawableLeft="@drawable/ic_insert_comment"
+        android:hint="Create account"
+        android:textAllCaps="false"
+        android:textSize="25sp"
+        android:textColor="@color/rebeccaPurple"
+        android:fontFamily="sans-serif-medium"
+        android:text="  Product feedback" />
+
+
+
+
+</LinearLayout>

@@ -1,20 +1,29 @@
 package com.examples.myreceipts;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Scanner;
+
+/**
+ * Create each item and price in the itemArray.
+ */
 
 public class NewItem {
-    static Scanner input = new Scanner(System.in);
+    private String addItem;
+    private double addPrice;
 
-    public static void main(String[] args){
-        List<item_listActivity> myList = new ArrayList<>();
-        myList =  createStudent();
+    public NewItem(String addItem, double addPrice){
+         this.addItem = addItem;
+         this.addPrice = addPrice;
+    }
+    public void setAddItem(String addItem){
+        this.addItem = addItem;
+    }
+     public String getAddItem(){
+         return addItem;
+     }
+    public void setAddPrice(double addPrice){
+        this.addPrice = addPrice;
+    }
+    public double getAddPrice(){
+        return addPrice;
     }
 
-    private static List<item_listActivity> createStudent() {
-        List<item_listActivity> list = new ArrayList();
-        return list;
-    }
 }

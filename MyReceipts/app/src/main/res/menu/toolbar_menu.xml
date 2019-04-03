@@ -9,37 +9,29 @@
 
         <menu>
             <item
-                android:id="@+id/operator"
-                android:title="Operator" />
+                android:id="@+id/log_out"
+                android:title="Log out" />
 
             <item
                 android:id="@+id/user"
-                android:title="User" />
+                android:title="Switch to User" />
         </menu>
 
     </item>
 
     <item
-        android:id="@+id/help_feedback"
+        android:id="@+id/setting"
         android:icon="@drawable/ic_assistant"
-        android:title="Help and feedback"
-        app:showAsAction="never" >
-
-        <menu>
-        <item
-            android:id="@+id/help"
-            android:title="Help" />
-
-        <item
-            android:id="@+id/feedback"
-            android:title="Feedback" />
-        </menu>
-
-    </item>
+        android:title="Setting"
+        app:showAsAction="never" />
 
     <item
-    android:id="@+id/setting"
-    android:icon="@drawable/ic_assistant"
-    android:title="Setting"
-    app:showAsAction="never" />
+        android:id="@+id/help"
+        android:title="Get help" />
+
+    <item
+        android:id="@+id/feedback"
+        android:title="Give us feedback" />
+
+
     </menu>

@@ -9,12 +9,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".sign_upActivity"></activity>
-        <activity android:name=".sing_upActivity" />
-        <activity
-            android:name=".helpActivity"
-            android:label="@string/title_activity_help"
-            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".feedbackActivity"
+            android:parentActivityName=".log_inActivity"
+            android:label="Feedback"></activity>
+        <activity android:name=".helpActivity"
+            android:parentActivityName=".log_inActivity"
+            android:label="Help"/>
+        <activity android:name=".sign_upActivity" />
         <activity
             android:name=".SettingsActivity"
             android:label="@string/title_activity_settings" />
@@ -28,9 +29,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".log_inActivity"
-            android:parentActivityName=".MainActivity" />
+        <activity android:name=".log_inActivity"
+            android:label="@string/welcome"/>
     </application>
 
 </manifest>

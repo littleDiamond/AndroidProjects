@@ -8,23 +8,29 @@ import android.widget.Button;
 import android.widget.EditText;
 
 public class MainActivity extends AppCompatActivity {
-
     private Button btn_logIn;
+    private  Button btn_signUp;
     public static final String EXTRA_TEXT ="com.examples.myreceipts.EXTRA_TEXT";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         /**
-         * Tap login button and open next activity
+         * Tap login button to start next activity or signUp button to register.
          */
         btn_logIn = (Button) findViewById(R.id.btn_logIn);
         btn_logIn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                 openActivity_log_in();
+            }
+        });
+        btn_signUp = (Button) findViewById(R.id.btn_signUp);
+        btn_signUp.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                openActivity_sign_up();
             }
         });
     }
@@ -41,5 +47,11 @@ public class MainActivity extends AppCompatActivity {
          */
         startActivity(intent);
     }
-
+    public void openActivity_sign_up(){
+        /**
+         * Open sign up activity.
+         */
+        Intent intent = new Intent(this, sign_upActivity.class);
+        startActivity(intent);
+    }
 }

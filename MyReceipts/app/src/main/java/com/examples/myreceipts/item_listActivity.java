@@ -1,107 +1,63 @@
 package com.examples.myreceipts;
 
-import android.content.SharedPreferences;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.widget.EditText;
 import android.widget.Toast;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.AdapterView;
-import android.util.Log;
 import java.util.ArrayList;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import java.lang.reflect.Type;
-
 
 public class item_listActivity extends AppCompatActivity {
-    private static final String TAG ="item_list";
-
-    ArrayList<String> selected = new ArrayList<>();
-    ArrayList<Double> totalArray;
+    private ListView itemList;
+    private EditText addItem;
+    private EditText addPrice;
+    private Button save;
+    ArrayList<NewItem> itemArray = new ArrayList<>(); //Add the item object to on ArrayList
+    private static final String TAG = "item_listActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_list);
+        Log.d(TAG, "onCreate: Started.");
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
 
+        itemList = findViewById(R.id.item_list);
+        addItem = findViewById(R.id.add_item);
+        addPrice = findViewById(R.id.add_price);
+        save = findViewById(R.id.btn_save);
 
-        totalArray = new ArrayList<>();
-        Button btn_insert = findViewById(R.id.btn_insert);
-        btn_insert.setOnClickListener(new  View.OnClickListener(){
+        save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                /**
+                 * Take input item detail and add to array to show.
+                 */
+                String getInput1 = addItem.getText().toString();
+                double getInput2 = Double.parseDouble(addPrice.getText().toString());
 
-                displayList();
+                if (itemArray.contains(getInput1)) {
+                    Toast.makeText(getBaseContext(), "Item added to the array", Toast.LENGTH_SHORT).show();
+                } else if (getInput1 == null || getInput1.trim().equals("")) {
+                    Toast.makeText(getBaseContext(), "Input item field is empty", Toast.LENGTH_SHORT).show();
+                } else {
+                    final ArrayList<String> arrayList = new ArrayList<>();
+                    itemArray.add( new NewItem(getInput1, getInput2));
+
+                    ItemArrayAdapter adapter = new ItemArrayAdapter(item_listActivity.this, R.layout.adapter_item_list, itemArray);
+                    itemList.setAdapter(adapter);
+                    ((EditText) ((EditText) findViewById(R.id.add_item))).setText("");
+                }
             }
         });
-
-        loadData();
-
-        Button btn_save =findViewById(R.id.btn_save);
-        btn_save.setOnClickListener(new View.OnClickListener(){
-           @Override
-            public void onClick(View v) {
-               saveData();
-           }
-        });
     }
-
-    public void displayList(){
-        ListView item_list = findViewById(R.id.item_list);
-        final ArrayList<String> arrayList =new ArrayList<>();
-        arrayList.add("text1");
-        arrayList.add("text2");
-        arrayList.add("text3");
-
-        for(int i = 0; i< arrayList.size(); i++){
-            Log.d(TAG, "displayList: name: " + arrayList.get(i));
-        } //end of for-loop
-
-        //to add a Toast to display some message once an item is clicked
-        item_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //adding the selected item to the selected ArrayList
-                selected.add(arrayList.get(position).toString());
-
-                Toast.makeText(item_listActivity.this, "clicked item: " +
-                        arrayList.get(position).toString(), Toast.LENGTH_SHORT).show();
-
-            }
-        });
-
-    }
-
-    private void saveData() {
-        SharedPreferences sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        Gson gson = new Gson();
-        String json = gson.toJson(totalArray);
-        editor.putString("task list", json);
-        editor.apply();
-    }
-
-    private void loadData(){
-        SharedPreferences sharedPreferences =getSharedPreferences("shared preferences", MODE_PRIVATE);
-        Gson gson = new Gson();
-        String json = sharedPreferences.getString("task list",null);
-        Type type = new TypeToken<ArrayList<NewItem>>() {}.getType();
-        totalArray = gson.fromJson(json, type);
-
-        if(totalArray == null){
-            totalArray = new ArrayList<>();
-        }
-    }
-
-
 }
