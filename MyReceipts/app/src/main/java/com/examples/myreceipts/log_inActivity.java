@@ -1,7 +1,7 @@
 package com.examples.myreceipts;
 
 import android.content.Intent;
-import android.support.v7.app.ActionBar;
+
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -15,8 +15,9 @@ import android.widget.Toast;
 
 
 public class log_inActivity extends AppCompatActivity {
-    private Button btn_create_list;
-
+    private Button btnCreateList;
+    private Button btnPanel;
+    private Button btnKeeper;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,11 +40,33 @@ public class log_inActivity extends AppCompatActivity {
         /**
          * Tap create list button and open item_list activity
          */
-        btn_create_list = (Button) findViewById(R.id.btn_create_list);
-        btn_create_list.setOnClickListener(new View.OnClickListener(){
+        btnCreateList = (Button) findViewById(R.id.btn_create_list);
+        btnCreateList.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                 openActivity_item_list();
+            }
+        });
+
+        /**
+         * Tap checkout panel button and show toast message for testing.
+         */
+        btnPanel = (Button) findViewById(R.id.btn_panel);
+        btnPanel.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(log_inActivity.this, "Checkout panel selected", Toast.LENGTH_SHORT ).show();
+            }
+        });
+
+        /**
+         * Tap receipt keeper and show toast message for testing.
+         */
+        btnKeeper = (Button) findViewById(R.id.btn_keeper);
+        btnKeeper.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(log_inActivity.this, "Receipt keeper selected", Toast.LENGTH_SHORT ).show();
             }
         });
     }
@@ -73,7 +96,8 @@ public class log_inActivity extends AppCompatActivity {
                 return true;
 
             case R.id.log_out:
-                Toast.makeText(this, "Log out selected", Toast.LENGTH_SHORT).show();
+                Intent logOut = new Intent (this, MainActivity.class);
+                startActivity(logOut);
                 return true;
 
             case R.id.user:

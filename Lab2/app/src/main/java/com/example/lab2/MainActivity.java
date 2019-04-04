@@ -15,12 +15,13 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
 
-    ListView  listView;
+    ListView listView;
     ArrayList<String> selected = new ArrayList<>();
     Button btnSummary;
     Button btnTotal;
-    double itemPrice =0;
+    double itemPrice = 0;
     ArrayList<Double> totalArray;
+
 
 
     @Override
@@ -28,94 +29,120 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        total ArrayList = new ArrayList<>();
-        //allow the button to do stuff
-        //get the button
+        totalArray = new ArrayList<>();
 
-        Button btn = findViewById(R.id.viewListBtn);
-        btn.setOnClickListener(new View.OnClickListener() {
+        //allow the button to perform something
+        Button btnVList = findViewById(R.id.btnViewList);
+        btnVList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i("Lab 2", "this is a log message");
-                displayList();
 
+                displayList();
             }
         });
-        //initial the summary
+
+        //initialised the btnSummary
         btnSummary = findViewById(R.id.btnSummary);
-        btnSummary.setOnClickListener(new View.onClickListener){
-            public void onClick(View v){
+        btnSummary.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 selectedItems();
             }
         });
 
         btnTotal = findViewById(R.id.btnTotal);
-        btnTotal.setOnClickListener(new View.onClickListener){
-            public void onClick(View v){
-                selectedItems(MainActivity.this, "The total is: $ " +getTotal(),Total);
+        btnTotal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MainActivity.this, "The total is: $" +getTotal(), Toast.LENGTH_SHORT ).show();
+
             }
         });
-    }
+
+    } //end to onCreate() method
 
     public void displayList(){
-        listView = findViewById(R.id.studentsList);
+        listView = findViewById(R.id.studentList);
 
         final ArrayList<String> arrayList = new ArrayList<>();
-        arrayList.add("art book");
-        arrayList.add("novel");
-        arrayList.add("drawing book");
-        arrayList.add("colour book");
-        arrayList.add("cook book");
-        arrayList.add("bag");
+        arrayList.add("Pencil");
+        arrayList.add("Crayons");
+        arrayList.add("Eraser");
+        arrayList.add("Pen");
+        arrayList.add("Fiction Book");
+        arrayList.add("Novel");
+        arrayList.add("Art book");
+        arrayList.add("Drawing book");
+        arrayList.add("Coloring book");
+        arrayList.add("Bag");
 
-        for (int i = 0; i < arrayList.size(); i++) {
-            Log.d(TAG, "displayList: name: "+arrayList.get(i));
-        }
+        for(int i = 0; i< arrayList.size(); i++){
+            Log.d(TAG, "displayList: name: " + arrayList.get(i));
+        } //end of for-loop
 
-        ArrayAdapter arrayAdapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1, arrayList);
+        ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1,arrayList);
         listView.setAdapter(arrayAdapter);
 
-
-        //To add a Toast to display some message once an item is clicked
+        //to add a Toast to display some message once an item is clicked
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(MainActivity.this, "clicked item: "+position+ " "+
+                //adding the selected item to the selected ArrayList
+                selected.add(arrayList.get(position).toString());
+
+                Toast.makeText(MainActivity.this, "clicked item: " + position + " " +
                         arrayList.get(position).toString(), Toast.LENGTH_SHORT).show();
                 totalArray.add(getItemCost(arrayList.get(position).toString()));
             }
         });
-    } // eof displayList()
+
+
+
+    }//end of the displayList()
+
 
     public void selectedItems(){
-        ArrayAdapter arrayAdapter2 = new ArrayAdapter(this, andriod.R.layout.simple_list_item_1,selected);
+        ArrayAdapter arrayAdapter2 = new ArrayAdapter(this, android.R.layout.simple_list_item_1, selected);
         listView.setAdapter(arrayAdapter2);
     }
 
-    public  double getItemCost(String,item){
-        //compare the contest of your arraylist
-        if(item.equals("cook book")){
+    public double getItemCost(String item){
+        //write some codes and compare it with the content of your arraylist
+        if(item.equals("Pencil")){
             itemPrice = 0.50;
-        } else if(item.equals("novel")){
-            itemPrice = 7.50;
-        }else if(item.equals("drawing book")){
-            itemPrice = 9.50;
-        }else if(item.equals("colour book")){
-            itemPrice = 8.50;
-        }else if(item.equals("art book")){
-            itemPrice = 6.50;
-        }else if(item.equals("bag")){
-            itemPrice = 3.50;
+        } else if(item.equals("Crayons")){
+            itemPrice = 3.25;
         }
-
-
+        else if(item.equals("Eraser")){
+            itemPrice = 0.25;
+        }
+        else if(item.equals("Pen")){
+            itemPrice =4.25;
+        }
+        else if(item.equals("Fiction Book")){
+            itemPrice = 18.75;
+        }
+        else if(item.equals("Novel")){
+            itemPrice = 15.00;
+        }
+        else if(item.equals("Art book")){
+            itemPrice = 7.50;
+        }
+        else if(item.equals("Drawing book")){
+            itemPrice = 6.25;
+        }
+        else if(item.equals("Bag")){
+            itemPrice = 50;
+        }
         return itemPrice;
     }
 
     public double getTotal(){
         double total = 0;
-        for(int i =0; i < totalArray.size(); i++){
-            total = total + Double.parseDouble(totalArray.get(i))
+        for(int i = 0; i < totalArray.size(); i++){
+            total = total + Double.parseDouble(totalArray.get(i).toString());
         }
+        return total;
     }
+
 }// end of the activity

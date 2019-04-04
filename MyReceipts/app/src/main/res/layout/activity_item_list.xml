@@ -10,29 +10,15 @@
         android:id="@+id/toolbar"
         layout="@layout/toolbar" />
 
-    <EditText
-        android:id="@+id/catalog"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:height="1dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="60dp"
-        android:layout_marginEnd="16dp"
-        android:hint="Catalog"
-        android:textColorHint="@color/rebeccaPurple"
-        android:fontFamily="sans-serif-light"
-        android:inputType="textCapWords"
-        android:textSize="16sp" />
-
     <ListView
+        android:layout_below="@+id/toolbar"
         android:id="@+id/item_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="16dp"
-        android:layout_above="@id/edit_item_list"
-        android:layout_below="@id/catalog">
+        android:layout_above="@id/edit_item_list">
     </ListView>
 
     <LinearLayout
@@ -48,6 +34,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:hint="Add an item..."
+            android:inputType="textNoSuggestions"
             android:fontFamily="sans-serif-light"
             android:textColorHint="@color/rebeccaPurple" />
 
@@ -57,6 +44,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:hint="Price"
+            android:inputType="numberDecimal"
             android:fontFamily="sans-serif-light"
             android:textColorHint="@color/rebeccaPurple" />
     </LinearLayout>
@@ -68,18 +56,12 @@
         android:layout_alignParentBottom="true"
         android:orientation="horizontal" >
     <Button
-            android:id="@+id/btn_insert"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Insert" />
+        android:id="@+id/btn_insert"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Insert" />
 
-        <Button
-            android:id="@+id/btn_save"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Save" />
     </LinearLayout>
 
 </RelativeLayout>

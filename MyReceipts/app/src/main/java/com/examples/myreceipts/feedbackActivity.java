@@ -7,12 +7,12 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
-
+import android.widget.Toast;
 
 public class feedbackActivity extends AppCompatActivity {
     private Button btn_help;
-  //  private Button btn_product_feedback;
-  //  private Button btn_report_bug;
+    private Button productFeedback;
+    private Button reportBug;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,14 +40,26 @@ public class feedbackActivity extends AppCompatActivity {
 
         /**
          * Tap product_feedback button and show toast message to check
-         *  btn_product_feedback = (Button) findViewById(R.id.btn_product_feedback);
          */
+        productFeedback = (Button) findViewById(R.id.btn_product_feedback);
+        productFeedback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(feedbackActivity.this, "Product feedback selected", Toast.LENGTH_SHORT ).show();
+            }
+        });
 
         /**
          * Tap report_bug button and show toast message to check
-         * btn_report_bug = (Button) findViewById(R.id.btn_report_bug);
          */
-    }
+        reportBug = (Button) findViewById(R.id.btn_report_bug);
+        reportBug.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(feedbackActivity.this, "Report bug selected", Toast.LENGTH_SHORT ).show();
+            }
+        });
+    } // end of onCreate
 
     public void openActivity_help(){
         /**
