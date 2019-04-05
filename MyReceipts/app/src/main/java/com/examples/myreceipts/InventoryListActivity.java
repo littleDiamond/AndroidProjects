@@ -17,12 +17,12 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class item_listActivity extends AppCompatActivity {
+public class InventoryListActivity extends AppCompatActivity {
     private ListView itemList;
     private EditText item;
     private EditText price;
     private Button insert;
-    private static final String TAG = "item_listActivity";
+    private static final String TAG = "InventoryListActivity";
     public static final String PREFS_NAME = "PreferenceFile";
     public static final String ITEM_LIST = "Items";
     private ItemArrayAdapter adapter;
@@ -47,7 +47,7 @@ public class item_listActivity extends AppCompatActivity {
 
         itemList = findViewById(R.id.item_list);
 
-        ArrayList<NewItem> existingData = null;
+        ArrayList<InventoryItem> existingData = null;
 
         SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
         String itemsInJson = settings.getString(ITEM_LIST, "");
@@ -59,13 +59,13 @@ public class item_listActivity extends AppCompatActivity {
         else
         {
             Gson gson = new Gson();
-            NewItem[] items = gson.fromJson(itemsInJson, NewItem[].class);
+            InventoryItem[] items = gson.fromJson(itemsInJson, InventoryItem[].class);
             existingData = new ArrayList<>(Arrays.asList(items));
         }
 
         // create the adapter to convert the array to views
 
-        adapter = new ItemArrayAdapter(item_listActivity.this, existingData);
+        adapter = new ItemArrayAdapter(InventoryListActivity.this, existingData);
         itemList.setAdapter(adapter); //attach the adapter to a ListView
 
         insert = findViewById(R.id.btn_insert);
@@ -78,8 +78,10 @@ public class item_listActivity extends AppCompatActivity {
     }// end of onCreate method
 
     private void insertNewItem() {
-        NewItem newItem = new NewItem(item.getText().toString(), price.getText().toString());// add item to adapter
-        adapter.add(newItem);
+        // add item to adapter
+        InventoryItem inventoryItem = new InventoryItem(item.getText().toString(),
+                Double.parseDouble(price.getText().toString()));
+        adapter.add(inventoryItem);
 
         // clear the EditText field for user to input new data.
         item.setText("");
@@ -90,14 +92,17 @@ public class item_listActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
 
+
+        // save the inventory list to user preference file
         SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
         SharedPreferences.Editor editor = settings.edit();
 
+        // get the list of items from list view
         ItemArrayAdapter listToSave = (ItemArrayAdapter) itemList.getAdapter();
-        ArrayList<NewItem> allItems = listToSave.getAllItems();
+        ArrayList<InventoryItem> allItems = listToSave.getAllItems();
 
         Gson gson = new Gson();
-        String jsonString = gson.toJson(allItems.toArray(new NewItem[allItems.size()]));
+        String jsonString = gson.toJson(allItems.toArray(new InventoryItem[allItems.size()]));
 
         editor.putString(ITEM_LIST, jsonString);
 
