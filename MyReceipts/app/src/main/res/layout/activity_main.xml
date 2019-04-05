@@ -44,8 +44,9 @@
         android:background="@color/white"
         android:ems="10"
         android:hint="Username"
+        android:gravity="center"
         android:textColorHint="@color/rebeccaPurple"
-        android:inputType="textPersonName"
+        android:inputType="textCapWords"
         android:textSize="20sp" />
 
     <EditText
@@ -57,6 +58,7 @@
         android:layout_alignLeft="@id/userName"
         android:layout_alignStart="@id/userName"
         android:hint="Password"
+        android:gravity="center"
         android:ems="10"
         android:drawableLeft="@drawable/ic_action_password"
         android:background="@color/white"

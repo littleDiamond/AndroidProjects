@@ -46,7 +46,7 @@ public class LogInActivity extends AppCompatActivity {
         btnCreateList.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                openActivity_item_list();
+                openInventoryListActivity();
             }
         });
 
@@ -72,7 +72,7 @@ public class LogInActivity extends AppCompatActivity {
             }
         });
     }
-    public void openActivity_item_list(){
+    public void openInventoryListActivity(){
         Intent intent = new Intent(this, InventoryListActivity.class);
         intent.putExtra(MainActivity.USER_NAME_TEXT, userName);
         startActivity(intent);

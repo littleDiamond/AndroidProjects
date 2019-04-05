@@ -23,18 +23,18 @@ public class MainActivity extends AppCompatActivity {
         btn_logIn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                openActivity_log_in();
+                openActivityLogIn();
             }
         });
         btn_signUp = findViewById(R.id.btn_signUp);
         btn_signUp.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                openActivity_sign_up();
+                openActivitySignUp();
             }
         });
     }
-    public void openActivity_log_in(){
+    public void openActivityLogIn(){
         /**
          * Send username and password to next activity.
          */
@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
          */
         startActivity(intent);
     }
-    public void openActivity_sign_up(){
+    public void openActivitySignUp(){
         /**
          * Open sign up activity.
          */
