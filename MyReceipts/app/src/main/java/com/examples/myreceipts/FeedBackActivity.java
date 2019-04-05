@@ -34,7 +34,7 @@ public class FeedBackActivity extends AppCompatActivity {
         btn_help.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                openActivity_help();
+                openActivityHelp();
             }
         });
 
@@ -61,7 +61,7 @@ public class FeedBackActivity extends AppCompatActivity {
         });
     } // end of onCreate
 
-    public void openActivity_help(){
+    public void openActivityHelp(){
         /**
          * Open HelpActivity.
          */

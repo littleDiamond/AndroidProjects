@@ -30,6 +30,8 @@ public class InventoryListActivity extends AppCompatActivity {
     public static final String USER_DATA = "USER_DATA";
     private ItemArrayAdapter adapter;
     private String userName;
+
+    // a map between user name and user data
     private Map<String, InventoryItem[]> userDataMap = new HashMap<String, InventoryItem[]>();;
 
     @Override
@@ -57,6 +59,7 @@ public class InventoryListActivity extends AppCompatActivity {
         SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
         String itemsInJson = settings.getString(USER_DATA, "");
 
+        // if we have existing user data
         if ( !itemsInJson.isEmpty() )
         {
             // deserialized user data from json string
@@ -99,6 +102,8 @@ public class InventoryListActivity extends AppCompatActivity {
         item.setText("");
         price.setText("");
     }
+
+    // TODO: 5/04/2019  Add delete item feature
 
     @Override
     protected void onStop() {
