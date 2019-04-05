@@ -12,8 +12,8 @@ import java.util.ArrayList;
 public class ItemArrayAdapter extends ArrayAdapter<NewItem> {
     private  static final String TAG = "ItemArrayAdapter";
 
-   public ItemArrayAdapter(Context context, ArrayList<NewItem> newItem){
-       super(context, 0, newItem);
+   public ItemArrayAdapter(Context context, ArrayList<NewItem> existingItems){
+       super(context, 0, existingItems);
    }
 
     @Override
@@ -34,6 +34,17 @@ public class ItemArrayAdapter extends ArrayAdapter<NewItem> {
 
         //return the completed view to render on screen
         return convertView;
+    }
+
+    public ArrayList<NewItem> getAllItems()
+    {
+        ArrayList<NewItem> currentItems = new ArrayList<NewItem>();
+        for(int i=0 ; i<getCount(); ++i){
+            NewItem item = getItem(i);
+            currentItems.add(item);
+        }
+
+        return currentItems;
     }
 
 }

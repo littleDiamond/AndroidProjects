@@ -18,6 +18,8 @@ public class log_inActivity extends AppCompatActivity {
     private Button btnCreateList;
     private Button btnPanel;
     private Button btnKeeper;
+
+    private String userName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,9 +29,9 @@ public class log_inActivity extends AppCompatActivity {
          * show the username on screen
          */
         Intent intent = getIntent();
-        String text = intent.getStringExtra(MainActivity.EXTRA_TEXT);
+        userName = intent.getStringExtra(MainActivity.USER_NAME_TEXT);
         TextView hello_user = findViewById(R.id.hello_user);
-        hello_user.setText(text);
+        hello_user.setText(userName);
 
         /**
          * Set up actionbar and have previous activity return.
@@ -72,6 +74,7 @@ public class log_inActivity extends AppCompatActivity {
     }
     public void openActivity_item_list(){
         Intent intent = new Intent(this, item_listActivity.class);
+        intent.putExtra(MainActivity.USER_NAME_TEXT, userName);
         startActivity(intent);
     }
 

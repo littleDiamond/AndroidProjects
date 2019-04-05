@@ -10,7 +10,7 @@ import android.widget.EditText;
 public class MainActivity extends AppCompatActivity {
     private Button btn_logIn;
     private  Button btn_signUp;
-    public static final String EXTRA_TEXT ="com.examples.myreceipts.EXTRA_TEXT";
+    public static final String USER_NAME_TEXT ="com.examples.myreceipts.EXTRA_TEXT";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
         EditText use_name = findViewById(R.id.user_name);
         String hello_user = use_name.getText().toString();
         Intent intent = new Intent(this, log_inActivity.class);
-        intent.putExtra(EXTRA_TEXT, hello_user);
+        intent.putExtra(USER_NAME_TEXT, hello_user);
         /**
          * Open activity method.
          */
