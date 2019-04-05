@@ -13,9 +13,12 @@ import android.widget.Button;
 import android.widget.ListView;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 public class InventoryListActivity extends AppCompatActivity {
     private ListView itemList;
@@ -24,9 +27,10 @@ public class InventoryListActivity extends AppCompatActivity {
     private Button insert;
     private static final String TAG = "InventoryListActivity";
     public static final String PREFS_NAME = "PreferenceFile";
-    public static final String ITEM_LIST = "Items";
+    public static final String USER_DATA = "USER_DATA";
     private ItemArrayAdapter adapter;
     private String userName;
+    private Map<String, InventoryItem[]> userDataMap = new HashMap<String, InventoryItem[]>();;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,20 +51,28 @@ public class InventoryListActivity extends AppCompatActivity {
 
         itemList = findViewById(R.id.item_list);
 
-        ArrayList<InventoryItem> existingData = null;
+        ArrayList<InventoryItem> existingData = new ArrayList<>();
 
+        // read save user data from preference file
         SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
-        String itemsInJson = settings.getString(ITEM_LIST, "");
+        String itemsInJson = settings.getString(USER_DATA, "");
 
-        if ( itemsInJson.isEmpty() )
+        if ( !itemsInJson.isEmpty() )
         {
-            existingData = new ArrayList<>();
-        }
-        else
-        {
+            // deserialized user data from json string
             Gson gson = new Gson();
-            InventoryItem[] items = gson.fromJson(itemsInJson, InventoryItem[].class);
-            existingData = new ArrayList<>(Arrays.asList(items));
+            userDataMap = gson.fromJson(itemsInJson, new TypeToken<Map<String, InventoryItem[]>>() {}.getType());
+
+            // find the data specific to the current user
+            if ( userDataMap != null )
+            {
+                InventoryItem[] itemList = userDataMap.get(userName);
+                if ( itemList != null && itemList.length > 0 )
+                {
+                    existingData = new ArrayList<>(Arrays.asList(itemList));
+                }
+            }
+
         }
 
         // create the adapter to convert the array to views
@@ -102,9 +114,10 @@ public class InventoryListActivity extends AppCompatActivity {
         ArrayList<InventoryItem> allItems = listToSave.getAllItems();
 
         Gson gson = new Gson();
-        String jsonString = gson.toJson(allItems.toArray(new InventoryItem[allItems.size()]));
+        userDataMap.put(userName, allItems.toArray(new InventoryItem[allItems.size()]));
+        String jsonString = gson.toJson(userDataMap);
 
-        editor.putString(ITEM_LIST, jsonString);
+        editor.putString(USER_DATA, jsonString);
 
         // Commit the edits!
         editor.commit();
