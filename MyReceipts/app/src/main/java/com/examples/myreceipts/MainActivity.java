@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         /**
          * Send username and password to next activity.
          */
-        EditText use_name = findViewById(R.id.user_name);
+        EditText use_name = findViewById(R.id.userName);
         String hello_user = use_name.getText().toString();
         Intent intent = new Intent(this, LogInActivity.class);
         intent.putExtra(USER_NAME_TEXT, hello_user);
