@@ -1,5 +1,7 @@
 package com.examples.myreceipts;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,23 +12,30 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 
-import org.json.JSONArray;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class item_listActivity extends AppCompatActivity {
     private ListView itemList;
     private EditText item;
     private EditText price;
     private Button insert;
-    ArrayList<NewItem> itemArray = new ArrayList<>();
     private static final String TAG = "item_listActivity";
+    public static final String PREFS_NAME = "PreferenceFile";
+    public static final String ITEM_LIST = "Items";
+    private ItemArrayAdapter adapter;
+    private String userName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_list);
         Log.d(TAG, "onCreate: Started.");
+
+        Intent intent = getIntent();
+        userName = intent.getStringExtra(MainActivity.USER_NAME_TEXT);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -36,34 +45,66 @@ public class item_listActivity extends AppCompatActivity {
         item = findViewById(R.id.add_item);
         price = findViewById(R.id.add_price);
 
+        itemList = findViewById(R.id.item_list);
+
+        ArrayList<NewItem> existingData = null;
+
+        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+        String itemsInJson = settings.getString(ITEM_LIST, "");
+
+        if ( itemsInJson.isEmpty() )
+        {
+            existingData = new ArrayList<>();
+        }
+        else
+        {
+            Gson gson = new Gson();
+            NewItem[] items = gson.fromJson(itemsInJson, NewItem[].class);
+            existingData = new ArrayList<>(Arrays.asList(items));
+        }
+
+        // create the adapter to convert the array to views
+
+        adapter = new ItemArrayAdapter(item_listActivity.this, existingData);
+        itemList.setAdapter(adapter); //attach the adapter to a ListView
+
         insert = findViewById(R.id.btn_insert);
         insert.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                insertList();
+                insertNewItem();
             }
         });
     }// end of onCreate method
 
-    private void insertList() {
-        itemList = findViewById(R.id.item_list);
-        final ArrayList<NewItem> arrayList = new ArrayList<>(); //construct the data source
-
-        NewItem newItem = new NewItem("apple", "0.00");// add item to adapter
-        arrayList.add(newItem);
-
-        // create the adapter to convert the array to views
-        ItemArrayAdapter adapter = new ItemArrayAdapter(item_listActivity.this, arrayList);
-        itemList.setAdapter(adapter); //attach the adapter to a ListView
-
-        JSONArray jsonArray= new JSONArray();
-        ArrayList<NewItem>  itemArray = NewItem.fromJson(jsonArray);
-        adapter.addAll(newItem);
+    private void insertNewItem() {
+        NewItem newItem = new NewItem(item.getText().toString(), price.getText().toString());// add item to adapter
+        adapter.add(newItem);
 
         // clear the EditText field for user to input new data.
         item.setText("");
         price.setText("");
-
     }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+        SharedPreferences.Editor editor = settings.edit();
+
+        ItemArrayAdapter listToSave = (ItemArrayAdapter) itemList.getAdapter();
+        ArrayList<NewItem> allItems = listToSave.getAllItems();
+
+        Gson gson = new Gson();
+        String jsonString = gson.toJson(allItems.toArray(new NewItem[allItems.size()]));
+
+        editor.putString(ITEM_LIST, jsonString);
+
+        // Commit the edits!
+        editor.commit();
+    }
+
+
 
 }
