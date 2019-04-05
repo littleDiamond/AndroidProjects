@@ -19,14 +19,14 @@ public class MainActivity extends AppCompatActivity {
         /**
          * Tap login button to start next activity or signUp button to register.
          */
-        btn_logIn = (Button) findViewById(R.id.btn_logIn);
+        btn_logIn = findViewById(R.id.btn_logIn);
         btn_logIn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                 openActivity_log_in();
             }
         });
-        btn_signUp = (Button) findViewById(R.id.btn_signUp);
+        btn_signUp = findViewById(R.id.btn_signUp);
         btn_signUp.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
          */
         EditText use_name = findViewById(R.id.user_name);
         String hello_user = use_name.getText().toString();
-        Intent intent = new Intent(this, log_inActivity.class);
+        Intent intent = new Intent(this, LogInActivity.class);
         intent.putExtra(USER_NAME_TEXT, hello_user);
         /**
          * Open activity method.
@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         /**
          * Open sign up activity.
          */
-        Intent intent = new Intent(this, sign_upActivity.class);
+        Intent intent = new Intent(this, SignUpActivity.class);
         startActivity(intent);
     }
 }

@@ -14,7 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-public class log_inActivity extends AppCompatActivity {
+public class LogInActivity extends AppCompatActivity {
     private Button btnCreateList;
     private Button btnPanel;
     private Button btnKeeper;
@@ -42,7 +42,7 @@ public class log_inActivity extends AppCompatActivity {
         /**
          * Tap create list button and open item_list activity
          */
-        btnCreateList = (Button) findViewById(R.id.btn_create_list);
+        btnCreateList = findViewById(R.id.btn_create_list);
         btnCreateList.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -53,27 +53,27 @@ public class log_inActivity extends AppCompatActivity {
         /**
          * Tap checkout panel button and show toast message for testing.
          */
-        btnPanel = (Button) findViewById(R.id.btn_panel);
+        btnPanel = findViewById(R.id.btn_panel);
         btnPanel.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Toast.makeText(log_inActivity.this, "Checkout panel selected", Toast.LENGTH_SHORT ).show();
+                Toast.makeText(LogInActivity.this, "Checkout panel selected", Toast.LENGTH_SHORT ).show();
             }
         });
 
         /**
          * Tap receipt keeper and show toast message for testing.
          */
-        btnKeeper = (Button) findViewById(R.id.btn_keeper);
+        btnKeeper = findViewById(R.id.btn_keeper);
         btnKeeper.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Toast.makeText(log_inActivity.this, "Receipt keeper selected", Toast.LENGTH_SHORT ).show();
+                Toast.makeText(LogInActivity.this, "Receipt keeper selected", Toast.LENGTH_SHORT ).show();
             }
         });
     }
     public void openActivity_item_list(){
-        Intent intent = new Intent(this, item_listActivity.class);
+        Intent intent = new Intent(this, InventoryListActivity.class);
         intent.putExtra(MainActivity.USER_NAME_TEXT, userName);
         startActivity(intent);
     }
@@ -108,12 +108,12 @@ public class log_inActivity extends AppCompatActivity {
                 return true;
 
             case R.id.help:
-                Intent help = new Intent (this, helpActivity.class);
+                Intent help = new Intent (this, HelpActivity.class);
                 startActivity(help);
                 return true;
 
             case R.id.feedback:
-                Intent feedback = new Intent (this, feedbackActivity.class);
+                Intent feedback = new Intent (this, FeedBackActivity.class);
                 startActivity(feedback);
                 return true;
 

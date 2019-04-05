@@ -9,7 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-public class feedbackActivity extends AppCompatActivity {
+public class FeedBackActivity extends AppCompatActivity {
     private Button btn_help;
     private Button productFeedback;
     private Button reportBug;
@@ -28,7 +28,7 @@ public class feedbackActivity extends AppCompatActivity {
         ab.setDisplayHomeAsUpEnabled(true);
 
         /**
-         * Tap help button to get back to helpActivity
+         * Tap help button to get back to HelpActivity
          */
         btn_help = (Button) findViewById(R.id.btn_help);
         btn_help.setOnClickListener(new View.OnClickListener(){
@@ -45,7 +45,7 @@ public class feedbackActivity extends AppCompatActivity {
         productFeedback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(feedbackActivity.this, "Product feedback selected", Toast.LENGTH_SHORT ).show();
+                Toast.makeText(FeedBackActivity.this, "Product feedback selected", Toast.LENGTH_SHORT ).show();
             }
         });
 
@@ -56,16 +56,16 @@ public class feedbackActivity extends AppCompatActivity {
         reportBug.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(feedbackActivity.this, "Report bug selected", Toast.LENGTH_SHORT ).show();
+                Toast.makeText(FeedBackActivity.this, "Report bug selected", Toast.LENGTH_SHORT ).show();
             }
         });
     } // end of onCreate
 
     public void openActivity_help(){
         /**
-         * Open helpActivity.
+         * Open HelpActivity.
          */
-        Intent intent = new Intent(this, helpActivity.class);
+        Intent intent = new Intent(this, HelpActivity.class);
         startActivity(intent);
     }
 }

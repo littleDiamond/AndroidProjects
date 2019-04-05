@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".sign_upActivity">
+    tools:context=".SignUpActivity">
 
     <TextView
         android:id="@+id/account_toast"
