@@ -6,52 +6,62 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
-    private Button btn_logIn;
-    private  Button btn_signUp;
+public class LoginActivity extends AppCompatActivity {
+    private EditText mUsername;
+    private EditText mPassword;
+    private Button btnLogIn;
+    private Button btnRegister;
+
+    UserDbHandler dbHandler;
     public static final String USER_NAME_TEXT ="com.examples.myreceipts.EXTRA_TEXT";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_log_in);
 
-        /**
-         * Tap login button to start next activity or signUp button to register.
-         */
-        btn_logIn = findViewById(R.id.btn_logIn);
-        btn_logIn.setOnClickListener(new View.OnClickListener(){
+        dbHandler = new UserDbHandler(this);
+        mUsername = findViewById(R.id.username);
+        mPassword =findViewById(R.id.password);
+        btnLogIn = findViewById(R.id.btnLogIn);
+        btnLogIn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                openActivityLogIn();
+                String user = mUsername.getText().toString().trim();
+                String pwd = mPassword.getText().toString().trim();
+                Boolean res = dbHandler.checkuser( user,pwd );
+
+                if(res == true){
+                    Toast.makeText(LoginActivity.this, "Welcome",Toast.LENGTH_SHORT).show();
+                    openActivityHome();
+                }
+                else{
+                    Toast.makeText(LoginActivity.this, "Login error",Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
-        btn_signUp = findViewById(R.id.btn_signUp);
-        btn_signUp.setOnClickListener(new View.OnClickListener(){
+        btnRegister = findViewById(R.id.btnRegister);
+        btnRegister.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                openActivitySignUp();
+                Intent signUpIntent = new Intent(LoginActivity.this, SignUpActivity.class);
+                startActivity(signUpIntent);
             }
         });
     }
-    public void openActivityLogIn(){
+    public void openActivityHome(){
         /**
          * Send username and password to next activity.
          */
-        EditText use_name = findViewById(R.id.userName);
-        String hello_user = use_name.getText().toString();
-        Intent intent = new Intent(this, LogInActivity.class);
-        intent.putExtra(USER_NAME_TEXT, hello_user);
+        String helloUser = mUsername.getText().toString();
+        Intent intent = new Intent(this, HomeActivity.class);
+        intent.putExtra(USER_NAME_TEXT, helloUser);
         /**
          * Open activity method.
          */
         startActivity(intent);
     }
-    public void openActivitySignUp(){
-        /**
-         * Open sign up activity.
-         */
-        Intent intent = new Intent(this, SignUpActivity.class);
-        startActivity(intent);
-    }
+
 }

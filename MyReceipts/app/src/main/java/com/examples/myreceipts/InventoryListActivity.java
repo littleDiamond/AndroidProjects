@@ -41,7 +41,7 @@ public class InventoryListActivity extends AppCompatActivity {
         Log.d(TAG, "onCreate: Started.");
 
         Intent intent = getIntent();
-        userName = intent.getStringExtra(MainActivity.USER_NAME_TEXT);
+        userName = intent.getStringExtra(LoginActivity.USER_NAME_TEXT);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

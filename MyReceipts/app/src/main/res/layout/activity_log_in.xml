@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
-    tools:context=".MainActivity">
+    tools:context=".LoginActivity">
 
     <ImageView
         android:id="@+id/receipt"
@@ -22,7 +22,7 @@
     <!-- this text view causes the crashes -->
     <!-- android:layout_below="@id/receipt" maybe not be correct-->
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/tvWelcome"
         android:fontFamily="sans-serif-medium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -34,10 +34,10 @@
         android:layout_below="@id/receipt"/>
 
     <EditText
-        android:id="@+id/userName"
+        android:id="@+id/username"
         android:layout_width="wrap_content"
         android:layout_height="35dp"
-        android:layout_below="@+id/textView"
+        android:layout_below="@+id/tvWelcome"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="64dp"
         android:drawableLeft="@drawable/ic_action_user"
@@ -50,13 +50,13 @@
         android:textSize="20sp" />
 
     <EditText
-        android:id="@+id/log_in_password"
+        android:id="@+id/password"
         android:layout_width="wrap_content"
         android:layout_height="35dp"
-        android:layout_below="@id/userName"
+        android:layout_below="@id/username"
         android:layout_marginTop="24sp"
-        android:layout_alignLeft="@id/userName"
-        android:layout_alignStart="@id/userName"
+        android:layout_alignLeft="@id/username"
+        android:layout_alignStart="@id/username"
         android:hint="Password"
         android:gravity="center"
         android:ems="10"
@@ -67,10 +67,10 @@
         android:inputType="textPassword" />
 
     <Button
-        android:id="@+id/btn_logIn"
+        android:id="@+id/btnLogIn"
         android:layout_width="100dp"
         android:layout_height="40dp"
-        android:layout_below="@id/log_in_password"
+        android:layout_below="@id/password"
         android:layout_centerHorizontal="true"
         android:background="@color/rebeccaPurple"
         android:layout_marginTop="64dp"
@@ -81,13 +81,13 @@
         android:layout_centerInParent="true" />
 
     <Button
-        android:id="@+id/btn_signUp"
+        android:id="@+id/btnRegister"
         android:fontFamily="sans-serif-light"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:text="@string/signUp"
-        android:layout_below="@id/btn_logIn"
+        android:layout_below="@id/btnLogIn"
         android:layout_centerHorizontal="true"
         android:textColor="@color/rebeccaPurple"
         android:textSize="16sp" />

@@ -14,7 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-public class LogInActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity {
     private Button btnCreateList;
     private Button btnPanel;
     private Button btnKeeper;
@@ -23,13 +23,13 @@ public class LogInActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_log_in);
+        setContentView(R.layout.activity_home);
 
         /**
          * show the username on screen
          */
         Intent intent = getIntent();
-        userName = intent.getStringExtra(MainActivity.USER_NAME_TEXT);
+        userName = intent.getStringExtra(LoginActivity.USER_NAME_TEXT);
         TextView hello_user = findViewById(R.id.hello_user);
         hello_user.setText(userName);
 
@@ -57,7 +57,7 @@ public class LogInActivity extends AppCompatActivity {
         btnPanel.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Toast.makeText(LogInActivity.this, "Checkout panel selected", Toast.LENGTH_SHORT ).show();
+                Toast.makeText(HomeActivity.this, "Checkout panel selected", Toast.LENGTH_SHORT ).show();
             }
         });
 
@@ -68,13 +68,13 @@ public class LogInActivity extends AppCompatActivity {
         btnKeeper.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Toast.makeText(LogInActivity.this, "Receipt keeper selected", Toast.LENGTH_SHORT ).show();
+                Toast.makeText(HomeActivity.this, "Receipt keeper selected", Toast.LENGTH_SHORT ).show();
             }
         });
     }
     public void openInventoryListActivity(){
         Intent intent = new Intent(this, InventoryListActivity.class);
-        intent.putExtra(MainActivity.USER_NAME_TEXT, userName);
+        intent.putExtra(LoginActivity.USER_NAME_TEXT, userName);
         startActivity(intent);
     }
 
@@ -99,7 +99,7 @@ public class LogInActivity extends AppCompatActivity {
                 return true;
 
             case R.id.log_out:
-                Intent logOut = new Intent (this, MainActivity.class);
+                Intent logOut = new Intent (this, LoginActivity.class);
                 startActivity(logOut);
                 return true;
 
