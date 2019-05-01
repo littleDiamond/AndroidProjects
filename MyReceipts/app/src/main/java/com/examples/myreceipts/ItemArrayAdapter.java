@@ -9,7 +9,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 
-public class ItemArrayAdapter extends ArrayAdapter<InventoryItem> {
+public class  ItemArrayAdapter extends ArrayAdapter<InventoryItem> {
     private  static final String TAG = "ItemArrayAdapter";
 
    public ItemArrayAdapter(Context context, ArrayList<InventoryItem> existingItems){

@@ -29,7 +29,7 @@
         android:textSize="25sp"
         android:text="@string/feedbackText"
         android:fontFamily="sans-serif-light"
-        android:textColor="@color/rebeccaPurple"
+        android:textColor="@android:color/black"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
@@ -47,7 +47,6 @@
         android:hint="Create account"
         android:textAllCaps="false"
         android:textSize="25sp"
-        android:textColor="@color/rebeccaPurple"
         android:fontFamily="sans-serif-medium"
         android:text="  Get to help" />
 
@@ -62,7 +61,6 @@
         android:hint="Create account"
         android:textAllCaps="false"
         android:textSize="25sp"
-        android:textColor="@color/rebeccaPurple"
         android:fontFamily="sans-serif-medium"
         android:text="  Report a bug" />
 
@@ -77,7 +75,6 @@
         android:hint="Create account"
         android:textAllCaps="false"
         android:textSize="25sp"
-        android:textColor="@color/rebeccaPurple"
         android:fontFamily="sans-serif-medium"
         android:text="  Product feedback" />
 

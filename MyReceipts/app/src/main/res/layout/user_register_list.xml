@@ -1,6 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:padding="5dp"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent">
 
-</android.support.constraint.ConstraintLayout>
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="17dp"
+        android:textStyle="bold"/>
+
+
+    <TextView
+        android:id="@+id/email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="14dp"
+        android:textColor="@android:color/primary_text_dark"
+        android:layout_marginTop="7dp"
+        android:layout_below="@id/name" />
+
+    <TextView
+        android:id="@+id/user_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="14dp"
+        android:textColor="@android:color/primary_text_dark"
+        android:layout_alignParentRight="true"
+        android:layout_alignBottom="@id/email"
+        android:layout_alignBaseline="@id/email"/>
+
+</RelativeLayout>
