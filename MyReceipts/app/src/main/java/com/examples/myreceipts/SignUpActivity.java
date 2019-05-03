@@ -10,42 +10,48 @@ import android.widget.Toast;
 
 public class SignUpActivity extends AppCompatActivity {
     UserDbHandler dbHandler;
-    private EditText mUsername;
-    private EditText mPassword;
-    private EditText mConfPassword;
-    private EditText mEmail;
-    private Button btnCreateAccount;
+    private EditText mTextUsername, mTextEmail,mTextPassword, mTextCnfPassword;
+    Button mBtnCreateAccount;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
+
         dbHandler = new UserDbHandler(this);
-        mUsername = findViewById(R.id.etUsername);
-        mPassword = findViewById(R.id.etPassword);
-        mConfPassword = findViewById(R.id.etCnfPassword);
-        btnCreateAccount = findViewById(R.id.btnCreateAccount);
-        btnCreateAccount.setOnClickListener(new View.OnClickListener(){
+        mTextUsername = findViewById(R.id.etUsername);
+        mTextEmail = findViewById(R.id.etEmail);
+        mTextPassword = findViewById(R.id.etPassword);
+        mTextCnfPassword = findViewById(R.id.etCnfPassword);
+
+        mBtnCreateAccount = findViewById(R.id.btnCreateAccount);
+        mBtnCreateAccount.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                String user = mUsername.getText().toString().trim();
-                String email = mEmail.getText().toString().trim();
-                String pwd = mPassword.getText().toString().trim();
-                String cnf_pwd = mConfPassword.getText().toString().trim();
+                User user = new User();
+                String name = mTextUsername.getText().toString().trim();
+                String email = mTextEmail.getText().toString().trim();
+                String pwd = mTextPassword.getText().toString().trim();
+                String cnf_pwd = mTextCnfPassword.getText().toString().trim();
+
 
                 if (pwd.equals(cnf_pwd)) {
-                    long value = dbHandler.addUser(user,email,pwd);
+                   long value = dbHandler.addUser(user);
                     if(value > 0) {
-                        Toast.makeText(SignUpActivity.this, "Account is created", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
+                        Toast.makeText(SignUpActivity.this, "Account is created",
+                                                                    Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(SignUpActivity.this,
+                                                                LoginActivity.class);
                         startActivity(intent);
                     }
                     else{
-                        Toast.makeText(SignUpActivity.this, "Registration error", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SignUpActivity.this, "Registration error",
+                                                                    Toast.LENGTH_SHORT).show();
                     }
                 }
                 else {
-                    Toast.makeText(SignUpActivity.this, "Password is not match", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SignUpActivity.this, "Password is not match",
+                                                                    Toast.LENGTH_SHORT).show();
                 }
             }
         });

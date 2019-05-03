@@ -9,59 +9,58 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 public class LoginActivity extends AppCompatActivity {
-    private EditText mUsername;
-    private EditText mPassword;
-    private Button btnLogIn;
-    private Button btnRegister;
-
     UserDbHandler dbHandler;
+    private EditText mTextUsername, mTextPassword;
+    private Button mBntLogin, mBtnRegister;
+    private int counter =3;
     public static final String USER_NAME_TEXT ="com.examples.myreceipts.EXTRA_TEXT";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log_in);
 
         dbHandler = new UserDbHandler(this);
-        mUsername = findViewById(R.id.username);
-        mPassword =findViewById(R.id.password);
-        btnLogIn = findViewById(R.id.btnLogIn);
-        btnLogIn.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                String user = mUsername.getText().toString().trim();
-                String pwd = mPassword.getText().toString().trim();
-                Boolean res = dbHandler.checkuser( user,pwd );
-
-                if(res == true){
-                    Toast.makeText(LoginActivity.this, "Welcome",Toast.LENGTH_SHORT).show();
-                    openActivityHome();
-                }
-                else{
-                    Toast.makeText(LoginActivity.this, "Login error",Toast.LENGTH_SHORT).show();
-                }
-
-            }
-        });
-        btnRegister = findViewById(R.id.btnRegister);
-        btnRegister.setOnClickListener(new View.OnClickListener(){
+        mTextUsername = findViewById(R.id.username);
+        mTextPassword =findViewById(R.id.password);
+        mBtnRegister = findViewById(R.id.btnRegister);
+        mBtnRegister.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                 Intent signUpIntent = new Intent(LoginActivity.this, SignUpActivity.class);
                 startActivity(signUpIntent);
             }
         });
-    }
-    public void openActivityHome(){
-        /**
-         * Send username and password to next activity.
-         */
-        String helloUser = mUsername.getText().toString();
-        Intent intent = new Intent(this, HomeActivity.class);
-        intent.putExtra(USER_NAME_TEXT, helloUser);
-        /**
-         * Open activity method.
-         */
-        startActivity(intent);
-    }
 
+        mBntLogin = findViewById(R.id.btnLogIn);
+        mBntLogin.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                String user = mTextUsername.getText().toString().trim();
+                String pwd = mTextPassword.getText().toString().trim();
+                Boolean result = dbHandler.checkUser(user,pwd);
+
+                if(result == true){
+                    Toast.makeText(LoginActivity.this, "Welcome",Toast.LENGTH_SHORT).show();
+                    openActivityHome();
+                }
+                else{
+                    Toast.makeText(LoginActivity.this, "Login error,No of attempts remain: "
+                                                                + counter,Toast.LENGTH_SHORT).show();
+                    counter--;
+                    if(counter == 0)
+                        mBntLogin.setEnabled(false);    //Login fails more than 3 times, user's account will be locked
+                }
+
+            }
+        });
+    } // end of onCreate
+
+   public void openActivityHome(){
+        // Send username and password to next activity and open next activity
+       String helloUser = mTextUsername.getText().toString();
+        Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+       intent.putExtra(USER_NAME_TEXT, helloUser);
+       startActivity(intent);
+   }
 }

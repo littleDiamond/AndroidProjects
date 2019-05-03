@@ -6,79 +6,112 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.support.annotation.Nullable;
+import java.util.ArrayList;
 
 public class UserDbHandler extends SQLiteOpenHelper {
-   private static final int DB_VERSION = 1;
-   private static final String DB_NAME = "register.db";
-   private static final String TABLE_Users = "Register user";
-   private static final String KEY_ID = "id";
-   private static final String KEY_NAME = "name";           //Modify
-   private static final String KEY_EMAIL = "email";         //Modify
-   private static final String KEY_PASSWORD = "password";   //Modify
+    private static final int DB_VERSION = 1;                //DATABASE VERSION
+    private static final String DB_NAME = "register.db";    //DATABASE NAME
+    private static final String TABLE_USERS = "Register";   //TABLE NAME
+    private static final String KEY_ID = "id";              //TABLE USERS COLUMNS,ID COLUMN @primaryKey
+    private static final String KEY_NAME = "username";      //modify this,COLUMN user name
+    private static final String KEY_EMAIL = "email";        //modify this,COLUMN email
+    private static final String KEY_PASSWORD = "password";  //modify this,COLUMN password
 
-    // Add the constructor from the error shown as we made this class a subclass of the SQLiteHelper
+    //SQL for creating users table
+    public static final String USER_CREATE_TABLE = "CREATE TABLE " + TABLE_USERS
+            + "("
+            + KEY_ID + "INTEGER PRIMARY KEY AUTOINCREMENT,"
+            + KEY_NAME + " TEXT,"
+            + KEY_EMAIL + " TEXT,"
+            + KEY_PASSWORD + " TEXT"
+            + ")";
+    /**
+     * Constructor
+     *
+     * @param context
+     */
     public UserDbHandler(@Nullable Context context){
         super(context, DB_NAME, null, DB_VERSION);
     }
-
-   // Modify the argument name to db of the onCreate() method.
     @Override
     public void onCreate(SQLiteDatabase db) {
-        // Create a SQL query that will record the user detail table
-        String USER_CREATE_TABLE = "CREATE TABLE " + TABLE_Users + "("
-                                    + KEY_ID + "INTEGER PRIMARY KEY AUTOINCREMENT,"
-                                    + KEY_NAME + " TEXT,"
-                                    + KEY_EMAIL + " TEXT,"
-                                    + KEY_PASSWORD + " TEXT"+ ")";
-
+        // Create Table when onCreate gets called
         db.execSQL(USER_CREATE_TABLE);
     }
-
-    //Add some codes for onUpgrade method to drop the old table
-    // if it exist and re-create it if there's a new table to be created
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
-        //the second arg refers to old version and the third arg refers to the new version
-        // Drop older table if exist
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_Users);
+        //Drop Register Table if exist
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_USERS);
 
-        // Create tables again
-        onCreate(db);
+        onCreate(db);   // Create tables again
     }
-
-    //Add a method insertUserDetails to create new users
-    public long addUser(String name, String email, String password){
+    /**
+     * This method is to create user record
+     * @param user
+     */
+    public long addUser(User user){
         //Add the required code and call the necessary methods
         SQLiteDatabase db = this.getWritableDatabase();
 
         //Get the data repository in write mode
         //Create a new map of values, where column names are the key
         ContentValues cValues = new ContentValues();
-        cValues.put(KEY_NAME, name);
-        cValues.put(KEY_EMAIL, email);
-        cValues.put(KEY_PASSWORD, password);
+        cValues.put(KEY_NAME,  user.getName());
+        cValues.put(KEY_EMAIL, user.getEmail());
+        cValues.put(KEY_PASSWORD, user.getPassword());
 
-        //Insert the new row, returning the primary key value of the new row
-        long newRowId = db.insert(TABLE_Users, null, cValues);
+        long newRowId = db.insert(TABLE_USERS, null, cValues);  //Insert the new row
         db.close(); // Close the db after insertion
 
         return newRowId;
     }
+    /**
+     * This method is to fetch all user and return the list of user records
+     * @return arrayList
+     */
+    public ArrayList<User> getUser(){
+        String[] column = {KEY_ID, KEY_NAME, KEY_EMAIL, KEY_PASSWORD};  //Array of columns to fetch
+        String sortOrder = KEY_NAME + " ASC";    //Sorting orders
+        ArrayList<User> userList = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
 
-    public boolean checkuser (String username, String password){
-        String[] rows = { KEY_ID};
-        SQLiteDatabase db = getReadableDatabase();
-        String selection = KEY_NAME + "=?" + " and " + KEY_PASSWORD + "=?";
-        String[] selectionArs = { username, password };
-        Cursor cursor = db.query(TABLE_Users,rows,selection,selectionArs,
-                                null, null,null);
-        int count = cursor.getCount();
-        cursor.close();
+        Cursor mCursor = db.query(TABLE_USERS, column,
+                                null,null,
+                                null, null, sortOrder);
+
+        //Traversing through all rows and adding to list
+        while(mCursor.moveToNext()); {
+            User user = new User();
+            user.setId(Integer.parseInt(mCursor.getString(mCursor.getColumnIndex(KEY_ID))));
+            user.setName(mCursor.getString(mCursor.getColumnIndex(KEY_NAME)));
+            user.setEmail(mCursor.getString(mCursor.getColumnIndex(KEY_EMAIL)));
+            user.setPassword(mCursor.getString(mCursor.getColumnIndex(KEY_PASSWORD)));
+            userList.add(user); // Adding user record to list
+        }
+        mCursor.close();
         db.close();
 
-        if( count>0 )
+        return userList;     //return user list
+    }
+    /**
+     * This method is to check user exist or not
+     * @param username
+     * @param password
+     * @return
+     */
+    public Boolean checkUser (String username, String password){
+        SQLiteDatabase db = getReadableDatabase();
+        String[] columns = {KEY_ID, KEY_NAME, KEY_EMAIL,KEY_PASSWORD}; //Array of columns to fetch
+        String selection = KEY_NAME + "=?" + " AND " + KEY_PASSWORD + "=?";    //Selection criteria
+        String[] selectionArs = {username, password};        //Selection argument
+        Cursor mCursor = db.query(TABLE_USERS,columns,selection,selectionArs,
+                                null, null,null);
+        mCursor.close();
+        db.close();
+
+        if(mCursor != null && mCursor.moveToFirst()&& mCursor.getCount()>0) {
             return true;
-        else
-            return false;
+        }
+        return false;
     }
 }
