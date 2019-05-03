@@ -18,13 +18,7 @@ public class UserDbHandler extends SQLiteOpenHelper {
     private static final String KEY_PASSWORD = "password";  //modify this,COLUMN password
 
     //SQL for creating users table
-    public static final String USER_CREATE_TABLE = "CREATE TABLE " + TABLE_USERS
-            + "("
-            + KEY_ID + "INTEGER PRIMARY KEY AUTOINCREMENT,"
-            + KEY_NAME + " TEXT,"
-            + KEY_EMAIL + " TEXT,"
-            + KEY_PASSWORD + " TEXT"
-            + ")";
+  //  public static final
     /**
      * Constructor
      *
@@ -35,7 +29,17 @@ public class UserDbHandler extends SQLiteOpenHelper {
     }
     @Override
     public void onCreate(SQLiteDatabase db) {
+
+        //db.execSQL("DROP TABLE IF EXISTS " + TABLE_USERS);
+
         // Create Table when onCreate gets called
+        String USER_CREATE_TABLE = "CREATE TABLE " + TABLE_USERS
+                + "("
+                + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + KEY_NAME + " TEXT,"
+                + KEY_EMAIL + " TEXT,"
+                + KEY_PASSWORD + " TEXT"
+                + ")";
         db.execSQL(USER_CREATE_TABLE);
     }
     @Override
@@ -69,7 +73,7 @@ public class UserDbHandler extends SQLiteOpenHelper {
      * This method is to fetch all user and return the list of user records
      * @return arrayList
      */
-    public ArrayList<User> getUser(){
+    public ArrayList<User> getUsers(){
         String[] column = {KEY_ID, KEY_NAME, KEY_EMAIL, KEY_PASSWORD};  //Array of columns to fetch
         String sortOrder = KEY_NAME + " ASC";    //Sorting orders
         ArrayList<User> userList = new ArrayList<>();
@@ -80,13 +84,25 @@ public class UserDbHandler extends SQLiteOpenHelper {
                                 null, null, sortOrder);
 
         //Traversing through all rows and adding to list
-        while(mCursor.moveToNext()); {
-            User user = new User();
-            user.setId(Integer.parseInt(mCursor.getString(mCursor.getColumnIndex(KEY_ID))));
-            user.setName(mCursor.getString(mCursor.getColumnIndex(KEY_NAME)));
-            user.setEmail(mCursor.getString(mCursor.getColumnIndex(KEY_EMAIL)));
-            user.setPassword(mCursor.getString(mCursor.getColumnIndex(KEY_PASSWORD)));
-            userList.add(user); // Adding user record to list
+        if(mCursor != null && mCursor.getCount() > 0) {
+            int columnID = mCursor.getColumnIndex(KEY_ID);
+            int columnName = mCursor.getColumnIndex(KEY_NAME);
+            int columnEmail = mCursor.getColumnIndex(KEY_EMAIL);
+            int columnPassword = mCursor.getColumnIndex(KEY_PASSWORD);
+
+            if (mCursor.moveToFirst()) {
+                do {
+                    User user = new User();
+                    user.setId(mCursor.getInt(columnID));
+                    String temp = mCursor.getString(columnName);
+                    user.setName(temp);
+                    temp = mCursor.getString(columnEmail);
+                    user.setEmail(temp);
+                    temp = mCursor.getString(columnPassword);
+                    user.setPassword(temp);
+                    userList.add(user); // Adding user record to list
+                } while (mCursor.moveToNext());
+            }
         }
         mCursor.close();
         db.close();
@@ -100,18 +116,24 @@ public class UserDbHandler extends SQLiteOpenHelper {
      * @return
      */
     public Boolean checkUser (String username, String password){
-        SQLiteDatabase db = getReadableDatabase();
-        String[] columns = {KEY_ID, KEY_NAME, KEY_EMAIL,KEY_PASSWORD}; //Array of columns to fetch
-        String selection = KEY_NAME + "=?" + " AND " + KEY_PASSWORD + "=?";    //Selection criteria
+        SQLiteDatabase db = this.getReadableDatabase();
+        String[] columns = {KEY_ID}; //Array of columns to fetch
+        String whereClause = KEY_NAME + " = ? AND " + KEY_PASSWORD + " = ?";    //Selection criteria
         String[] selectionArs = {username, password};        //Selection argument
-        Cursor mCursor = db.query(TABLE_USERS,columns,selection,selectionArs,
-                                null, null,null);
+        Cursor mCursor = db.query(TABLE_USERS, null, whereClause, selectionArs, null, null,null);
+
+        //Cursor mCursor = db.rawQuery("select id from Register where username=? and password=?", selectionArs);
+
+        //Cursor mCursor = db.rawQuery("select * from Register",null);
+
+        boolean result = false;
+        if (mCursor != null && mCursor.getCount() > 0) {
+            result = true;
+        }
+
         mCursor.close();
         db.close();
 
-        if(mCursor != null && mCursor.moveToFirst()&& mCursor.getCount()>0) {
-            return true;
-        }
-        return false;
+        return result;
     }
 }
