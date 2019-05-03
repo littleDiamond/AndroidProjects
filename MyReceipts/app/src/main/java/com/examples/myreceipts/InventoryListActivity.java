@@ -62,9 +62,10 @@ public class InventoryListActivity extends AppCompatActivity {
         // if we have existing user data
         if ( !itemsInJson.isEmpty() )
         {
-            // deserialized user data from json string
+            // Deserialize user data from json string
             Gson gson = new Gson();
-            userDataMap = gson.fromJson(itemsInJson, new TypeToken<Map<String, InventoryItem[]>>() {}.getType());
+            userDataMap = gson.fromJson(itemsInJson, new TypeToken<Map<String,
+                                                InventoryItem[]>>() {}.getType());
 
             // find the data specific to the current user
             if ( userDataMap != null )
@@ -127,7 +128,4 @@ public class InventoryListActivity extends AppCompatActivity {
         // Commit the edits!
         editor.commit();
     }
-
-
-
 }

@@ -35,8 +35,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:textSize="25sp"
-        android:fontFamily="sans-serif-light"
-        android:inputType="textPersonName" />
+        android:inputType="textCapWords"
+        android:fontFamily="sans-serif-light" />
 
     <TextView
         android:id="@+id/tvEmail"
@@ -81,7 +81,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="Comfirm Password"
+        android:text="Confirm Password"
         android:fontFamily="sans-serif-light"
         android:textColor="@color/rebeccaPurple"
         android:textSize="25sp"/>

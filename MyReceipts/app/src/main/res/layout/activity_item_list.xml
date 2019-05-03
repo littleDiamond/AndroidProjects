@@ -33,7 +33,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:hint="Add an item..."
-            android:inputType="textNoSuggestions"
+            android:inputType="textCapWords"
             android:fontFamily="sans-serif-light"
             android:textColorHint="@color/rebeccaPurple" />
 
