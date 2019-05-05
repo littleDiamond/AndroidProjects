@@ -10,10 +10,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 public class FeedBackActivity extends AppCompatActivity {
-    private Button btn_help;
-    private Button productFeedback;
-    private Button reportBug;
-
+    private Button mBtnHelp, mBtnFeedback, mBtnBug;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,8 +27,8 @@ public class FeedBackActivity extends AppCompatActivity {
         /**
          * Tap help button to get back to HelpActivity
          */
-        btn_help = (Button) findViewById(R.id.btn_help);
-        btn_help.setOnClickListener(new View.OnClickListener(){
+        mBtnHelp = findViewById(R.id.btn_help);
+        mBtnHelp.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                 openActivityHelp();
@@ -41,8 +38,8 @@ public class FeedBackActivity extends AppCompatActivity {
         /**
          * Tap product_feedback button and show toast message to check
          */
-        productFeedback = (Button) findViewById(R.id.btn_product_feedback);
-        productFeedback.setOnClickListener(new View.OnClickListener() {
+        mBtnFeedback = findViewById(R.id.btn_product_feedback);
+        mBtnFeedback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(FeedBackActivity.this, "Product feedback selected", Toast.LENGTH_SHORT ).show();
@@ -52,8 +49,8 @@ public class FeedBackActivity extends AppCompatActivity {
         /**
          * Tap report_bug button and show toast message to check
          */
-        reportBug = (Button) findViewById(R.id.btn_report_bug);
-        reportBug.setOnClickListener(new View.OnClickListener() {
+        mBtnBug = findViewById(R.id.btn_report_bug);
+        mBtnBug.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(FeedBackActivity.this, "Report bug selected", Toast.LENGTH_SHORT ).show();

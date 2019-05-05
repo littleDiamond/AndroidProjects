@@ -34,8 +34,18 @@ public class SignUpActivity extends AppCompatActivity {
                 String pwd = mTextPassword.getText().toString().trim();
                 String cnf_pwd = mTextCnfPassword.getText().toString().trim();
 
+                user.setName(name);
+                user.setEmail(email);
+                user.setPassword(pwd);
+                Boolean result = dbHandler.doesEmailExist(email);
 
-                if (pwd.equals(cnf_pwd)) {
+                if(result){
+                    Toast.makeText(SignUpActivity.this, "Email exists. Try another one",
+                            Toast.LENGTH_SHORT).show();
+                    return;
+
+                }
+                if (pwd.equals(cnf_pwd)){
                    long value = dbHandler.addUser(user);
                     if(value > 0) {
                         Toast.makeText(SignUpActivity.this, "Account is created",

@@ -1,6 +1,4 @@
 package com.examples.myreceipts;
-
-
 /**
  * Create each itemName and itemPrice in the itemArray.
  */

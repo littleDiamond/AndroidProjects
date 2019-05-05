@@ -15,10 +15,7 @@ import android.widget.Toast;
 
 
 public class HomeActivity extends AppCompatActivity {
-    private Button btnCreateList;
-    private Button btnPanel;
-    private Button btnKeeper;
-
+    private Button mBtnCreateList, mBtnMenu,mBtnKeeper;
     private String userName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,8 +27,8 @@ public class HomeActivity extends AppCompatActivity {
          */
         Intent intent = getIntent();
         userName = intent.getStringExtra(LoginActivity.USER_NAME_TEXT);
-        TextView hello_user = findViewById(R.id.hello_user);
-        hello_user.setText(userName);
+        TextView mTextHelloUser = findViewById(R.id.tvHelloUser);
+        mTextHelloUser.setText(userName);
 
         /**
          * Set up actionbar and have previous activity return.
@@ -40,44 +37,42 @@ public class HomeActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         /**
-         * Tap create list button and open item_list activity
+         * Tap create list button and open InventoryListActivity
          */
-        btnCreateList = findViewById(R.id.btn_create_list);
-        btnCreateList.setOnClickListener(new View.OnClickListener(){
+        mBtnCreateList = findViewById(R.id.btnCreateList);
+        mBtnCreateList.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                openInventoryListActivity();
+                Intent inventoryIntent = new Intent(HomeActivity.this, InventoryListActivity.class);
+                inventoryIntent.putExtra(LoginActivity.USER_NAME_TEXT, userName);
+                startActivity(inventoryIntent);
             }
         });
 
         /**
-         * Tap checkout panel button and show toast message for testing.
+         * Tap checkout panel button and open BillingMenuActivity.
          */
-        btnPanel = findViewById(R.id.btn_panel);
-        btnPanel.setOnClickListener(new View.OnClickListener(){
+        mBtnMenu = findViewById(R.id.btnMenu);
+        mBtnMenu.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Toast.makeText(HomeActivity.this, "Checkout panel selected", Toast.LENGTH_SHORT ).show();
+                Intent menuIntent = new Intent(HomeActivity.this, BillingMenuActivity.class);
+                menuIntent.putExtra(LoginActivity.USER_NAME_TEXT, userName);
+                startActivity(menuIntent);
             }
         });
 
         /**
          * Tap receipt keeper and show toast message for testing.
          */
-        btnKeeper = findViewById(R.id.btn_keeper);
-        btnKeeper.setOnClickListener(new View.OnClickListener(){
+        mBtnKeeper = findViewById(R.id.btnKeeper);
+        mBtnKeeper.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                 Toast.makeText(HomeActivity.this, "Receipt keeper selected", Toast.LENGTH_SHORT ).show();
             }
         });
     }
-    public void openInventoryListActivity(){
-        Intent intent = new Intent(this, InventoryListActivity.class);
-        intent.putExtra(LoginActivity.USER_NAME_TEXT, userName);
-        startActivity(intent);
-    }
-
     /**
      *Set action bar menu
      */
@@ -87,7 +82,6 @@ public class HomeActivity extends AppCompatActivity {
         inflater.inflate(R.menu.toolbar_menu, menu);
         return true;
     }
-
     /**
      *Tab action bar menu cases, toast text to test they all work.
      */

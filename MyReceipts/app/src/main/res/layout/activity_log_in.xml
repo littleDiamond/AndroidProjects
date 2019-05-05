@@ -34,7 +34,7 @@
         android:layout_below="@id/receipt"/>
 
     <EditText
-        android:id="@+id/username"
+        android:id="@+id/etUsername"
         android:layout_width="wrap_content"
         android:layout_height="35dp"
         android:layout_below="@+id/tvWelcome"
@@ -46,17 +46,17 @@
         android:hint="Username"
         android:gravity="center"
         android:textColorHint="@color/rebeccaPurple"
-        android:inputType="textCapWords"
+        android:inputType="text"
         android:textSize="20sp" />
 
     <EditText
-        android:id="@+id/password"
+        android:id="@+id/etPassword"
         android:layout_width="wrap_content"
         android:layout_height="35dp"
-        android:layout_below="@id/username"
+        android:layout_below="@id/etUsername"
         android:layout_marginTop="24sp"
-        android:layout_alignLeft="@id/username"
-        android:layout_alignStart="@id/username"
+        android:layout_alignLeft="@id/etUsername"
+        android:layout_alignStart="@id/etUsername"
         android:hint="Password"
         android:gravity="center"
         android:ems="10"
@@ -70,7 +70,7 @@
         android:id="@+id/btnLogIn"
         android:layout_width="100dp"
         android:layout_height="40dp"
-        android:layout_below="@id/password"
+        android:layout_below="@id/etPassword"
         android:layout_centerHorizontal="true"
         android:background="@color/rebeccaPurple"
         android:layout_marginTop="64dp"
