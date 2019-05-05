@@ -12,10 +12,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -61,10 +59,9 @@ public class InventoryListActivity extends AppCompatActivity {
         if ( !itemsInJson.isEmpty() ) {
             Gson gson = new Gson();  // Deserialize user data from json string
             userDataMap = gson.fromJson(itemsInJson, new TypeToken<Map<String,
-                                                InventoryItem[]>>() {}.getType());
+                    InventoryItem[]>>() {}.getType());
             // find the data specific to the current user
-            if ( userDataMap != null )
-            {
+            if ( userDataMap != null ) {
                 InventoryItem[] itemList = userDataMap.get(userName);
                 if ( itemList != null && itemList.length > 0 ) {
                     existingData = new ArrayList<>(Arrays.asList(itemList));
@@ -74,6 +71,7 @@ public class InventoryListActivity extends AppCompatActivity {
         // create the adapter to convert the array to views
         adapter = new ItemArrayAdapter(InventoryListActivity.this, existingData);
         itemList.setAdapter(adapter); //attach the adapter to a ListView
+
         mBtnInsert = findViewById(R.id.btnInsert);
         mBtnInsert.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,13 +79,12 @@ public class InventoryListActivity extends AppCompatActivity {
                 insertNewItem();
             }
         });
-
         mBtnConfirm = findViewById(R.id.btnNext);
         mBtnConfirm.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                 Intent menuIntent = new Intent(InventoryListActivity.this,
-                                                        BillingMenuActivity.class);
+                                                        PointOfSaleActivity.class);
                 startActivity(menuIntent);
             }
         });
@@ -96,7 +93,7 @@ public class InventoryListActivity extends AppCompatActivity {
     private void insertNewItem() {
         // add mTextItem to adapter
         InventoryItem inventoryItem = new InventoryItem(mTextItem.getText().toString(),
-                                        Double.parseDouble(mTextPrice.getText().toString()));
+                                 Double.parseDouble(mTextPrice.getText().toString()));
         adapter.add(inventoryItem);
 
         // clear the EditText field for user to input new data.

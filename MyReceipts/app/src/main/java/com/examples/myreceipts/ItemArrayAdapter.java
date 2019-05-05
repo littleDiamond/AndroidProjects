@@ -37,16 +37,13 @@ public class  ItemArrayAdapter extends ArrayAdapter<InventoryItem> {
         return convertView;
     }
 
-    public ArrayList<InventoryItem> getAllItems()
-    {
+    public ArrayList<InventoryItem> getAllItems() {
         ArrayList<InventoryItem> currentItems = new ArrayList<InventoryItem>();
         for(int i=0 ; i<getCount(); ++i){
             InventoryItem item = getItem(i);
             currentItems.add(item);
         }
-
         return currentItems;
     }
-
 }
 
