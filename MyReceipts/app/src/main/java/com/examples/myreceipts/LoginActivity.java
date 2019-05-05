@@ -23,6 +23,7 @@ public class LoginActivity extends AppCompatActivity {
         dbHandler = new UserDbHandler(this);
         mTextUsername = findViewById(R.id.etUsername);
         mTextPassword =findViewById(R.id.etPassword);
+
         mBtnRegister = findViewById(R.id.btnRegister);
         mBtnRegister.setOnClickListener(new View.OnClickListener(){
             @Override

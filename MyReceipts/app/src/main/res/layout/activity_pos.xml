@@ -5,12 +5,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".BillingMenuActivity">
+    android:orientation="vertical"
+    tools:context=".PointOfSaleActivity">
 
     <include
         android:id="@+id/toolbar"
         layout="@layout/toolbar" />
 
-
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="25dp"
+        android:text="@string/welcome"/>
 
 </LinearLayout>

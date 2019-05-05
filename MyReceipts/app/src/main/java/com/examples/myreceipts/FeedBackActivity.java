@@ -27,7 +27,7 @@ public class FeedBackActivity extends AppCompatActivity {
         /**
          * Tap help button to get back to HelpActivity
          */
-        mBtnHelp = findViewById(R.id.btn_help);
+        mBtnHelp = findViewById(R.id.btnHelp);
         mBtnHelp.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -38,7 +38,7 @@ public class FeedBackActivity extends AppCompatActivity {
         /**
          * Tap product_feedback button and show toast message to check
          */
-        mBtnFeedback = findViewById(R.id.btn_product_feedback);
+        mBtnFeedback = findViewById(R.id.btnFeedback);
         mBtnFeedback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -49,7 +49,7 @@ public class FeedBackActivity extends AppCompatActivity {
         /**
          * Tap report_bug button and show toast message to check
          */
-        mBtnBug = findViewById(R.id.btn_report_bug);
+        mBtnBug = findViewById(R.id.btnBug);
         mBtnBug.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

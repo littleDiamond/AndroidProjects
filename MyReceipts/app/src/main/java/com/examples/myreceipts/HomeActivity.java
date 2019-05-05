@@ -43,6 +43,8 @@ public class HomeActivity extends AppCompatActivity {
         mBtnCreateList.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+                Toast.makeText(HomeActivity.this, "List selected",
+                                                Toast.LENGTH_SHORT ).show();
                 Intent inventoryIntent = new Intent(HomeActivity.this, InventoryListActivity.class);
                 inventoryIntent.putExtra(LoginActivity.USER_NAME_TEXT, userName);
                 startActivity(inventoryIntent);
@@ -50,13 +52,15 @@ public class HomeActivity extends AppCompatActivity {
         });
 
         /**
-         * Tap checkout panel button and open BillingMenuActivity.
+         * Tap checkout panel button and open PointOfSaleActivity.
          */
         mBtnMenu = findViewById(R.id.btnMenu);
         mBtnMenu.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Intent menuIntent = new Intent(HomeActivity.this, BillingMenuActivity.class);
+                Toast.makeText(HomeActivity.this, "Menu selected",
+                                                Toast.LENGTH_SHORT ).show();
+                Intent menuIntent = new Intent(HomeActivity.this, PointOfSaleActivity.class);
                 menuIntent.putExtra(LoginActivity.USER_NAME_TEXT, userName);
                 startActivity(menuIntent);
             }
@@ -69,7 +73,8 @@ public class HomeActivity extends AppCompatActivity {
         mBtnKeeper.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Toast.makeText(HomeActivity.this, "Receipt keeper selected", Toast.LENGTH_SHORT ).show();
+                Toast.makeText(HomeActivity.this, "Receipt keeper selected",
+                                                            Toast.LENGTH_SHORT ).show();
             }
         });
     }

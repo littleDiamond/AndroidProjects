@@ -37,42 +37,39 @@
         android:layout_marginEnd="16dp"/>
 
     <Button
-        android:id="@+id/btn_help"
+        android:id="@+id/btnHelp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:drawableLeft="@drawable/ic_help"
-        android:hint="Create account"
         android:textAllCaps="false"
         android:textSize="25sp"
         android:fontFamily="sans-serif-medium"
         android:text="  Get to help" />
 
     <Button
-        android:id="@+id/btn_report_bug"
+        android:id="@+id/btnBug"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:drawableLeft="@drawable/ic_bug_report_black_24dp"
-        android:hint="Create account"
         android:textAllCaps="false"
         android:textSize="25sp"
         android:fontFamily="sans-serif-medium"
         android:text="  Report a bug" />
 
     <Button
-        android:id="@+id/btn_product_feedback"
+        android:id="@+id/btnFeedback"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:drawableLeft="@drawable/ic_insert_comment"
-        android:hint="Create account"
         android:textAllCaps="false"
         android:textSize="25sp"
         android:fontFamily="sans-serif-medium"
