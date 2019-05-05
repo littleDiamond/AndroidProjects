@@ -23,14 +23,15 @@ public class  ItemArrayAdapter extends ArrayAdapter<InventoryItem> {
 
         //Check if an existing view is being reused, otherwise inflate the view
         if(convertView == null){
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.adapter_item_list, parent, false);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.adapter_item_list,
+                                                                parent, false);
         }
         //look up view for data population
-        TextView tvItem = convertView.findViewById(R.id.tvItem);
-        TextView tvPrice = convertView.findViewById(R.id.tvPrice);
+        TextView mTextItem = convertView.findViewById(R.id.tvItem);
+        TextView mTextPrice = convertView.findViewById(R.id.tvPrice);
         //Populate the data into the template view using the data objects
-        tvItem.setText(inventoryItem.getItemName());
-        tvPrice.setText(Double.toString(inventoryItem.getItemPrice()));
+        mTextItem.setText(inventoryItem.getItemName());
+        mTextPrice.setText(Double.toString(inventoryItem.getItemPrice()));
 
         //return the completed view to render on screen
         return convertView;

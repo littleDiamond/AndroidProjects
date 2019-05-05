@@ -16,9 +16,6 @@ public class UserDbHandler extends SQLiteOpenHelper {
     private static final String KEY_NAME = "username";      //modify this,COLUMN user name
     private static final String KEY_EMAIL = "email";        //modify this,COLUMN email
     private static final String KEY_PASSWORD = "password";  //modify this,COLUMN password
-
-    //SQL for creating users table
-  //  public static final
     /**
      * Constructor
      *
@@ -29,9 +26,6 @@ public class UserDbHandler extends SQLiteOpenHelper {
     }
     @Override
     public void onCreate(SQLiteDatabase db) {
-
-        //db.execSQL("DROP TABLE IF EXISTS " + TABLE_USERS);
-
         // Create Table when onCreate gets called
         String USER_CREATE_TABLE = "CREATE TABLE " + TABLE_USERS
                 + "("
@@ -120,17 +114,28 @@ public class UserDbHandler extends SQLiteOpenHelper {
         String[] columns = {KEY_ID}; //Array of columns to fetch
         String whereClause = KEY_NAME + " = ? AND " + KEY_PASSWORD + " = ?";    //Selection criteria
         String[] selectionArs = {username, password};        //Selection argument
-        Cursor mCursor = db.query(TABLE_USERS, null, whereClause, selectionArs, null, null,null);
-
-        //Cursor mCursor = db.rawQuery("select id from Register where username=? and password=?", selectionArs);
-
-        //Cursor mCursor = db.rawQuery("select * from Register",null);
-
+        Cursor mCursor = db.query(TABLE_USERS, null, whereClause, selectionArs,
+                                                null, null,null);
         boolean result = false;
         if (mCursor != null && mCursor.getCount() > 0) {
             result = true;
         }
+        mCursor.close();
+        db.close();
 
+        return result;
+    }
+    public Boolean doesEmailExist(String email){
+        SQLiteDatabase db = this.getReadableDatabase();
+        String[] columns = {KEY_ID}; //Array of columns to fetch
+        String whereClause = KEY_EMAIL + " = ?";    //Selection criteria
+        String[] selectionArs = {email};        //Selection argument
+        Cursor mCursor = db.query(TABLE_USERS, columns, whereClause, selectionArs,
+                                            null, null,null);
+        boolean result = false;
+        if (mCursor != null && mCursor.getCount() > 0) {
+            result = true;
+        }
         mCursor.close();
         db.close();
 

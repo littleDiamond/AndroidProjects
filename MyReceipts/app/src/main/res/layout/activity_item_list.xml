@@ -11,24 +11,24 @@
         layout="@layout/toolbar" />
 
     <ListView
-        android:id="@+id/item_list"
+        android:id="@+id/lvItemList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@id/edit_item_list"
+        android:layout_above="@id/loItemList"
         android:layout_below="@+id/toolbar"
         android:layout_marginStart="16dp"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="16dp"></ListView>
 
     <LinearLayout
-        android:id="@+id/edit_item_list"
-        android:layout_above="@id/button_panel"
+        android:id="@+id/loItemList"
+        android:layout_above="@id/loButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical" >
 
         <EditText
-            android:id="@+id/add_item"
+            android:id="@+id/etAddItem"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -38,7 +38,7 @@
             android:textColorHint="@color/rebeccaPurple" />
 
         <EditText
-            android:id="@+id/add_price"
+            android:id="@+id/etAddPrice"
             android:layout_width="701dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -49,20 +49,27 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/button_panel"
+        android:id="@+id/loButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:orientation="horizontal" >
 
         <Button
-            android:id="@+id/btn_insert"
+            android:id="@+id/btnInsert"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textAllCaps="false"
             android:text="Add Item..." />
 
+        <Button
+            android:id="@+id/btnNext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textAllCaps="false"
+            android:text="Add to billing menu" />
     </LinearLayout>
 
 </RelativeLayout>

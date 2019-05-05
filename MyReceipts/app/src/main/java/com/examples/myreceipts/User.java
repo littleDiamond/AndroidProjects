@@ -1,5 +1,8 @@
 package com.examples.myreceipts;
 
+/**
+ * Create User Class to maintain single contact as an object.
+ */
 public class User {
     private int id;
     private String name;
