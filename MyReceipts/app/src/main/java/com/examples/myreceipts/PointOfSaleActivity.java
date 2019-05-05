@@ -7,12 +7,12 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 
-public class BillingMenuActivity extends AppCompatActivity {
+public class PointOfSaleActivity extends AppCompatActivity {
     private String userName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_billing_menu);
+        setContentView(R.layout.activity_POS);
 
         Intent intent = getIntent();
         userName = intent.getStringExtra(LoginActivity.USER_NAME_TEXT);
