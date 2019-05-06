@@ -12,7 +12,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".PointOfSaleActivity"></activity>
+        <activity android:name=".PointOfSaleActivity"
+            android:label="Point of Sale"
+            android:parentActivityName=".HomeActivity" />
         <activity
             android:name=".FeedBackActivity"
             android:label="Feedback"
@@ -27,6 +29,7 @@
             android:label="@string/title_activity_settings" />
         <activity
             android:name=".InventoryListActivity"
+            android:label="Inventory List"
             android:parentActivityName=".HomeActivity" />
         <activity android:name=".LoginActivity">
             <intent-filter>
@@ -37,6 +40,7 @@
         </activity>
         <activity
             android:name=".HomeActivity"
+            android:launchMode="singleTop"
             android:label="@string/welcome" />
     </application>
 
