@@ -14,7 +14,7 @@
         android:textSize="28sp"
         android:text="@string/sign_up_for_myreceipt"
         android:fontFamily="sans-serif-medium"
-        android:textColor="@color/rebeccaPurple"
+        android:textColor="@color/purple"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp" />
@@ -26,7 +26,7 @@
         android:layout_marginTop="20dp"
         android:text="User name"
         android:fontFamily="sans-serif-light"
-        android:textColor="@color/rebeccaPurple"
+        android:textColor="@color/purple"
         android:textSize="25sp"/>
 
     <EditText
@@ -45,7 +45,7 @@
         android:layout_marginTop="20dp"
         android:text="Email"
         android:fontFamily="sans-serif-light"
-        android:textColor="@color/rebeccaPurple"
+        android:textColor="@color/purple"
         android:textSize="25sp"/>
 
     <EditText
@@ -64,7 +64,7 @@
         android:layout_marginTop="20dp"
         android:text="Password"
         android:fontFamily="sans-serif-light"
-        android:textColor="@color/rebeccaPurple"
+        android:textColor="@color/purple"
         android:textSize="25sp"/>
 
     <EditText
@@ -83,7 +83,7 @@
         android:layout_marginTop="20dp"
         android:text="Confirm Password"
         android:fontFamily="sans-serif-light"
-        android:textColor="@color/rebeccaPurple"
+        android:textColor="@color/purple"
         android:textSize="25sp"/>
 
     <EditText

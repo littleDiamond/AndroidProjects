@@ -25,7 +25,7 @@
             android:textSize="25sp"
             android:text="Hello! "
             android:fontFamily="sans-serif-medium"
-            android:textColor="@color/rebeccaPurple"
+            android:textColor="@color/purple"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginEnd="1dp"/>
@@ -34,7 +34,7 @@
             android:id="@+id/tvHelloUser"
             android:textSize="25sp"
             android:fontFamily="sans-serif-medium"
-            android:textColor="@color/rebeccaPurple"
+            android:textColor="@color/purple"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </LinearLayout>
@@ -42,7 +42,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/rebeccaPurple"
+        android:background="@color/purple"
         android:layout_marginTop="20dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"/>
@@ -71,7 +71,7 @@
 
     <Button
         android:id="@+id/btnMenu"
-        android:drawableLeft="@drawable/ic_menu_black_24dp"
+        android:drawableLeft="@drawable/ic_menu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"

@@ -16,7 +16,7 @@ import android.widget.Toast;
 
 public class HomeActivity extends AppCompatActivity {
     private Button mBtnCreateList, mBtnMenu,mBtnKeeper;
-    private String userName;
+    String userName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,7 +28,9 @@ public class HomeActivity extends AppCompatActivity {
         Intent intent = getIntent();
         userName = intent.getStringExtra(LoginActivity.USER_NAME_TEXT);
         TextView mTextHelloUser = findViewById(R.id.tvHelloUser);
-        mTextHelloUser.setText(userName);
+        if(userName != null) {
+            mTextHelloUser.setText(userName);
+        }
 
         /**
          * Set up actionbar and have previous activity return.

@@ -59,9 +59,9 @@ public class LoginActivity extends AppCompatActivity {
 
    public void openActivityHome(){
         // Send username and password to next activity and open next activity
-       String helloUser = mTextUsername.getText().toString();
+       String userName = mTextUsername.getText().toString();
        Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-       intent.putExtra(USER_NAME_TEXT, helloUser);
+       intent.putExtra(USER_NAME_TEXT, userName);
        startActivity(intent);
    }
 }

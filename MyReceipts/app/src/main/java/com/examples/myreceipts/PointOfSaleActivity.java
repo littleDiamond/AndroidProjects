@@ -8,7 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 
 public class PointOfSaleActivity extends AppCompatActivity {
-    private String userName;
+    String userName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -16,8 +16,6 @@ public class PointOfSaleActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         userName = intent.getStringExtra(LoginActivity.USER_NAME_TEXT);
-        TextView mTextHelloUser = findViewById(R.id.tvHelloUser);
-        mTextHelloUser.setText(userName);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
