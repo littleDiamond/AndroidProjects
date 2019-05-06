@@ -36,7 +36,6 @@ public class  ItemArrayAdapter extends ArrayAdapter<InventoryItem> {
         //return the completed view to render on screen
         return convertView;
     }
-
     public ArrayList<InventoryItem> getAllItems() {
         ArrayList<InventoryItem> currentItems = new ArrayList<InventoryItem>();
         for(int i=0 ; i<getCount(); ++i){

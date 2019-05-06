@@ -35,7 +35,7 @@
             android:hint="Add an item..."
             android:inputType="textCapWords"
             android:fontFamily="sans-serif-light"
-            android:textColorHint="@color/rebeccaPurple" />
+            android:textColorHint="@color/purple" />
 
         <EditText
             android:id="@+id/etAddPrice"
@@ -45,7 +45,7 @@
             android:hint="Price"
             android:inputType="numberDecimal"
             android:fontFamily="sans-serif-light"
-            android:textColorHint="@color/rebeccaPurple" />
+            android:textColorHint="@color/purple" />
     </LinearLayout>
 
     <LinearLayout

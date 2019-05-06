@@ -38,8 +38,6 @@ public class InventoryListActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         userName = intent.getStringExtra(LoginActivity.USER_NAME_TEXT);
-        TextView mTextHelloUser = findViewById(R.id.tvHelloUser);
-        mTextHelloUser.setText(userName);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

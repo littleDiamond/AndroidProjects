@@ -16,7 +16,7 @@
         android:textSize="28sp"
         android:text="MyReceipt App Help"
         android:fontFamily="sans-serif-medium"
-        android:textColor="@color/rebeccaPurple"
+        android:textColor="@color/purple"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
@@ -26,7 +26,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/rebeccaPurple"
+        android:background="@color/purple"
         android:layout_marginTop="15dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"/>
