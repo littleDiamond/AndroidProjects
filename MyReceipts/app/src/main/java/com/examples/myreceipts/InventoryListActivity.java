@@ -11,7 +11,8 @@ import android.widget.EditText;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.TextView;
+import android.widget.Toast;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import java.util.ArrayList;
@@ -22,7 +23,7 @@ import java.util.Map;
 public class InventoryListActivity extends AppCompatActivity {
     private ListView itemList;
     private EditText mTextItem, mTextPrice;
-    private Button mBtnInsert, mBtnConfirm;
+    private Button mBtnAdd, mBtnDelete, mBtnUpdate, mBtnConfirm;
     private static final String TAG = "InventoryListActivity";
     public static final String PREFS_NAME = "PreferenceFile";
     public static final String USER_DATA = "USER_DATA";
@@ -69,14 +70,39 @@ public class InventoryListActivity extends AppCompatActivity {
         // create the adapter to convert the array to views
         adapter = new ItemArrayAdapter(InventoryListActivity.this, existingData);
         itemList.setAdapter(adapter); //attach the adapter to a ListView
+        itemList.setOnClickListener(new OnItemClickListener(){
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View view,
+                                    int position, long arg3) {
+                // TODO Auto-generated method stub
+                
+        } );
 
-        mBtnInsert = findViewById(R.id.btnInsert);
-        mBtnInsert.setOnClickListener(new View.OnClickListener() {
+        //Add single item
+        mBtnAdd = findViewById(R.id.btnAdd);
+        mBtnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                insertNewItem();
+                addNewItem();
             }
         });
+        //Update single item
+        mBtnUpdate = findViewById(R.id.btnUpdate);
+        mBtnUpdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                updateItem();
+            }
+        });
+        //Delete single item
+        mBtnDelete = findViewById(R.id.btnDelete);
+        mBtnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deleteItem();
+            }
+        });
+        //Open next activity and pass data
         mBtnConfirm = findViewById(R.id.btnNext);
         mBtnConfirm.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -88,18 +114,58 @@ public class InventoryListActivity extends AppCompatActivity {
         });
     }// end of onCreate method
 
-    private void insertNewItem() {
+    private void addNewItem() {
         // add mTextItem to adapter
         InventoryItem inventoryItem = new InventoryItem(mTextItem.getText().toString(),
                                  Double.parseDouble(mTextPrice.getText().toString()));
-        adapter.add(inventoryItem);
+        if( !inventoryItem.getItemName().isEmpty() && inventoryItem.getItemName().length() >0 ){
+            adapter.add(inventoryItem);      //Add item
+            adapter.notifyDataSetChanged(); //refresh
 
-        // clear the EditText field for user to input new data.
-        mTextItem.setText("");
-        mTextPrice.setText("");
+            mTextItem.setText("");          // clear the EditText field
+            mTextPrice.setText("");
+            Toast.makeText(getApplicationContext(), "Add"
+                    + inventoryItem.getItemName(),Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(getApplicationContext(), "Nothing is added",
+                                                Toast.LENGTH_SHORT).show();
+        }
     }
 
-    // TODO: 5/04/2019  Add delete mTextItem feature
+    private void updateItem(){
+        InventoryItem inventoryItem = new InventoryItem(mTextItem.getText().toString(),
+                Double.parseDouble(mTextPrice.getText().toString()));
+        int position = itemList.getCheckedItemPosition();
+
+        if( !inventoryItem.getItemName().isEmpty() && inventoryItem.getItemName().length() >0 ){
+            adapter.remove(inventoryItem);          //remove item
+            adapter.insert(inventoryItem,position); //add again
+            adapter.notifyDataSetChanged();         //refresh
+
+            Toast.makeText(getApplicationContext(), "Update"
+                    + inventoryItem.getItemName(),Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(getApplicationContext(), "Nothing is updated",
+                                                Toast.LENGTH_SHORT).show();
+        }
+    }
+    private void deleteItem(){
+        InventoryItem inventoryItem = new InventoryItem(mTextItem.getText().toString(),
+                Double.parseDouble(mTextPrice.getText().toString()));
+        int position = itemList.getCheckedItemPosition();
+        if(position > -1){
+            adapter.remove(inventoryItem);      //remove item
+            adapter.notifyDataSetChanged();     //refresh
+
+            mTextItem.setText("");              // clear the EditText field
+            mTextPrice.setText("");
+            Toast.makeText(getApplicationContext(), "Delete"
+                    + inventoryItem.getItemName(),Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(getApplicationContext(), "Nothing is deleted",
+                                                Toast.LENGTH_SHORT).show();
+        }
+    }
 
     @Override
     protected void onStop() {
