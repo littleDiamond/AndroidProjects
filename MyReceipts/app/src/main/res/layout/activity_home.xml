@@ -71,13 +71,13 @@
 
     <Button
         android:id="@+id/btnMenu"
-        android:drawableLeft="@drawable/ic_menu_black"
+        android:drawableLeft="@drawable/ic_menu_black_24dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:text="Point of sale"
+        android:text="Retail checkout panel"
         android:textAllCaps="false"
         android:textSize="20dp"/>
 

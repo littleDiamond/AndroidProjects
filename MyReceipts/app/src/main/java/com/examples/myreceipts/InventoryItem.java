@@ -4,25 +4,25 @@ package com.examples.myreceipts;
  */
 
 public class InventoryItem {
-    private String mItemName;
-    private double mItemPrice;
+    private String itemName;
+    private double itemPrice;
 
     public InventoryItem(String newItem, double newPrice){
-         this.mItemName = newItem;
-         this.mItemPrice = newPrice;
+         this.itemName = newItem;
+         this.itemPrice = newPrice;
     }
     public void setItemName(String itemName){
-        this.mItemName = itemName;
+        this.itemName = itemName;
     }
     public String getItemName(){
-         return mItemName;
+         return itemName;
     }
 
     public void setItemPrice(double itemPrice){
-        this.mItemPrice = itemPrice;
+        this.itemPrice = itemPrice;
     }
     public double getItemPrice(){
-        return mItemPrice;
+        return itemPrice;
     }
 
 }

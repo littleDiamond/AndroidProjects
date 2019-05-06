@@ -50,13 +50,13 @@ public class HomeActivity extends AppCompatActivity {
         });
 
         /**
-         * Tap checkout panel button and open PointOfSaleActivity.
+         * Tap checkout panel button and open BillingMenuActivity.
          */
         mBtnMenu = findViewById(R.id.btnMenu);
         mBtnMenu.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Intent menuIntent = new Intent(HomeActivity.this, PointOfSaleActivity.class);
+                Intent menuIntent = new Intent(HomeActivity.this, BillingMenuActivity.class);
                 menuIntent.putExtra(LoginActivity.USER_NAME_TEXT, userName);
                 startActivity(menuIntent);
             }
