@@ -5,31 +5,30 @@ import android.content.SharedPreferences;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.widget.EditText;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
 public class InventoryListActivity extends AppCompatActivity {
-    private RecyclerView mItemListView;
-    private ItemArrayAdapter mAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
+    private ListView itemList;
     private EditText mTextItem, mTextPrice;
     private Button mBtnInsert, mBtnConfirm;
     private static final String TAG = "InventoryListActivity";
     public static final String PREFS_NAME = "PreferenceFile";
     public static final String USER_DATA = "USER_DATA";
-    private ArrayList<InventoryItem> existingData;
+    private ItemArrayAdapter adapter;
     private String userName;
     private Map<String, InventoryItem[]> userDataMap = new HashMap<String, InventoryItem[]>();// a map between user name and user data
 
@@ -49,12 +48,10 @@ public class InventoryListActivity extends AppCompatActivity {
         ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
 
-        existingData = new ArrayList<>();
-
         mTextItem = findViewById(R.id.etAddItem);
         mTextPrice = findViewById(R.id.etAddPrice);
-
-       buildRecyclerView();
+        itemList = findViewById(R.id.lvItemList);
+        ArrayList<InventoryItem> existingData = new ArrayList<>();
 
         // read save user data from preference file
         SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
@@ -74,6 +71,9 @@ public class InventoryListActivity extends AppCompatActivity {
                 }
             }
         }
+        // create the adapter to convert the array to views
+        adapter = new ItemArrayAdapter(InventoryListActivity.this, existingData);
+        itemList.setAdapter(adapter); //attach the adapter to a ListView
         mBtnInsert = findViewById(R.id.btnInsert);
         mBtnInsert.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,35 +87,17 @@ public class InventoryListActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent menuIntent = new Intent(InventoryListActivity.this,
-                                                        PointOfSaleActivity.class);
+                                                        BillingMenuActivity.class);
                 startActivity(menuIntent);
             }
         });
     }// end of onCreate method
-    public void buildRecyclerView(){
-        mItemListView = findViewById(R.id.lvItemList);
-        mItemListView.setHasFixedSize(true);
-
-        mLayoutManager = new LinearLayoutManager(this);
-        mItemListView.setLayoutManager(mLayoutManager);
-
-        mAdapter = new ItemArrayAdapter(InventoryListActivity.this, existingData);   // create the adapter to convert the array to views
-        mItemListView.setAdapter(mAdapter); //attach the adapter to a ListView
-
-        mAdapter.setOnItemClickListener(new ItemArrayAdapter.onItemClickListener() {
-            @Override
-            public void onItemClick(int position) {
-                existingData.get(position);
-            }
-        });
-
-    }
 
     private void insertNewItem() {
         // add mTextItem to adapter
         InventoryItem inventoryItem = new InventoryItem(mTextItem.getText().toString(),
                                         Double.parseDouble(mTextPrice.getText().toString()));
-        existingData.add(inventoryItem);
+        adapter.add(inventoryItem);
 
         // clear the EditText field for user to input new data.
         mTextItem.setText("");
@@ -132,7 +114,7 @@ public class InventoryListActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = settings.edit();
 
         // get the list of items from list view
-        ItemArrayAdapter listToSave = (ItemArrayAdapter) mItemListView.getAdapter();
+        ItemArrayAdapter listToSave = (ItemArrayAdapter) itemList.getAdapter();
         ArrayList<InventoryItem> allItems = listToSave.getAllItems();
 
         Gson gson = new Gson();
