@@ -12,7 +12,7 @@ public class LoginActivity extends AppCompatActivity {
     UserDbHandler dbHandler;
     private EditText mTextUsername, mTextPassword;
     private Button mBntLogin, mBtnRegister;
-    private int counter =3;
+    private int mCounter =3;
     public static final String USER_NAME_TEXT ="com.examples.myreceipts.EXTRA_TEXT";
 
     @Override
@@ -47,9 +47,9 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 else{
                     Toast.makeText(LoginActivity.this, "Login error,No of attempts remain: "
-                                                                + counter,Toast.LENGTH_SHORT).show();
-                    counter--;
-                    if(counter == 0)
+                                                                + mCounter,Toast.LENGTH_SHORT).show();
+                    mCounter--;
+                    if(mCounter == 0)
                         mBntLogin.setEnabled(false);    //Login fails more than 3 times, user's account will be locked
                 }
 

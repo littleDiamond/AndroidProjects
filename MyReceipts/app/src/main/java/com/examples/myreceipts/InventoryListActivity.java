@@ -7,12 +7,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
-
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import java.util.ArrayList;
@@ -21,15 +21,17 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class InventoryListActivity extends AppCompatActivity {
-    private ListView itemList;
+    private ListView mItemList;
     private EditText mTextItem, mTextPrice;
     private Button mBtnAdd, mBtnDelete, mBtnUpdate, mBtnConfirm;
     private static final String TAG = "InventoryListActivity";
     public static final String PREFS_NAME = "PreferenceFile";
     public static final String USER_DATA = "USER_DATA";
-    private ItemArrayAdapter adapter;
-    private String userName;
+    ArrayList<InventoryItem> existingData = new ArrayList<>();
+    private ItemArrayAdapter mAdapter;
+    private String mUserName;
     private Map<String, InventoryItem[]> userDataMap = new HashMap<String, InventoryItem[]>();// a map between user name and user data
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,17 +40,16 @@ public class InventoryListActivity extends AppCompatActivity {
         Log.d(TAG, "onCreate: Started.");
 
         Intent intent = getIntent();
-        userName = intent.getStringExtra(LoginActivity.USER_NAME_TEXT);
+        mUserName = intent.getStringExtra(LoginActivity.USER_NAME_TEXT);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
 
+        mItemList = findViewById(R.id.lvItemList);
         mTextItem = findViewById(R.id.etAddItem);
         mTextPrice = findViewById(R.id.etAddPrice);
-        itemList = findViewById(R.id.lvItemList);
-        ArrayList<InventoryItem> existingData = new ArrayList<>();
 
         // read save user data from preference file
         SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
@@ -61,22 +62,23 @@ public class InventoryListActivity extends AppCompatActivity {
                     InventoryItem[]>>() {}.getType());
             // find the data specific to the current user
             if ( userDataMap != null ) {
-                InventoryItem[] itemList = userDataMap.get(userName);
+                InventoryItem[] itemList = userDataMap.get(mUserName);
                 if ( itemList != null && itemList.length > 0 ) {
                     existingData = new ArrayList<>(Arrays.asList(itemList));
                 }
             }
         }
-        // create the adapter to convert the array to views
-        adapter = new ItemArrayAdapter(InventoryListActivity.this, existingData);
-        itemList.setAdapter(adapter); //attach the adapter to a ListView
-        itemList.setOnClickListener(new OnItemClickListener(){
+        // create the mAdapter to convert the array to views
+        mAdapter = new ItemArrayAdapter(InventoryListActivity.this, existingData);
+        mItemList.setAdapter(mAdapter); //attach the mAdapter to a ListView
+        mItemList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> arg0, View view,
-                                    int position, long arg3) {
-                // TODO Auto-generated method stub
-                
-        } );
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                InventoryItem inventoryItem = new InventoryItem(mTextItem.getText().toString(),
+                        Double.parseDouble(mTextPrice.getText().toString()));
+
+            }
+        });
 
         //Add single item
         mBtnAdd = findViewById(R.id.btnAdd);
@@ -115,12 +117,12 @@ public class InventoryListActivity extends AppCompatActivity {
     }// end of onCreate method
 
     private void addNewItem() {
-        // add mTextItem to adapter
+        // add mTextItem to mAdapter
         InventoryItem inventoryItem = new InventoryItem(mTextItem.getText().toString(),
                                  Double.parseDouble(mTextPrice.getText().toString()));
         if( !inventoryItem.getItemName().isEmpty() && inventoryItem.getItemName().length() >0 ){
-            adapter.add(inventoryItem);      //Add item
-            adapter.notifyDataSetChanged(); //refresh
+            mAdapter.add(inventoryItem);      //Add item
+            mAdapter.notifyDataSetChanged(); //refresh
 
             mTextItem.setText("");          // clear the EditText field
             mTextPrice.setText("");
@@ -135,12 +137,12 @@ public class InventoryListActivity extends AppCompatActivity {
     private void updateItem(){
         InventoryItem inventoryItem = new InventoryItem(mTextItem.getText().toString(),
                 Double.parseDouble(mTextPrice.getText().toString()));
-        int position = itemList.getCheckedItemPosition();
+        int position = mItemList.getCheckedItemPosition();
 
         if( !inventoryItem.getItemName().isEmpty() && inventoryItem.getItemName().length() >0 ){
-            adapter.remove(inventoryItem);          //remove item
-            adapter.insert(inventoryItem,position); //add again
-            adapter.notifyDataSetChanged();         //refresh
+            mAdapter.remove(inventoryItem);          //remove item
+            mAdapter.insert(inventoryItem,position); //add again
+            mAdapter.notifyDataSetChanged();         //refresh
 
             Toast.makeText(getApplicationContext(), "Update"
                     + inventoryItem.getItemName(),Toast.LENGTH_SHORT).show();
@@ -152,10 +154,10 @@ public class InventoryListActivity extends AppCompatActivity {
     private void deleteItem(){
         InventoryItem inventoryItem = new InventoryItem(mTextItem.getText().toString(),
                 Double.parseDouble(mTextPrice.getText().toString()));
-        int position = itemList.getCheckedItemPosition();
+        int position = mItemList.getCheckedItemPosition();
         if(position > -1){
-            adapter.remove(inventoryItem);      //remove item
-            adapter.notifyDataSetChanged();     //refresh
+            mAdapter.remove(inventoryItem);      //remove item
+            mAdapter.notifyDataSetChanged();     //refresh
 
             mTextItem.setText("");              // clear the EditText field
             mTextPrice.setText("");
@@ -175,11 +177,11 @@ public class InventoryListActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = settings.edit();
 
         // get the list of items from list view
-        ItemArrayAdapter listToSave = (ItemArrayAdapter) itemList.getAdapter();
+        ItemArrayAdapter listToSave = (ItemArrayAdapter) mItemList.getAdapter();
         ArrayList<InventoryItem> allItems = listToSave.getAllItems();
 
         Gson gson = new Gson();
-        userDataMap.put(userName, allItems.toArray(new InventoryItem[allItems.size()]));
+        userDataMap.put(mUserName, allItems.toArray(new InventoryItem[allItems.size()]));
         String jsonString = gson.toJson(userDataMap);
         editor.putString(USER_DATA, jsonString);
 

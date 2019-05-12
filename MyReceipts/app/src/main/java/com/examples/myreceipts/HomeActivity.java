@@ -16,7 +16,7 @@ import android.widget.Toast;
 
 public class HomeActivity extends AppCompatActivity {
     private Button mBtnCreateList, mBtnMenu,mBtnKeeper;
-    String userName;
+    private String mUserName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,10 +26,10 @@ public class HomeActivity extends AppCompatActivity {
          * show the username on screen
          */
         Intent intent = getIntent();
-        userName = intent.getStringExtra(LoginActivity.USER_NAME_TEXT);
+        mUserName = intent.getStringExtra(LoginActivity.USER_NAME_TEXT);
         TextView mTextHelloUser = findViewById(R.id.tvHelloUser);
-        if(userName != null) {
-            mTextHelloUser.setText(userName);
+        if(mUserName != null) {
+            mTextHelloUser.setText(mUserName);
         }
 
         /**
@@ -48,7 +48,7 @@ public class HomeActivity extends AppCompatActivity {
                 Toast.makeText(HomeActivity.this, "List selected",
                                                 Toast.LENGTH_SHORT ).show();
                 Intent inventoryIntent = new Intent(HomeActivity.this, InventoryListActivity.class);
-                inventoryIntent.putExtra(LoginActivity.USER_NAME_TEXT, userName);
+                inventoryIntent.putExtra(LoginActivity.USER_NAME_TEXT, mUserName);
                 startActivity(inventoryIntent);
             }
         });
@@ -63,7 +63,7 @@ public class HomeActivity extends AppCompatActivity {
                 Toast.makeText(HomeActivity.this, "Menu selected",
                                                 Toast.LENGTH_SHORT ).show();
                 Intent menuIntent = new Intent(HomeActivity.this, PointOfSaleActivity.class);
-                menuIntent.putExtra(LoginActivity.USER_NAME_TEXT, userName);
+                menuIntent.putExtra(LoginActivity.USER_NAME_TEXT, mUserName);
                 startActivity(menuIntent);
             }
         });
@@ -100,8 +100,8 @@ public class HomeActivity extends AppCompatActivity {
                 return true;
 
             case R.id.log_out:
-                Intent logOut = new Intent (this, LoginActivity.class);
-                startActivity(logOut);
+                LogoutDialog dialog = new LogoutDialog();
+                dialog.show(getSupportFragmentManager(),"Logout");
                 return true;
 
             case R.id.user:

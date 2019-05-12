@@ -4,38 +4,38 @@ package com.examples.myreceipts;
  * Create User Class to maintain single contact as an object.
  */
 public class User {
-    private int id;
-    private String name;
-    private String email;
-    private String password;
+    private int mId;
+    private String mName;
+    private String mEmail;
+    private String mPassword;
 
     public int getId() {
-        return id;
+        return mId;
     }
 
     public void setId(int id) {
-        this.id = id;
+        this.mId = id;
     }
 
     public String getName() {
-        return name;
+        return mName;
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.mName = name;
     }
 
-    public String getEmail() { return email; }
+    public String getEmail() { return mEmail; }
 
     public void setEmail(String email) {
-        this.email = email;
+        this.mEmail = email;
     }
 
     public String getPassword() {
-        return password;
+        return mPassword;
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.mPassword = password;
     }
 }

@@ -1,28 +1,28 @@
 package com.examples.myreceipts;
 /**
- * Create each itemName and itemPrice in the itemArray.
+ * Create each mItemName and mItemPrice in the itemArray.
  */
 
 public class InventoryItem {
-    private String itemName;
-    private double itemPrice;
+    private String mItemName;
+    private double mItemPrice;
 
     public InventoryItem(String newItem, double newPrice){
-         this.itemName = newItem;
-         this.itemPrice = newPrice;
+         this.mItemName = newItem;
+         this.mItemPrice = newPrice;
     }
     public void setItemName(String itemName){
-        this.itemName = itemName;
+        this.mItemName = itemName;
     }
     public String getItemName(){
-         return itemName;
+         return mItemName;
     }
 
     public void setItemPrice(double itemPrice){
-        this.itemPrice = itemPrice;
+        this.mItemPrice = itemPrice;
     }
     public double getItemPrice(){
-        return itemPrice;
+        return mItemPrice;
     }
 
 }

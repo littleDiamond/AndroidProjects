@@ -20,7 +20,7 @@
         android:contentDescription="TODO" />
 
     <!-- this text view causes the crashes -->
-    <!-- android:layout_below="@id/receipt" maybe not be correct-->
+    <!-- android:layout_below="@mId/receipt" maybe not be correct-->
     <TextView
         android:id="@+id/tvWelcome"
         android:fontFamily="sans-serif-medium"
