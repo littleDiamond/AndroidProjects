@@ -9,14 +9,15 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 public class SignUpActivity extends AppCompatActivity {
+    private static final String TAG = "SignUpActivity";
     UserDbHandler dbHandler;
     private EditText mTextUsername, mTextEmail,mTextPassword, mTextCnfPassword;
     private Button mBtnCreateAccount;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
-
 
         dbHandler = new UserDbHandler(this);
         mTextUsername = findViewById(R.id.etUsername);
@@ -34,7 +35,7 @@ public class SignUpActivity extends AppCompatActivity {
                 String pwd = mTextPassword.getText().toString().trim();
                 String cnf_pwd = mTextCnfPassword.getText().toString().trim();
 
-                user.setmName(name);
+                user.setName(name);
                 user.setEmail(email);
                 user.setPassword(pwd);
                 Boolean result = dbHandler.doesEmailExist(email);

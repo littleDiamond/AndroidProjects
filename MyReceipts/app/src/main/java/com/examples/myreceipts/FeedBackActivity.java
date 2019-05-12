@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 public class FeedBackActivity extends AppCompatActivity {
     private Button mBtnHelp, mBtnFeedback, mBtnBug;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

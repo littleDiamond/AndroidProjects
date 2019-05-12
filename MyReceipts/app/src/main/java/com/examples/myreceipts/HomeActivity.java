@@ -14,9 +14,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity implements LogoutDialog.LogoutDialogListener{
+    private static final String TAG = "HomeActivity";
     private Button mBtnCreateList, mBtnMenu,mBtnKeeper;
     private String mUserName;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,7 +77,7 @@ public class HomeActivity extends AppCompatActivity {
         mBtnKeeper.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Toast.makeText(HomeActivity.this, "Receipt keeper selected",
+                Toast.makeText(HomeActivity.this, "Keeper selected",
                                                             Toast.LENGTH_SHORT ).show();
             }
         });
@@ -127,5 +129,14 @@ public class HomeActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
 
+    }
+
+    /**
+     * This method is for closing this current activity when dialog option is positive.
+     */
+    @Override
+    public void onConfirmClicked() {
+        Intent logoutIntent = new Intent(this,LoginActivity.class);
+        startActivity(logoutIntent);
     }
 }

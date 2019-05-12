@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.examples.myreceipts">
 
-    <uses-permission android:mName="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:mName="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -12,34 +12,34 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:mName=".PointOfSaleActivity"
+        <activity android:name=".PointOfSaleActivity"
             android:label="Point of Sale"
             android:parentActivityName=".HomeActivity" />
         <activity
-            android:mName=".FeedBackActivity"
+            android:name=".FeedBackActivity"
             android:label="Feedback"
             android:parentActivityName=".HomeActivity" />
         <activity
-            android:mName=".HelpActivity"
+            android:name=".HelpActivity"
             android:label="Help"
             android:parentActivityName=".HomeActivity" />
-        <activity android:mName=".SignUpActivity" />
+        <activity android:name=".SignUpActivity" />
         <activity
-            android:mName=".SettingsActivity"
+            android:name=".SettingsActivity"
             android:label="@string/title_activity_settings" />
         <activity
-            android:mName=".InventoryListActivity"
+            android:name=".InventoryListActivity"
             android:label="Inventory List"
             android:parentActivityName=".HomeActivity" />
-        <activity android:mName=".LoginActivity">
+        <activity android:name=".LoginActivity">
             <intent-filter>
-                <action android:mName="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:mName="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:mName=".HomeActivity"
+            android:name=".HomeActivity"
             android:launchMode="singleTop"
             android:label="@string/welcome" />
     </application>

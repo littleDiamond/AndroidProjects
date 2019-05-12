@@ -52,7 +52,6 @@ public class LoginActivity extends AppCompatActivity {
                     if(mCounter == 0)
                         mBntLogin.setEnabled(false);    //Login fails more than 3 times, user's account will be locked
                 }
-
             }
         });
     } // end of onCreate
