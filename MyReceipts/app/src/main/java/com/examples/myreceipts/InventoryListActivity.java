@@ -30,8 +30,7 @@ public class InventoryListActivity extends AppCompatActivity {
     ArrayList<InventoryItem> existingData = new ArrayList<>();
     private ItemArrayAdapter mAdapter;
     private String mUserName;
-    private Map<String, InventoryItem[]> userDataMap = new HashMap<String, InventoryItem[]>();// a map between user name and user data
-
+    private Map<String, InventoryItem[]> mUserDataMap = new HashMap<String, InventoryItem[]>();// a map between user name and user data
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,11 +57,11 @@ public class InventoryListActivity extends AppCompatActivity {
         // if we have existing user data
         if ( !itemsInJson.isEmpty() ) {
             Gson gson = new Gson();  // Deserialize user data from json string
-            userDataMap = gson.fromJson(itemsInJson, new TypeToken<Map<String,
+            mUserDataMap = gson.fromJson(itemsInJson, new TypeToken<Map<String,
                     InventoryItem[]>>() {}.getType());
             // find the data specific to the current user
-            if ( userDataMap != null ) {
-                InventoryItem[] itemList = userDataMap.get(mUserName);
+            if ( mUserDataMap != null ) {
+                InventoryItem[] itemList = mUserDataMap.get(mUserName);
                 if ( itemList != null && itemList.length > 0 ) {
                     existingData = new ArrayList<>(Arrays.asList(itemList));
                 }
@@ -74,9 +73,13 @@ public class InventoryListActivity extends AppCompatActivity {
         mItemList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                InventoryItem inventoryItem = new InventoryItem(mTextItem.getText().toString(),
-                        Double.parseDouble(mTextPrice.getText().toString()));
-
+//                InventoryItem inventoryItem = new InventoryItem(mTextItem.getText().toString(),
+//                                       Double.parseDouble(mTextPrice.getText().toString()));
+//                InventoryItem item = (String) parent.getItemAtPosition(position);
+                mItemList.getItemIdAtPosition(position);
+                Toast.makeText(getApplicationContext(),
+                        "Click ListItem Number " + position, Toast.LENGTH_LONG)
+                        .show();
             }
         });
 
@@ -88,6 +91,7 @@ public class InventoryListActivity extends AppCompatActivity {
                 addNewItem();
             }
         });
+
         //Update single item
         mBtnUpdate = findViewById(R.id.btnUpdate);
         mBtnUpdate.setOnClickListener(new View.OnClickListener() {
@@ -96,6 +100,7 @@ public class InventoryListActivity extends AppCompatActivity {
                 updateItem();
             }
         });
+
         //Delete single item
         mBtnDelete = findViewById(R.id.btnDelete);
         mBtnDelete.setOnClickListener(new View.OnClickListener() {
@@ -104,6 +109,7 @@ public class InventoryListActivity extends AppCompatActivity {
                 deleteItem();
             }
         });
+
         //Open next activity and pass data
         mBtnConfirm = findViewById(R.id.btnNext);
         mBtnConfirm.setOnClickListener(new View.OnClickListener(){
@@ -140,7 +146,7 @@ public class InventoryListActivity extends AppCompatActivity {
         int position = mItemList.getCheckedItemPosition();
 
         if( !inventoryItem.getItemName().isEmpty() && inventoryItem.getItemName().length() >0 ){
-            mAdapter.remove(inventoryItem);          //remove item
+            mAdapter.remove(mAdapter.getItem(position));          //remove item
             mAdapter.insert(inventoryItem,position); //add again
             mAdapter.notifyDataSetChanged();         //refresh
 
@@ -151,12 +157,13 @@ public class InventoryListActivity extends AppCompatActivity {
                                                 Toast.LENGTH_SHORT).show();
         }
     }
+
     private void deleteItem(){
         InventoryItem inventoryItem = new InventoryItem(mTextItem.getText().toString(),
                 Double.parseDouble(mTextPrice.getText().toString()));
         int position = mItemList.getCheckedItemPosition();
         if(position > -1){
-            mAdapter.remove(inventoryItem);      //remove item
+            mAdapter.remove(mAdapter.getItem(position));      //remove item
             mAdapter.notifyDataSetChanged();     //refresh
 
             mTextItem.setText("");              // clear the EditText field
@@ -181,8 +188,8 @@ public class InventoryListActivity extends AppCompatActivity {
         ArrayList<InventoryItem> allItems = listToSave.getAllItems();
 
         Gson gson = new Gson();
-        userDataMap.put(mUserName, allItems.toArray(new InventoryItem[allItems.size()]));
-        String jsonString = gson.toJson(userDataMap);
+        mUserDataMap.put(mUserName, allItems.toArray(new InventoryItem[allItems.size()]));
+        String jsonString = gson.toJson(mUserDataMap);
         editor.putString(USER_DATA, jsonString);
 
         editor.commit();    // Commit the edits!

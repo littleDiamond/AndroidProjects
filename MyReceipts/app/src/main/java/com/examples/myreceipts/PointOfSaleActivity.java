@@ -8,6 +8,7 @@ import android.support.v7.widget.Toolbar;
 
 public class PointOfSaleActivity extends AppCompatActivity {
     private String mUserName;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
