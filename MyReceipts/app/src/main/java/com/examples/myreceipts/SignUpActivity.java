@@ -11,7 +11,7 @@ import android.widget.Toast;
 public class SignUpActivity extends AppCompatActivity {
     UserDbHandler dbHandler;
     private EditText mTextUsername, mTextEmail,mTextPassword, mTextCnfPassword;
-    Button mBtnCreateAccount;
+    private Button mBtnCreateAccount;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,7 +34,7 @@ public class SignUpActivity extends AppCompatActivity {
                 String pwd = mTextPassword.getText().toString().trim();
                 String cnf_pwd = mTextCnfPassword.getText().toString().trim();
 
-                user.setName(name);
+                user.setmName(name);
                 user.setEmail(email);
                 user.setPassword(pwd);
                 Boolean result = dbHandler.doesEmailExist(email);

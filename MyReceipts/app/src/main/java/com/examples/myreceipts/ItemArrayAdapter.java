@@ -11,8 +11,11 @@ import java.util.ArrayList;
 
 public class  ItemArrayAdapter extends ArrayAdapter<InventoryItem> {
     private  static final String TAG = "ItemArrayAdapter";
+    private static class ViewHolder{
+        TextView mTextItem, mTextPrice;
+    }
 
-   public ItemArrayAdapter(Context context, ArrayList<InventoryItem> existingItems){
+    public ItemArrayAdapter(Context context, ArrayList<InventoryItem> existingItems){
        super(context, 0, existingItems);
    }
 
@@ -20,18 +23,21 @@ public class  ItemArrayAdapter extends ArrayAdapter<InventoryItem> {
     public View getView(int position, View convertView, ViewGroup parent) {
         //get the data item for this position.
         InventoryItem inventoryItem = getItem(position);
+        ViewHolder viewHolder = new ViewHolder();
 
         //Check if an existing view is being reused, otherwise inflate the view
         if(convertView == null){
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.adapter_item_list,
                                                                 parent, false);
+            //look up view for data population
+            viewHolder.mTextItem = convertView.findViewById(R.id.tvItem);
+            viewHolder.mTextPrice = convertView.findViewById(R.id.tvPrice);
+            convertView.setTag(viewHolder);
         }
-        //look up view for data population
-        TextView mTextItem = convertView.findViewById(R.id.tvItem);
-        TextView mTextPrice = convertView.findViewById(R.id.tvPrice);
+
         //Populate the data into the template view using the data objects
-        mTextItem.setText(inventoryItem.getItemName());
-        mTextPrice.setText(Double.toString(inventoryItem.getItemPrice()));
+        viewHolder.mTextItem.setText(inventoryItem.getmItemName());
+        viewHolder.mTextPrice.setText(Double.toString(inventoryItem.getmItemPrice()));
 
         //return the completed view to render on screen
         return convertView;

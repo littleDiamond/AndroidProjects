@@ -14,7 +14,7 @@
 
             <item
                 android:id="@+id/user"
-                android:title="Switch to User" />
+                android:title="Account setting" />
         </menu>
 
     </item>

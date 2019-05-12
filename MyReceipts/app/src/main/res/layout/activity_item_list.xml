@@ -12,11 +12,11 @@
 
     <ListView
         android:id="@+id/lvItemList"
+        android:choiceMode="singleChoice"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
         android:layout_above="@id/loItemList"
-        android:layout_below="@+id/toolbar"
+        android:layout_below="@id/toolbar"
         android:layout_marginStart="16dp"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="16dp"/>
@@ -26,7 +26,6 @@
         android:layout_above="@id/loButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
         android:orientation="vertical" >
 
         <EditText
@@ -44,7 +43,7 @@
             android:layout_width="701dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:hint="Price"
+            android:hint="@string/price"
             android:inputType="numberDecimal"
             android:fontFamily="sans-serif-light"
             android:textColorHint="@color/purple" />

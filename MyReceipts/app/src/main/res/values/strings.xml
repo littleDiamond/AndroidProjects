@@ -21,7 +21,7 @@
         based on your message history
     </string>
 
-    <string name="pref_title_display_name">Display name</string>
+    <string name="pref_title_display_name">Display mName</string>
     <string name="pref_default_display_name">John Smith</string>
 
     <string name="pref_title_add_friends_to_messages">Add friends to messages</string>
@@ -174,5 +174,9 @@
     </string>
     <string name="action_settings">Settings</string>
     <string name="sign_up_for_myreceipt">Sign up for MyReceipt</string>
+    <string name="price">Price</string>
+    <string name="pos_menu">POS menu</string>
+    <string name="inventory_list">Inventory list</string>
+    <string name="sales_and_purchases">Sales and purchases</string>
 
 </resources>
