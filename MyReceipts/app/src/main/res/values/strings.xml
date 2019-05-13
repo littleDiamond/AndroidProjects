@@ -178,5 +178,7 @@
     <string name="pos_menu">POS menu</string>
     <string name="inventory_list">Inventory list</string>
     <string name="sales_and_purchases">Sales and purchases</string>
+    <string name="delete">Delete</string>
+    <string name="update">Update</string>
 
 </resources>
