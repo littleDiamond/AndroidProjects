@@ -64,6 +64,7 @@
             android:textAllCaps="false"
             android:text="Add Item" />
 
+        <!---
         <Button
             android:id="@+id/btnUpdate"
             android:layout_width="match_parent"
@@ -79,7 +80,7 @@
             android:layout_weight="1"
             android:textAllCaps="false"
             android:text="Delete Item" />
-
+-->
         <Button
             android:id="@+id/btnNext"
             android:layout_width="match_parent"

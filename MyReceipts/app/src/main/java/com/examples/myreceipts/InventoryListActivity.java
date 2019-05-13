@@ -1,5 +1,6 @@
 package com.examples.myreceipts;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.ActionBar;
@@ -12,6 +13,7 @@ import android.widget.EditText;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -73,10 +75,8 @@ public class InventoryListActivity extends AppCompatActivity {
         mItemList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                InventoryItem inventoryItem = new InventoryItem(mTextItem.getText().toString(),
-//                                       Double.parseDouble(mTextPrice.getText().toString()));
-//                InventoryItem item = (String) parent.getItemAtPosition(position);
-                mItemList.getItemIdAtPosition(position);
+                itemOption(mItemList.getItemIdAtPosition(position), position);
+//                mItemList.getItemIdAtPosition(position);
                 Toast.makeText(getApplicationContext(),
                         "Click ListItem Number " + position, Toast.LENGTH_LONG)
                         .show();
@@ -93,22 +93,22 @@ public class InventoryListActivity extends AppCompatActivity {
         });
 
         //Update single item
-        mBtnUpdate = findViewById(R.id.btnUpdate);
-        mBtnUpdate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                updateItem();
-            }
-        });
-
+//        mBtnUpdate = findViewById(R.id.btnUpdate);
+//        mBtnUpdate.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                updateItem();
+//            }
+//        });
+//
         //Delete single item
-        mBtnDelete = findViewById(R.id.btnDelete);
-        mBtnDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                deleteItem();
-            }
-        });
+//        mBtnDelete = findViewById(R.id.btnDelete);
+//        mBtnDelete.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                deleteItem();
+//            }
+//        });
 
         //Open next activity and pass data
         mBtnConfirm = findViewById(R.id.btnNext);
@@ -139,7 +139,40 @@ public class InventoryListActivity extends AppCompatActivity {
                                                 Toast.LENGTH_SHORT).show();
         }
     }
+    public  void itemOption(String oldItem,final int index){
+        final Dialog dialog = new Dialog(InventoryListActivity.this);
+        InventoryItem inventoryItem = this.oldItem;
+        
+        dialog.setTitle("Choose option");
+        dialog.setContentView(R.layout.item_option_dialog);
 
+        TextView mTextDialog = dialog.findViewById(R.id.tvChooseOption);
+        mTextDialog.setText("Choose option");
+
+        EditText mEdItem = dialog.findViewById(R.id.edItemName);
+        EditText mEdPrice = dialog.findViewById(R.id.edItemPrice);
+        mEdItem.setText(inventoryItem.getItemName());
+        mEdPrice.setText(Double.toString(inventoryItem.getItemPrice()));
+
+        Button btnUpdate = dialog.findViewById(R.id.btnUpdate);
+        btnUpdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                updateItem();
+                dialog.dismiss();;
+            }
+        });
+
+        Button btnDelete =dialog.findViewById(R.id.btnDelete);
+        btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deleteItem();
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
+    }
     private void updateItem(){
         InventoryItem inventoryItem = new InventoryItem(mTextItem.getText().toString(),
                 Double.parseDouble(mTextPrice.getText().toString()));
