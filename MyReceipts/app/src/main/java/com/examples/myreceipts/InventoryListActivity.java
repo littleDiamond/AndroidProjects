@@ -68,40 +68,24 @@ public class InventoryListActivity extends AppCompatActivity {
                     InventoryItem[]>>() {}.getType());
             // find the data specific to the current user
             if ( mUserDataMap != null ) {
-                InventoryItem[] itemList = mUserDataMap.get(mUserName);
+                InventoryItem[] itemList = mUserDataMap.get(mUserName.toLowerCase());
                 if ( itemList != null && itemList.length > 0 ) {
                     existingData = new ArrayList<>(Arrays.asList(itemList));
                 }
             }
         }
+
         // create the mAdapter to convert the array to views
         mAdapter = new ItemArrayAdapter(InventoryListActivity.this, existingData);
         mItemList.setAdapter(mAdapter); //attach the mAdapter to a ListView
-        mItemList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        mItemList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 activeItemOption((InventoryItem)mItemList.getItemAtPosition(position),
                                   position);
-//                Toast.makeText(getApplicationContext(),
-//                        "Click ListItem Number " + position, Toast.LENGTH_LONG)
-//                        .show();
+                return true;
             }
         });
-
-//        mItemList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-//            // Called when the user long-clicks on someView
-//            @Override
-//            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-//                if (actionMode != null) {
-//                    return false;
-//                }
-//
-//                // Start the CAB using the ActionMode.Callback defined above
-//                actionMode = startActionMode(actionModeCallback);
-//                view.setSelected(true);
-//                return true;
-//            }
-//        });
 
         //Add single item
         mBtnAdd = findViewById(R.id.btnAdd);
@@ -111,24 +95,6 @@ public class InventoryListActivity extends AppCompatActivity {
                 addNewItem();
             }
         });
-
-        //Update single item
-//        mBtnUpdate = findViewById(R.id.btnUpdate);
-//        mBtnUpdate.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                updateItem();
-//            }
-//        });
-//
-        //Delete single item
-//        mBtnDelete = findViewById(R.id.btnDelete);
-//        mBtnDelete.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                deleteItem();
-//            }
-//        });
 
         //Open next activity and pass data
         mBtnConfirm = findViewById(R.id.btnNext);
@@ -143,9 +109,19 @@ public class InventoryListActivity extends AppCompatActivity {
     }// end of onCreate method
 
     private void addNewItem() {
+        String itemName = mTextItem.getText().toString();
+        String itemPrice = mTextPrice.getText().toString();
+
+        if ( itemName.isEmpty() || itemPrice.isEmpty() )
+            return;
+
         // add mTextItem to mAdapter
-        InventoryItem inventoryItem = new InventoryItem(mTextItem.getText().toString(),
-                                 Double.parseDouble(mTextPrice.getText().toString()));
+        InventoryItem inventoryItem = new InventoryItem(itemName,
+                                 Double.parseDouble(itemPrice));
+
+        if (!isInventoryItemValid(inventoryItem))
+            return;
+
         if( !inventoryItem.getItemName().isEmpty() && inventoryItem.getItemName().length() >0 ){
             mAdapter.add(inventoryItem);      //Add item
             mAdapter.notifyDataSetChanged(); //refresh
@@ -196,17 +172,9 @@ public class InventoryListActivity extends AppCompatActivity {
         dialog.show();
     }
     private void updateItem(InventoryItem updatedItem, int position){
-        if( updatedItem.getItemName().isEmpty()) {
-            Toast.makeText(getApplicationContext(), "Name can't be empty",
-                    Toast.LENGTH_SHORT).show();
+        if (!isInventoryItemValid(updatedItem))
             return;
-        }
 
-        if( updatedItem.getItemPrice() <= 0.0 ) {
-            Toast.makeText(getApplicationContext(), "Price has to be positive.",
-                    Toast.LENGTH_SHORT).show();
-            return;
-        }
         InventoryItem currentItem = mAdapter.getItem(position);
         currentItem.setItemName(updatedItem.getItemName());
         currentItem.setItemPrice(updatedItem.getItemPrice());
@@ -215,6 +183,21 @@ public class InventoryListActivity extends AppCompatActivity {
         Toast.makeText(getApplicationContext(), "Updated "
                 + currentItem.getItemName(),Toast.LENGTH_SHORT).show();
 
+    }
+
+    private boolean isInventoryItemValid(InventoryItem item) {
+        if( item.getItemName().isEmpty()) {
+            Toast.makeText(getApplicationContext(), "Name can't be empty",
+                    Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        if( item.getItemPrice() <= 0.0 ) {
+            Toast.makeText(getApplicationContext(), "Price has to be positive.",
+                    Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
     }
 
     private void deleteItem(int position){
@@ -240,47 +223,11 @@ public class InventoryListActivity extends AppCompatActivity {
         ArrayList<InventoryItem> allItems = listToSave.getAllItems();
 
         Gson gson = new Gson();
-        mUserDataMap.put(mUserName, allItems.toArray(new InventoryItem[allItems.size()]));
+        mUserDataMap.put(mUserName.toLowerCase(), allItems.toArray(new InventoryItem[allItems.size()]));
         String jsonString = gson.toJson(mUserDataMap);
         editor.putString(USER_DATA, jsonString);
 
         editor.commit();    // Commit the edits!
     }
 
-//    private ActionMode.Callback actionModeCallback = new ActionMode.Callback() {
-//
-//        // Called when the action mode is created; startActionMode() was called
-//        @Override
-//        public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-//            // Inflate a menu resource providing context menu items
-//            MenuInflater inflater = mode.getMenuInflater();
-//            inflater.inflate(R.menu.context_menu, menu);
-//            return true;
-//        }
-//
-//        // Called each time the action mode is shown. Always called after onCreateActionMode, but
-//        // may be called multiple times if the mode is invalidated.
-//        @Override
-//        public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-//            return false; // Return false if nothing is done
-//        }
-//
-//        // Called when the user selects a contextual menu item
-//        @Override
-//        public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-//            switch (item.getItemId()) {
-//                case R.id.menu_delete:
-//                    mode.finish(); // Action picked, so close the CAB
-//                    return true;
-//                default:
-//                    return false;
-//            }
-//        }
-//
-//        // Called when the user exits the action mode
-//        @Override
-//        public void onDestroyActionMode(ActionMode mode) {
-//            actionMode = null;
-//        }
-//    };
 }
