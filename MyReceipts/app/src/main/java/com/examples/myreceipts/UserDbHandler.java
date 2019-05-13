@@ -54,8 +54,8 @@ public class UserDbHandler extends SQLiteOpenHelper {
         //Get the data repository in write mode
         //Create a new map of values, where column names are the key
         ContentValues cValues = new ContentValues();
-        cValues.put(KEY_NAME,  user.getName());
-        cValues.put(KEY_EMAIL, user.getEmail());
+        cValues.put(KEY_NAME,  user.getName().toLowerCase());
+        cValues.put(KEY_EMAIL, user.getEmail().toLowerCase());
         cValues.put(KEY_PASSWORD, user.getPassword());
 
         long newRowId = db.insert(TABLE_USERS, null, cValues);  //Insert the new row
@@ -113,7 +113,7 @@ public class UserDbHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         String[] columns = {KEY_ID}; //Array of columns to fetch
         String whereClause = KEY_NAME + " = ? AND " + KEY_PASSWORD + " = ?";    //Selection criteria
-        String[] selectionArs = {username, password};        //Selection argument
+        String[] selectionArs = {username.toLowerCase(), password};        //Selection argument
         Cursor mCursor = db.query(TABLE_USERS, null, whereClause, selectionArs,
                                                 null, null,null);
         boolean result = false;
