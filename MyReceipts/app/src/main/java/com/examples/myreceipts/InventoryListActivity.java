@@ -80,11 +80,11 @@ public class InventoryListActivity extends AppCompatActivity {
         mItemList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                itemOption(mItemList.getItemIdAtPosition(position), position);
-//                mItemList.getItemIdAtPosition(position);
-                Toast.makeText(getApplicationContext(),
-                        "Click ListItem Number " + position, Toast.LENGTH_LONG)
-                        .show();
+                activeItemOption((InventoryItem)mItemList.getItemAtPosition(position),
+                                  position);
+//                Toast.makeText(getApplicationContext(),
+//                        "Click ListItem Number " + position, Toast.LENGTH_LONG)
+//                        .show();
             }
         });
 
@@ -159,18 +159,18 @@ public class InventoryListActivity extends AppCompatActivity {
                                                 Toast.LENGTH_SHORT).show();
         }
     }
-    public  void itemOption(String oldItem,final int index){
+    public void activeItemOption(InventoryItem currentItem, final int position){
         final Dialog dialog = new Dialog(InventoryListActivity.this);
-        InventoryItem inventoryItem = this.oldItem;
+        InventoryItem inventoryItem = currentItem;
         
         dialog.setTitle("Choose option");
         dialog.setContentView(R.layout.item_option_dialog);
 
-        TextView mTextDialog = dialog.findViewById(R.id.tvChooseOption);
+        final TextView mTextDialog = dialog.findViewById(R.id.tvChooseOption);
         mTextDialog.setText("Choose option");
 
-        EditText mEdItem = dialog.findViewById(R.id.edItemName);
-        EditText mEdPrice = dialog.findViewById(R.id.edItemPrice);
+        final EditText mEdItem = dialog.findViewById(R.id.edItemName);
+        final EditText mEdPrice = dialog.findViewById(R.id.edItemPrice);
         mEdItem.setText(inventoryItem.getItemName());
         mEdPrice.setText(Double.toString(inventoryItem.getItemPrice()));
 
@@ -178,7 +178,9 @@ public class InventoryListActivity extends AppCompatActivity {
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                updateItem();
+                InventoryItem updatedItem = new InventoryItem(mEdItem.getText().toString(),
+                Double.parseDouble(mEdPrice.getText().toString()));
+                updateItem(updatedItem, position);
                 dialog.dismiss();;
             }
         });
@@ -187,45 +189,42 @@ public class InventoryListActivity extends AppCompatActivity {
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                deleteItem();
+                deleteItem(position);
                 dialog.dismiss();
             }
         });
         dialog.show();
     }
-    private void updateItem(){
-        InventoryItem inventoryItem = new InventoryItem(mTextItem.getText().toString(),
-                Double.parseDouble(mTextPrice.getText().toString()));
-        int position = mItemList.getCheckedItemPosition();
-
-        if( !inventoryItem.getItemName().isEmpty() && inventoryItem.getItemName().length() >0 ){
-            mAdapter.remove(mAdapter.getItem(position));          //remove item
-            mAdapter.insert(inventoryItem,position); //add again
-            mAdapter.notifyDataSetChanged();         //refresh
-
-            Toast.makeText(getApplicationContext(), "Update"
-                    + inventoryItem.getItemName(),Toast.LENGTH_SHORT).show();
-        }else{
-            Toast.makeText(getApplicationContext(), "Nothing is updated",
-                                                Toast.LENGTH_SHORT).show();
+    private void updateItem(InventoryItem updatedItem, int position){
+        if( updatedItem.getItemName().isEmpty()) {
+            Toast.makeText(getApplicationContext(), "Name can't be empty",
+                    Toast.LENGTH_SHORT).show();
+            return;
         }
+
+        if( updatedItem.getItemPrice() <= 0.0 ) {
+            Toast.makeText(getApplicationContext(), "Price has to be positive.",
+                    Toast.LENGTH_SHORT).show();
+            return;
+        }
+        InventoryItem currentItem = mAdapter.getItem(position);
+        currentItem.setItemName(updatedItem.getItemName());
+        currentItem.setItemPrice(updatedItem.getItemPrice());
+        mAdapter.notifyDataSetChanged();         //refresh
+
+        Toast.makeText(getApplicationContext(), "Updated "
+                + currentItem.getItemName(),Toast.LENGTH_SHORT).show();
+
     }
 
-    private void deleteItem(){
-        InventoryItem inventoryItem = new InventoryItem(mTextItem.getText().toString(),
-                Double.parseDouble(mTextPrice.getText().toString()));
-        int position = mItemList.getCheckedItemPosition();
-        if(position > -1){
-            mAdapter.remove(mAdapter.getItem(position));      //remove item
+    private void deleteItem(int position){
+        if(position >=0 && position < mAdapter.getCount()){
+            InventoryItem currentItem = mAdapter.getItem(position);
+            mAdapter.remove(currentItem);      //remove item
             mAdapter.notifyDataSetChanged();     //refresh
 
-            mTextItem.setText("");              // clear the EditText field
-            mTextPrice.setText("");
-            Toast.makeText(getApplicationContext(), "Delete"
-                    + inventoryItem.getItemName(),Toast.LENGTH_SHORT).show();
-        }else{
-            Toast.makeText(getApplicationContext(), "Nothing is deleted",
-                                                Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Deleted "
+                    + currentItem.getItemName(),Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -248,40 +247,40 @@ public class InventoryListActivity extends AppCompatActivity {
         editor.commit();    // Commit the edits!
     }
 
-    private ActionMode.Callback actionModeCallback = new ActionMode.Callback() {
-
-        // Called when the action mode is created; startActionMode() was called
-        @Override
-        public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-            // Inflate a menu resource providing context menu items
-            MenuInflater inflater = mode.getMenuInflater();
-            inflater.inflate(R.menu.context_menu, menu);
-            return true;
-        }
-
-        // Called each time the action mode is shown. Always called after onCreateActionMode, but
-        // may be called multiple times if the mode is invalidated.
-        @Override
-        public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-            return false; // Return false if nothing is done
-        }
-
-        // Called when the user selects a contextual menu item
-        @Override
-        public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-            switch (item.getItemId()) {
-                case R.id.menu_delete:
-                    mode.finish(); // Action picked, so close the CAB
-                    return true;
-                default:
-                    return false;
-            }
-        }
-
-        // Called when the user exits the action mode
-        @Override
-        public void onDestroyActionMode(ActionMode mode) {
-            actionMode = null;
-        }
-    };
+//    private ActionMode.Callback actionModeCallback = new ActionMode.Callback() {
+//
+//        // Called when the action mode is created; startActionMode() was called
+//        @Override
+//        public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+//            // Inflate a menu resource providing context menu items
+//            MenuInflater inflater = mode.getMenuInflater();
+//            inflater.inflate(R.menu.context_menu, menu);
+//            return true;
+//        }
+//
+//        // Called each time the action mode is shown. Always called after onCreateActionMode, but
+//        // may be called multiple times if the mode is invalidated.
+//        @Override
+//        public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+//            return false; // Return false if nothing is done
+//        }
+//
+//        // Called when the user selects a contextual menu item
+//        @Override
+//        public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+//            switch (item.getItemId()) {
+//                case R.id.menu_delete:
+//                    mode.finish(); // Action picked, so close the CAB
+//                    return true;
+//                default:
+//                    return false;
+//            }
+//        }
+//
+//        // Called when the user exits the action mode
+//        @Override
+//        public void onDestroyActionMode(ActionMode mode) {
+//            actionMode = null;
+//        }
+//    };
 }
