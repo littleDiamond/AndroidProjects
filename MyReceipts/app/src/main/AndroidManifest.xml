@@ -15,22 +15,29 @@
         <activity android:name=".PointOfSaleActivity"
             android:label="Point of Sale"
             android:parentActivityName=".HomeActivity" />
+
         <activity
             android:name=".FeedBackActivity"
             android:label="Feedback"
             android:parentActivityName=".HomeActivity" />
+
         <activity
             android:name=".HelpActivity"
             android:label="Help"
             android:parentActivityName=".HomeActivity" />
+
         <activity android:name=".SignUpActivity" />
+
         <activity
             android:name=".SettingsActivity"
             android:label="@string/title_activity_settings" />
+
         <activity
             android:name=".InventoryListActivity"
+            android:launchMode="singleTop"
             android:label="Inventory List"
             android:parentActivityName=".HomeActivity" />
+
         <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -38,6 +45,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".HomeActivity"
             android:launchMode="singleTop"

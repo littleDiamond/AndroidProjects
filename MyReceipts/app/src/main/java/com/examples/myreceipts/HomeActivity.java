@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -23,6 +24,7 @@ public class HomeActivity extends AppCompatActivity implements LogoutDialog.Logo
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        Log.d(TAG, "onCreate: Started.");
 
         /**
          * show the username on screen
@@ -88,7 +90,7 @@ public class HomeActivity extends AppCompatActivity implements LogoutDialog.Logo
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.toolbar_menu, menu);
+        inflater.inflate(R.menu.home_menu, menu);
         return true;
     }
     /**
@@ -111,24 +113,23 @@ public class HomeActivity extends AppCompatActivity implements LogoutDialog.Logo
                 return true;
 
             case R.id.help:
-                Intent help = new Intent (this, HelpActivity.class);
-                startActivity(help);
+                Intent helpIntent = new Intent (this, HelpActivity.class);
+                startActivity(helpIntent);
                 return true;
 
             case R.id.feedback:
-                Intent feedback = new Intent (this, FeedBackActivity.class);
-                startActivity(feedback);
+                Intent feedbackIntent = new Intent (this, FeedBackActivity.class);
+                startActivity(feedbackIntent);
                 return true;
 
             case R.id.setting:
-                Intent settings = new Intent (this, SettingsActivity.class);
-                startActivity(settings);
+                Intent settingIntent = new Intent (this, SettingsActivity.class);
+                startActivity(settingIntent);
                 return true;
 
             default:
                 return super.onOptionsItemSelected(item);
         }
-
     }
 
     /**
