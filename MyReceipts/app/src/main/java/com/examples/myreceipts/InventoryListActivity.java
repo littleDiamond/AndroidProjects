@@ -1,12 +1,18 @@
 package com.examples.myreceipts;
 
 import android.app.Dialog;
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.ActionMode;
 import android.view.Menu;
@@ -29,15 +35,22 @@ import java.util.Map;
 public class InventoryListActivity extends AppCompatActivity {
     private ListView mItemList;
     private EditText mTextItem, mTextPrice;
-    private Button mBtnAdd, mBtnDelete, mBtnUpdate, mBtnConfirm;
+    private Button mBtnAdd;
+
     private static final String TAG = "InventoryListActivity";
     public static final String PREFS_NAME = "PreferenceFile";
     public static final String USER_DATA = "USER_DATA";
     ArrayList<InventoryItem> existingData = new ArrayList<>();
     private ItemArrayAdapter mAdapter;
     private String mUserName;
-    private Map<String, InventoryItem[]> mUserDataMap = new HashMap<String, InventoryItem[]>();// a map between user name and user data
+
+    // a map between user name and user data
+    private Map<String, InventoryItem[]> mUserDataMap = new
+            HashMap<String, InventoryItem[]>();
     private ActionMode actionMode = null;
+
+    private boolean mItemNameValid;
+    private boolean mItemPriceValid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +78,7 @@ public class InventoryListActivity extends AppCompatActivity {
         if ( !itemsInJson.isEmpty() ) {
             Gson gson = new Gson();  // Deserialize user data from json string
             mUserDataMap = gson.fromJson(itemsInJson, new TypeToken<Map<String,
-                    InventoryItem[]>>() {}.getType());
+                                            InventoryItem[]>>() {}.getType());
             // find the data specific to the current user
             if ( mUserDataMap != null ) {
                 InventoryItem[] itemList = mUserDataMap.get(mUserName.toLowerCase());
@@ -82,13 +95,14 @@ public class InventoryListActivity extends AppCompatActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 activeItemOption((InventoryItem)mItemList.getItemAtPosition(position),
-                                  position);
+                                                                        position);
                 return true;
             }
         });
 
         //Add single item
         mBtnAdd = findViewById(R.id.btnAdd);
+        mBtnAdd.setEnabled(false);
         mBtnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -96,18 +110,51 @@ public class InventoryListActivity extends AppCompatActivity {
             }
         });
 
-        //Open next activity and pass data
-        mBtnConfirm = findViewById(R.id.btnNext);
-        mBtnConfirm.setOnClickListener(new View.OnClickListener(){
+        // only enable "add item" if a valid item name and price is entered
+        mTextItem.addTextChangedListener(new TextWatcher() {
+
             @Override
-            public void onClick(View v) {
-                Intent menuIntent = new Intent(InventoryListActivity.this,
-                                                        PointOfSaleActivity.class);
-                startActivity(menuIntent);
+            public void afterTextChanged(Editable s) {}
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start,
+                                          int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start,
+                                      int before, int count) {
+                mItemNameValid = (s.length() > 0);
+                mBtnAdd.setEnabled(mItemNameValid && mItemPriceValid);
+            }
+        });
+
+        mTextPrice.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start,
+                                          int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start,
+                                      int before, int count) {
+                try {
+                    double price = Double.parseDouble(s.toString());
+                    mItemPriceValid = true;
+                } catch(NumberFormatException e) {
+                    mItemPriceValid = false;
+                }
+
+                mBtnAdd.setEnabled(mItemNameValid && mItemPriceValid);
             }
         });
     }// end of onCreate method
 
+    //Add item method
     private void addNewItem() {
         String itemName = mTextItem.getText().toString();
         String itemPrice = mTextPrice.getText().toString();
@@ -122,62 +169,60 @@ public class InventoryListActivity extends AppCompatActivity {
         if (!isInventoryItemValid(inventoryItem))
             return;
 
-        if( !inventoryItem.getItemName().isEmpty() && inventoryItem.getItemName().length() >0 ){
-            mAdapter.add(inventoryItem);      //Add item
-            mAdapter.notifyDataSetChanged(); //refresh
+        mAdapter.add(inventoryItem);      //Add item
+        mAdapter.notifyDataSetChanged(); //refresh
 
-            mTextItem.setText("");          // clear the EditText field
-            mTextPrice.setText("");
-            Toast.makeText(getApplicationContext(), "Add"
-                    + inventoryItem.getItemName(),Toast.LENGTH_SHORT).show();
-        }else{
-            Toast.makeText(getApplicationContext(), "Nothing is added",
-                                                Toast.LENGTH_SHORT).show();
-        }
+        mTextItem.setText("");          // clear the EditText field
+        mTextPrice.setText("");
+        Toast.makeText(getApplicationContext(), "Add "
+                + inventoryItem.getItemName(),Toast.LENGTH_SHORT).show();
     }
+
     public void activeItemOption(InventoryItem currentItem, final int position){
-        final Dialog dialog = new Dialog(InventoryListActivity.this);
+        final Dialog mDialog = new Dialog(InventoryListActivity.this);
         InventoryItem inventoryItem = currentItem;
         
-        dialog.setTitle("Choose option");
-        dialog.setContentView(R.layout.item_option_dialog);
+        mDialog.setTitle("Choose option");
+        mDialog.setContentView(R.layout.item_option_dialog);
 
-        final TextView mTextDialog = dialog.findViewById(R.id.tvChooseOption);
+        final TextView mTextDialog = mDialog.findViewById(R.id.tvChooseOption);
         mTextDialog.setText("Choose option");
 
-        final EditText mEdItem = dialog.findViewById(R.id.edItemName);
-        final EditText mEdPrice = dialog.findViewById(R.id.edItemPrice);
+        final EditText mEdItem = mDialog.findViewById(R.id.edItemName);
+        final EditText mEdPrice = mDialog.findViewById(R.id.edItemPrice);
         mEdItem.setText(inventoryItem.getItemName());
         mEdPrice.setText(Double.toString(inventoryItem.getItemPrice()));
 
-        Button btnUpdate = dialog.findViewById(R.id.btnUpdate);
+        Button btnUpdate = mDialog.findViewById(R.id.btnUpdate);
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 InventoryItem updatedItem = new InventoryItem(mEdItem.getText().toString(),
-                Double.parseDouble(mEdPrice.getText().toString()));
+                                        Double.parseDouble(mEdPrice.getText().toString()));
                 updateItem(updatedItem, position);
-                dialog.dismiss();;
+                mDialog.dismiss();;
             }
         });
 
-        Button btnDelete =dialog.findViewById(R.id.btnDelete);
+        Button btnDelete =mDialog.findViewById(R.id.btnDelete);
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 deleteItem(position);
-                dialog.dismiss();
+                mDialog.dismiss();
             }
         });
-        dialog.show();
+        mDialog.show();
     }
+
+    //Update item method
     private void updateItem(InventoryItem updatedItem, int position){
         if (!isInventoryItemValid(updatedItem))
             return;
 
         InventoryItem currentItem = mAdapter.getItem(position);
-        currentItem.setItemName(updatedItem.getItemName());
-        currentItem.setItemPrice(updatedItem.getItemPrice());
+        currentItem.setItemName(updatedItem.getItemName());     //Edit and save new item name
+        currentItem.setItemPrice(updatedItem.getItemPrice());   //Edit and save new item price
         mAdapter.notifyDataSetChanged();         //refresh
 
         Toast.makeText(getApplicationContext(), "Updated "
@@ -185,21 +230,23 @@ public class InventoryListActivity extends AppCompatActivity {
 
     }
 
+    //Check if the item name EditView field is empty and the item price EditView field is positive integer
     private boolean isInventoryItemValid(InventoryItem item) {
         if( item.getItemName().isEmpty()) {
             Toast.makeText(getApplicationContext(), "Name can't be empty",
-                    Toast.LENGTH_SHORT).show();
+                                                    Toast.LENGTH_SHORT).show();
             return false;
         }
 
         if( item.getItemPrice() <= 0.0 ) {
             Toast.makeText(getApplicationContext(), "Price has to be positive.",
-                    Toast.LENGTH_SHORT).show();
+                                                        Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;
     }
 
+    //Delete item method
     private void deleteItem(int position){
         if(position >=0 && position < mAdapter.getCount()){
             InventoryItem currentItem = mAdapter.getItem(position);
@@ -210,6 +257,55 @@ public class InventoryListActivity extends AppCompatActivity {
                     + currentItem.getItemName(),Toast.LENGTH_SHORT).show();
         }
     }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.item_list_menu, menu);
+
+        // Associate searchable configuration with the SearchView
+        SearchManager searchManager = (SearchManager)getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView = (SearchView)menu.findItem(R.id.search).getActionView();
+       searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+
+        final SearchView.OnQueryTextListener queryTextListener = new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                mAdapter.getFilter().filter(newText);
+                return false;
+            }
+        };
+
+        searchView.setOnQueryTextListener(queryTextListener);
+        return true;
+    }
+
+    /**
+     *Tab action bar menu cases, toast text to test they all work.
+     */
+ //   @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        switch(item.getItemId()) {
+// //           case R.id.search:
+// //               Toast.makeText(this, "search selected", Toast.LENGTH_SHORT).show();
+// //               return true;
+//
+//            case R.id.add_to_menu:
+//
+//                Intent menuIntent = new Intent(InventoryListActivity.this,
+//                                                        PointOfSaleActivity.class);
+//                startActivity(menuIntent);
+//                return true;
+//
+//
+//        }
+//        return super.(onOptionsItemSelected(item);
+//    }
+
 
     @Override
     protected void onStop() {
@@ -229,5 +325,4 @@ public class InventoryListActivity extends AppCompatActivity {
 
         editor.commit();    // Commit the edits!
     }
-
 }

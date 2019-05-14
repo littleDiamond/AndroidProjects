@@ -10,12 +10,17 @@
         android:layout_height="wrap_content"
         android:textAllCaps="false"
         android:textColor="@color/purple"
-        android:textSize="16sp"
-        android:padding="10dp"/>
+        android:textSize="20sp"
+        android:layout_marginTop="20sp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"/>
 
     <LinearLayout
         android:id="@+id/edLayout"
-        android:layout_marginTop="15sp"
+        android:layout_below="@id/tvChooseOption"
+        android:layout_marginTop="20sp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -34,12 +39,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:inputType="numberDecimal"
             android:textSize="20sp"/>
     </LinearLayout>
 
     <LinearLayout
         android:layout_below="@id/edLayout"
-        android:layout_marginTop="15sp"
+        android:layout_marginTop="20sp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">

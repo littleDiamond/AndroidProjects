@@ -3,6 +3,7 @@ package com.examples.myreceipts;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,6 +19,7 @@ public class SignUpActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
+        Log.d(TAG, "onCreate: Started.");
 
         dbHandler = new UserDbHandler(this);
         mTextUsername = findViewById(R.id.etUsername);
@@ -42,7 +44,7 @@ public class SignUpActivity extends AppCompatActivity {
 
                 if(result){
                     Toast.makeText(SignUpActivity.this, "Email exists. Try another one",
-                            Toast.LENGTH_SHORT).show();
+                                                                     Toast.LENGTH_SHORT).show();
                     return;
 
                 }

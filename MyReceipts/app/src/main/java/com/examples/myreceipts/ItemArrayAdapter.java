@@ -1,19 +1,25 @@
 package com.examples.myreceipts;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 import java.util.ArrayList;
+import java.util.List;
 
 
-public class  ItemArrayAdapter extends ArrayAdapter<InventoryItem> {
+public class  ItemArrayAdapter extends ArrayAdapter<InventoryItem> implements Filterable {
     private  static final String TAG = "ItemArrayAdapter";
+    private ArrayList<InventoryItem> existingItems;
+
 
     public ItemArrayAdapter(Context context, ArrayList<InventoryItem> existingItems){
-       super(context, 0, existingItems);
+      super(context, 0, existingItems);
    }
 
     @Override
@@ -50,5 +56,36 @@ public class  ItemArrayAdapter extends ArrayAdapter<InventoryItem> {
     public long getItemId(int position){
         return position;
     }
+
+    private Filter mItemFilter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            List<InventoryItem> filteredList = new ArrayList<>();
+
+            if(constraint == null || constraint.length() == 0){
+                filteredList.addAll(existingItems);
+            }else {
+                String filterPatten = constraint.toString().toLowerCase().trim();
+
+                for (InventoryItem item: existingItems ){
+                    if (item.getItemName().toLowerCase().contains(filterPatten)){
+                        filteredList.add(item);
+                    }
+                }
+            }
+
+            FilterResults results = new FilterResults();
+            results.values = filteredList;
+
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            existingItems.clear();
+            existingItems.addAll((List) results.values);
+
+        }
+    };
 }
 
