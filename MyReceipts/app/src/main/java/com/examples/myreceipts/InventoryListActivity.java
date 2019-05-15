@@ -264,18 +264,20 @@ public class InventoryListActivity extends AppCompatActivity {
         // Associate searchable configuration with the SearchView
         SearchManager searchManager = (SearchManager)getSystemService(Context.SEARCH_SERVICE);
         SearchView searchView = (SearchView)menu.findItem(R.id.search).getActionView();
-       searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
 
         final SearchView.OnQueryTextListener queryTextListener = new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
+                // return false as we do all the filtering via text change instead of submit button
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
                 mAdapter.getFilter().filter(newText);
-                return false;
+                // return true as we implement this function
+                return true;
             }
         };
 

@@ -1,7 +1,6 @@
 package com.examples.myreceipts;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,11 +14,23 @@ import java.util.List;
 
 public class  ItemArrayAdapter extends ArrayAdapter<InventoryItem> implements Filterable {
     private  static final String TAG = "ItemArrayAdapter";
-    private ArrayList<InventoryItem> existingItems;
+
+    // a backup for all the original items in the list view
+    private ArrayList<InventoryItem> originalItems;
+
+    // the filtered result from the original items
+    private List<InventoryItem> filteredList;
 
 
-    public ItemArrayAdapter(Context context, ArrayList<InventoryItem> existingItems){
-      super(context, 0, existingItems);
+    public ItemArrayAdapter(Context context, ArrayList<InventoryItem> originalItems){
+        super(context, 0, originalItems);
+
+        // important to note that we use filtered list to reference to the current content
+        // instead of assigning to originalItems.
+        // because we will update the filteredList with the filter and adapter will push the update
+        // to list view
+        this.filteredList = originalItems;
+
    }
 
     @Override
@@ -57,35 +68,55 @@ public class  ItemArrayAdapter extends ArrayAdapter<InventoryItem> implements Fi
         return position;
     }
 
-    private Filter mItemFilter = new Filter() {
-        @Override
-        protected FilterResults performFiltering(CharSequence constraint) {
-            List<InventoryItem> filteredList = new ArrayList<>();
+    public Filter getFilter() {
+        Filter mItemFilter = new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence constraint) {
 
-            if(constraint == null || constraint.length() == 0){
-                filteredList.addAll(existingItems);
-            }else {
-                String filterPatten = constraint.toString().toUpperCase().trim();
+                // save a copy of the original unfiltered items
+                if (originalItems == null) {
+                    originalItems = new ArrayList<>(filteredList);
+                }
 
-                for (InventoryItem item: existingItems ){
-                    if (item.getItemName().toUpperCase().contains(filterPatten)){
-                        filteredList.add(item);
+                // clear the current filter
+                filteredList.clear();
+
+                if(constraint == null || constraint.length() == 0){
+                    filteredList.addAll(originalItems);
+                }else {
+                    String filterPatten = constraint.toString().toLowerCase().trim();
+
+                    for (InventoryItem item: originalItems){
+                        if (!item.getItemName().isEmpty() &&
+                                item.getItemName().toLowerCase().contains(filterPatten)){
+                            filteredList.add(item);
+                        }
                     }
                 }
+
+                // create the result from filtered list
+                FilterResults results = new FilterResults();
+
+                // need to set both count and values
+                results.count = filteredList.size();
+                results.values = filteredList;
+
+                return results;
             }
 
-            FilterResults results = new FilterResults();
-            results.values = filteredList;
+            @Override
+            protected void publishResults(CharSequence constraint, FilterResults results) {
 
-            return results;
-        }
+                // update the filtered list with results
+                filteredList = (List) results.values;
+                notifyDataSetChanged();  // notifies the data with new filtered values
 
-        @Override
-        protected void publishResults(CharSequence constraint, FilterResults results) {
-            existingItems.clear();
-            existingItems.addAll((List) results.values);
+            }
+        };
 
-        }
-    };
+        return mItemFilter;
+    }
+
+
 }
 
