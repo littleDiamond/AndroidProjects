@@ -80,8 +80,10 @@ public class  ItemArrayAdapter extends ArrayAdapter<InventoryItem> implements Fi
 
                 // clear the current filter
                 filteredList.clear();
+               // ArrayList<InventoryItem> newFilterList = new ArrayList<>();
 
                 if(constraint == null || constraint.length() == 0){
+                 //   newFilterList .addAll(originalItems);
                     filteredList.addAll(originalItems);
                 }else {
                     String filterPatten = constraint.toString().toLowerCase().trim();
@@ -89,7 +91,8 @@ public class  ItemArrayAdapter extends ArrayAdapter<InventoryItem> implements Fi
                     for (InventoryItem item: originalItems){
                         if (!item.getItemName().isEmpty() &&
                                 item.getItemName().toLowerCase().contains(filterPatten)){
-                            filteredList.add(item);
+                          //  newFilterList .add(item);
+                            filteredList .add(item);
                         }
                     }
                 }

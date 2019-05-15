@@ -6,12 +6,23 @@
         android:id="@+id/search"
         android:icon="@drawable/ic_search"
         android:title="Search"
-        app:showAsAction="ifRoom|collapseActionView"
+        app:showAsAction="ifRoom"
         app:actionViewClass="android.widget.SearchView" />
 
     <item
+        android:id="@+id/sort_name"
+        android:title="Sort list by name"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/sort_price"
+        android:title="Sort list by price"
+        app:showAsAction="never" />
+
+    <item
         android:id="@+id/add_to_menu"
-        android:icon="@drawable/ic_library_add"
         android:title="Add to menu"
         app:showAsAction="never" />
+
+
 </menu>
