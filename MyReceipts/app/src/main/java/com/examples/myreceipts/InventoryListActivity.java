@@ -2,6 +2,7 @@ package com.examples.myreceipts;
 
 import android.app.Dialog;
 import android.app.SearchManager;
+import android.view.MenuItem;
 import android.widget.SearchView;
 import android.content.Context;
 import android.content.Intent;
@@ -27,6 +28,8 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -285,25 +288,51 @@ public class InventoryListActivity extends AppCompatActivity {
         return true;
     }
 
- //   @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        switch(item.getItemId()) {
-// //           case R.id.search:
-// //               Toast.makeText(this, "search selected", Toast.LENGTH_SHORT).show();
-// //               return true;
-//
-//            case R.id.add_to_menu:
-//
-//                Intent menuIntent = new Intent(InventoryListActivity.this,
-//                                                        PointOfSaleActivity.class);
-//                startActivity(menuIntent);
-//                return true;
-//
-//
-//        }
-//        return super.(onOptionsItemSelected(item);
-//    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()) {
+            case R.id.sort_name:
+                sortArrayListByName();
+                return true;
 
+            case R.id.sort_price:
+                sortArrayListByprice();
+                return true;
+
+            case R.id.add_to_menu:
+                Intent menuIntent = new Intent(InventoryListActivity.this,
+                                                        PointOfSaleActivity.class);
+                startActivity(menuIntent);
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    //Sort out the array list order by item name
+    private void sortArrayListByName() {
+        Collections.sort(existingData, new Comparator<InventoryItem>() {
+            @Override
+            public int compare(InventoryItem o1, InventoryItem o2) {
+                // ascending order
+                return o1.getItemName().compareTo(o2.getItemName());
+            }
+        });
+        mAdapter.notifyDataSetChanged();
+    }
+
+    //Sort out the array list order by item name
+    private void sortArrayListByprice() {
+        Collections.sort(existingData, new Comparator<InventoryItem>() {
+            @Override
+            public int compare(InventoryItem p1, InventoryItem p2) {
+                return Double.compare(p1.getItemPrice(), p2.getItemPrice());
+               // return p1.getItemPrice().Double.compareTo(p2.getItemName());
+            }
+        });
+        mAdapter.notifyDataSetChanged();
+    }
 
     @Override
     protected void onStop() {
