@@ -65,10 +65,10 @@ public class  ItemArrayAdapter extends ArrayAdapter<InventoryItem> implements Fi
             if(constraint == null || constraint.length() == 0){
                 filteredList.addAll(existingItems);
             }else {
-                String filterPatten = constraint.toString().toLowerCase().trim();
+                String filterPatten = constraint.toString().toUpperCase().trim();
 
                 for (InventoryItem item: existingItems ){
-                    if (item.getItemName().toLowerCase().contains(filterPatten)){
+                    if (item.getItemName().toUpperCase().contains(filterPatten)){
                         filteredList.add(item);
                     }
                 }
