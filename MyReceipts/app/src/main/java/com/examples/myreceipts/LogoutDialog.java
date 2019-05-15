@@ -6,12 +6,15 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatDialogFragment;
+import android.util.Log;
 
 public class LogoutDialog extends AppCompatDialogFragment {
     private LogoutDialogListener listener;
+    private static final String TAG = "LogoutDialog";
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
+        Log.d(TAG,"onCreateDialog");
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setIcon(R.drawable.ic_exit)
                 .setTitle("Logout")

@@ -1,6 +1,7 @@
 package com.examples.myreceipts;
 
 import android.content.Intent;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,13 +14,17 @@ public class LoginActivity extends AppCompatActivity {
     UserDbHandler dbHandler;
     private EditText mTextUsername, mTextPassword;
     private Button mBntLogin, mBtnRegister;
-    private int mCounter =3;
-    public static final String USER_NAME_TEXT ="com.examples.myreceipts.EXTRA_TEXT";
+    private int mCounter = 3;
+    private boolean mUserValid;
+    public static final String USER_NAME_TEXT = "com.examples.myreceipts.EXTRA_TEXT";
+    private static final String TAG = "LoginActivity";
+    private Handler handler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log_in);
+        Log.d(TAG, "onCreate: Started.");
 
         dbHandler = new UserDbHandler(this);
         mTextUsername = findViewById(R.id.etUsername);
@@ -29,7 +34,8 @@ public class LoginActivity extends AppCompatActivity {
         mBtnRegister.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Intent signUpIntent = new Intent(LoginActivity.this, SignUpActivity.class);
+                Intent signUpIntent = new Intent(LoginActivity.this,
+                                                        SignUpActivity.class);
                 startActivity(signUpIntent);
             }
         });
@@ -43,15 +49,33 @@ public class LoginActivity extends AppCompatActivity {
                 Boolean result = dbHandler.checkUser(user,pwd);
 
                 if(result == true){
-                    Toast.makeText(LoginActivity.this, "Welcome",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this,
+                            "Welcome",Toast.LENGTH_SHORT).show();
                     openActivityHome();
                 }
                 else{
-                    Toast.makeText(LoginActivity.this, "Login error,No of attempts remain: "
-                                                                + mCounter,Toast.LENGTH_SHORT).show();
-                    mCounter--;
-                    if(mCounter == 0)
-                        mBntLogin.setEnabled(false);    //Login fails more than 3 times, user's account will be locked
+                        Toast.makeText(LoginActivity.this,
+                            "Login error,No of attempts remain: "
+                                    + mCounter,Toast.LENGTH_SHORT).show();
+
+                        mCounter--;
+                            if(mCounter == 0){
+                                //Login fails more than 3 times, user's account will be locked
+                                mBntLogin.setEnabled(false);
+                                Toast.makeText(LoginActivity.this,
+                                        "Login Disabled for 2 mins",
+                                        Toast.LENGTH_SHORT).show();
+                                handler = new Handler();
+
+
+                                handler.postDelayed(new Runnable()
+                                {   @Override
+                                public void run()
+                                {   mBntLogin.setEnabled(true);
+                                    mCounter = 3;
+                                }
+                                }, 120000);
+                            }
                 }
             }
         });
@@ -60,7 +84,8 @@ public class LoginActivity extends AppCompatActivity {
    public void openActivityHome(){
         // Send username and password to next activity and open next activity
        String userName = mTextUsername.getText().toString();
-       Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+       Intent intent = new Intent(LoginActivity.this,
+                                            HomeActivity.class);
        intent.putExtra(USER_NAME_TEXT, userName);
        startActivity(intent);
    }

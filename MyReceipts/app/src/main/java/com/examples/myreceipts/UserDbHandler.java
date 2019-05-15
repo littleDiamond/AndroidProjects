@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.support.annotation.Nullable;
+import android.util.Log;
+
 import java.util.ArrayList;
 
 public class UserDbHandler extends SQLiteOpenHelper {
@@ -16,6 +18,8 @@ public class UserDbHandler extends SQLiteOpenHelper {
     private static final String KEY_NAME = "username";      //modify this,COLUMN user name
     private static final String KEY_EMAIL = "email";        //modify this,COLUMN email
     private static final String KEY_PASSWORD = "password";  //modify this,COLUMN password
+
+    private static final String TAG = "UserDbHandler";
     /**
      * Constructor
      *
@@ -26,6 +30,7 @@ public class UserDbHandler extends SQLiteOpenHelper {
     }
     @Override
     public void onCreate(SQLiteDatabase db) {
+        Log.d(TAG, "onCreate: Started.");
         // Create Table when onCreate gets called
         String USER_CREATE_TABLE = "CREATE TABLE " + TABLE_USERS
                 + "("
