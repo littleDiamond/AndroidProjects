@@ -255,6 +255,7 @@ public class InventoryListActivity extends AppCompatActivity {
                     + currentItem.getItemName(),Toast.LENGTH_SHORT).show();
         }
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -282,9 +283,6 @@ public class InventoryListActivity extends AppCompatActivity {
         return true;
     }
 
-    /**
-     *Tab action bar menu cases, toast text to test they all work.
-     */
  //   @Override
 //    public boolean onOptionsItemSelected(MenuItem item) {
 //        switch(item.getItemId()) {
