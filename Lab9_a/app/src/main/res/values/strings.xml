@@ -1,6 +1,0 @@
-<resources>
-    <string name="app_name">Lab9_a</string>
-    <string name="this_is_an_activity">This is an activity</string>
-    <string name="open_dialog">Open dialog</string>
-    <string name="custom_dialog_heading">Custom dialog Heading</string>
-</resources>
