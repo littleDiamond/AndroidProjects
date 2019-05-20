@@ -1,7 +1,0 @@
-<resources>
-    <string name="app_name">Lab 3</string>
-    <string name="dispalyText">This is from activity 1</string>
-    <string name="displayforActivty2">Welcome to activity 2</string>
-    <string name="btnLabel">Open activity 2</string>
-
-</resources>
