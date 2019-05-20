@@ -40,31 +40,39 @@ public class SignUpActivity extends AppCompatActivity {
                 user.setName(name);
                 user.setEmail(email);
                 user.setPassword(pwd);
+
                 Boolean result = dbHandler.doesEmailExist(email);
 
+                //check if user's email has been register before
                 if(result){
-                    Toast.makeText(SignUpActivity.this, "Email exists. Try another one",
-                                                                     Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SignUpActivity.this,
+                            "Email exists. Try another one",
+                            Toast.LENGTH_SHORT).show();
                     return;
 
                 }
+
+                //check if password and confirm password match
                 if (pwd.equals(cnf_pwd)){
                    long value = dbHandler.addUser(user);
                     if(value > 0) {
-                        Toast.makeText(SignUpActivity.this, "Account is created",
-                                                                    Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SignUpActivity.this,
+                                "Account is created",
+                                Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(SignUpActivity.this,
                                                                 LoginActivity.class);
                         startActivity(intent);
                     }
                     else{
-                            Toast.makeText(SignUpActivity.this, "Registration error",
-                                                                    Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SignUpActivity.this,
+                                    "Registration error",
+                                    Toast.LENGTH_SHORT).show();
                     }
                 }
                 else {
-                        Toast.makeText(SignUpActivity.this, "Password is not match",
-                                                                    Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SignUpActivity.this,
+                                "Password is not match",
+                                Toast.LENGTH_SHORT).show();
                 }
             }
         });

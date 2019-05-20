@@ -296,7 +296,7 @@ public class InventoryListActivity extends AppCompatActivity {
                 return true;
 
             case R.id.sort_price:
-                sortArrayListByprice();
+                sortArrayListByPrice();
                 return true;
 
             case R.id.add_to_menu:
@@ -323,7 +323,7 @@ public class InventoryListActivity extends AppCompatActivity {
     }
 
     //Sort out the array list order by item name
-    private void sortArrayListByprice() {
+    private void sortArrayListByPrice() {
         Collections.sort(existingData, new Comparator<InventoryItem>() {
             @Override
             public int compare(InventoryItem p1, InventoryItem p2) {

@@ -15,7 +15,6 @@ public class LoginActivity extends AppCompatActivity {
     private EditText mTextUsername, mTextPassword;
     private Button mBntLogin, mBtnRegister;
     private int mCounter = 3;
-    private boolean mUserValid;
     public static final String USER_NAME_TEXT = "com.examples.myreceipts.EXTRA_TEXT";
     private static final String TAG = "LoginActivity";
     private Handler handler;
@@ -48,6 +47,7 @@ public class LoginActivity extends AppCompatActivity {
                 String pwd = mTextPassword.getText().toString().trim();
                 Boolean result = dbHandler.checkUser(user,pwd);
 
+                // Check user input the username and password match to database info
                 if(result == true){
                     Toast.makeText(LoginActivity.this,
                             "Welcome",Toast.LENGTH_SHORT).show();
@@ -63,7 +63,7 @@ public class LoginActivity extends AppCompatActivity {
                                 //Login fails more than 3 times, user's account will be locked
                                 mBntLogin.setEnabled(false);
                                 Toast.makeText(LoginActivity.this,
-                                        "Login Disabled for 2 mins",
+                                        "Login Disabled for 2 minutes",
                                         Toast.LENGTH_SHORT).show();
                                 handler = new Handler();
 
