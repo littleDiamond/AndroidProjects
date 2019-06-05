@@ -41,6 +41,7 @@ public class InventoryListActivity extends AppCompatActivity {
     private static final String TAG = "InventoryListActivity";
     public static final String PREFS_NAME = "PreferenceFile";
     public static final String USER_DATA = "USER_DATA";
+
     ArrayList<InventoryItem> existingData = new ArrayList<>();
     private ItemArrayAdapter mAdapter;
     private String mUserName;
@@ -92,6 +93,7 @@ public class InventoryListActivity extends AppCompatActivity {
         // create the mAdapter to convert the array to views
         mAdapter = new ItemArrayAdapter(InventoryListActivity.this, existingData);
         mItemList.setAdapter(mAdapter); //attach the mAdapter to a ListView
+
         mItemList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
@@ -300,8 +302,12 @@ public class InventoryListActivity extends AppCompatActivity {
                 return true;
 
             case R.id.add_to_menu:
+//                InventoryItem item = mAdapter.getItem(position);
                 Intent menuIntent = new Intent(InventoryListActivity.this,
-                                                        PointOfSaleActivity.class);
+                        PointOfSaleActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putParcelableArrayList("InventoryItem", existingData);
+//                menuIntent.putExtra(bundle);
                 startActivity(menuIntent);
                 return true;
 

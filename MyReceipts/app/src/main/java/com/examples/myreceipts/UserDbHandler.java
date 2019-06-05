@@ -14,6 +14,7 @@ public class UserDbHandler extends SQLiteOpenHelper {
     private static final int DB_VERSION = 1;                //DATABASE VERSION
     private static final String DB_NAME = "register.db";    //DATABASE NAME
     private static final String TABLE_USERS = "Register";   //TABLE NAME
+
     private static final String KEY_ID = "id";              //TABLE USERS COLUMNS,ID COLUMN @primaryKey
     private static final String KEY_NAME = "username";      //modify this,COLUMN user name
     private static final String KEY_EMAIL = "email";        //modify this,COLUMN email
@@ -30,7 +31,7 @@ public class UserDbHandler extends SQLiteOpenHelper {
     }
     @Override
     public void onCreate(SQLiteDatabase db) {
-        Log.d(TAG, "onCreate: Started.");
+        Log.d(TAG, "onCreate: Started."); //debug
         // Create Table when onCreate gets called
         String USER_CREATE_TABLE = "CREATE TABLE " + TABLE_USERS
                 + "("

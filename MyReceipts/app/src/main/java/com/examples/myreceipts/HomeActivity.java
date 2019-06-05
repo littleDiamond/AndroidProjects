@@ -24,7 +24,7 @@ public class HomeActivity extends AppCompatActivity implements LogoutDialog.Logo
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        Log.d(TAG, "onCreate: Started.");
+        Log.d(TAG, "onCreate: Started.");   //debug
 
         /**
          * show the username on screen
