@@ -11,7 +11,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 public class FeedBackActivity extends AppCompatActivity {
-    private Button mBtnHelp, mBtnFeedback, mBtnBug;
+    private Button mBtnHelp, mBtnBug;
     private static final String TAG = "FeedBackActivity";
 
     @Override
@@ -35,38 +35,23 @@ public class FeedBackActivity extends AppCompatActivity {
         mBtnHelp.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                openActivityHelp();
+                Intent hIntent = new Intent(FeedBackActivity.this,
+                                                            HelpActivity.class);
+                startActivity(hIntent);
             }
         });
 
         /**
-         * Tap product_feedback button and show toast message to check
-         */
-        mBtnFeedback = findViewById(R.id.btnFeedback);
-        mBtnFeedback.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(FeedBackActivity.this, "Product feedback selected", Toast.LENGTH_SHORT ).show();
-            }
-        });
-
-        /**
-         * Tap report_bug button and show toast message to check
+         * Tap report bug button and go to Email activity to send user's bug report
          */
         mBtnBug = findViewById(R.id.btnBug);
         mBtnBug.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(FeedBackActivity.this, "Report bug selected", Toast.LENGTH_SHORT ).show();
+                Intent fbIntent = new Intent (FeedBackActivity.this,
+                                                            EmailActivity.class);
+                startActivity(fbIntent);
             }
         });
     } // end of onCreate
-
-    public void openActivityHelp(){
-        /**
-         * Open HelpActivity.
-         */
-        Intent intent = new Intent(this, HelpActivity.class);
-        startActivity(intent);
-    }
 }
