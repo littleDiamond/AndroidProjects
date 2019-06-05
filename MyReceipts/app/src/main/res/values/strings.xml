@@ -180,6 +180,7 @@
     <string name="sales_and_purchases">Sales and purchases</string>
     <string name="delete">Delete</string>
     <string name="update">Update</string>
+
     <string name="add_item">Add Item</string>
     <string name="unit">Unit...</string>
 
@@ -195,5 +196,12 @@
         <item>9</item>
         <item>10</item>
     </string-array>
+
+    <string name="the_home">The home dashboard provides you with all the app features.
+        The screen is divided into a few sections. On the top there is action bar menu you can logout
+        and other app menu option. On main screen that is where you choose to create your "inventor list",
+        daily use "POS menu" and review "sales receipt keeper". </string>
+    <string name="the_inventory_list">You can add your own sale item and price in inventory list and
+        finish by click on "Add item".</string>
 
 </resources>
