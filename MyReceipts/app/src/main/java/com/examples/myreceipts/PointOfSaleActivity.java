@@ -1,6 +1,5 @@
 package com.examples.myreceipts;
 
-import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,10 +12,9 @@ import java.util.ArrayList;
 
 public class PointOfSaleActivity extends AppCompatActivity {
     private static final String TAG = "PointOfSaleActivity";
-    private String mUserName, mItemName;
-    private double mItemPrice;
-    ArrayList<InventoryItem> menuItem = new ArrayList<>();
+    ArrayList<InventoryItem> posItems = new ArrayList<>();
     private RecyclerView rvPOS;
+    private RecyclerView.LayoutManager manager;
     private POSAdapter mPOSAdapter;
 
     @Override
@@ -30,16 +28,14 @@ public class PointOfSaleActivity extends AppCompatActivity {
         ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
 
-        Intent intent = getIntent();
-        mUserName = intent.getStringExtra(LoginActivity.USER_NAME_TEXT);
-        menuItem = this.getIntent().getExtras().getParcelableArrayList("InventoryItem");
-//        InventoryItem inventoryItem = intent.getParcelableExtra("Inventory Item");
-//        String mItemName = inventoryItem.getItemName();
-//        double mItemPrice = inventoryItem.getItemPrice();
-
+        // setup the grid layout
         rvPOS = findViewById(R.id.rvPOS);
-        mPOSAdapter = new POSAdapter(this,menuItem);
-  //      rvPOS.setLayoutManager(new GridLayoutManager(this,4));
+        manager = new GridLayoutManager(this, 4, GridLayoutManager.VERTICAL, false);
+        rvPOS.setLayoutManager(manager);
+
+        // populate the grid with inventory items
+        posItems = getIntent().getExtras().getParcelableArrayList("InventoryItem");
+        mPOSAdapter = new POSAdapter(this, posItems);
         rvPOS.setAdapter(mPOSAdapter);
 
     }

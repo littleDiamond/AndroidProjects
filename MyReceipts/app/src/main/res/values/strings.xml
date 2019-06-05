@@ -180,5 +180,20 @@
     <string name="sales_and_purchases">Sales and purchases</string>
     <string name="delete">Delete</string>
     <string name="update">Update</string>
+    <string name="add_item">Add Item</string>
+    <string name="unit">Unit...</string>
+
+    <string-array name="unit_array">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+    </string-array>
 
 </resources>
