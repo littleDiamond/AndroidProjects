@@ -12,10 +12,36 @@
         android:id="@+id/toolbar"
         layout="@layout/toolbar" />
 
-    <TextView
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvPOS"
+        android:layout_width="match_parent"
+        android:layout_height="621dp"
+        android:layout_above="@id/rvButton" />
+
+    <LinearLayout
+        android:id="@+id/rvButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="25dp"
-        android:text="@string/welcome"/>
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal" >
 
+        <Button
+            android:id="@+id/btnPay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textAllCaps="false"
+            android:fontFamily="sans-serif-medium"
+            android:text="Pay" />
+
+        <Button
+            android:id="@+id/btnCancel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textAllCaps="false"
+            android:fontFamily="sans-serif-medium"
+            android:text="Cancel" />
+
+    </LinearLayout>
 </LinearLayout>
