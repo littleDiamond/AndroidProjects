@@ -2,6 +2,7 @@ package com.examples.myreceipts;
 
 import android.content.Intent;
 
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -14,11 +15,26 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+
+import static com.examples.myreceipts.InventoryListActivity.PREFS_NAME;
+import static com.examples.myreceipts.InventoryListActivity.USER_DATA;
+
 
 public class HomeActivity extends AppCompatActivity implements LogoutDialog.LogoutDialogListener{
     private static final String TAG = "HomeActivity";
     private Button mBtnCreateList, mBtnMenu,mBtnKeeper;
     private String mUserName;
+
+    private Map<String, InventoryItem[]> mUserDataMap = new
+            HashMap<String, InventoryItem[]>();
+    private ArrayList<InventoryItem> posInventoryItems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +58,27 @@ public class HomeActivity extends AppCompatActivity implements LogoutDialog.Logo
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+
+        // FIXME: this is duplicate from InventoryListActivity
+        // read save user data from preference file
+        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+        String itemsInJson = settings.getString(USER_DATA, "");
+
+        // if we have existing user data
+
+        if ( !itemsInJson.isEmpty() ) {
+            Gson gson = new Gson();  // Deserialize user data from json string
+            mUserDataMap = gson.fromJson(itemsInJson, new TypeToken<Map<String,
+                    InventoryItem[]>>() {}.getType());
+            // find the data specific to the current user
+            if ( mUserDataMap != null ) {
+                InventoryItem[] itemList = mUserDataMap.get(mUserName.toLowerCase());
+                if ( itemList != null && itemList.length > 0 ) {
+                    posInventoryItems = new ArrayList<>(Arrays.asList(itemList));
+                }
+            }
+        }
+
         /**
          * Tap create list button and open InventoryListActivity
          */
@@ -58,14 +95,14 @@ public class HomeActivity extends AppCompatActivity implements LogoutDialog.Logo
         /**
          * Tap checkout panel button and open PointOfSaleActivity.
          */
-        mBtnMenu = findViewById(R.id.btnMenu);
+        mBtnMenu = findViewById(R.id.btnPOSMenu);
         mBtnMenu.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                 Toast.makeText(HomeActivity.this, "Menu selected",
                                                 Toast.LENGTH_SHORT ).show();
                 Intent menuIntent = new Intent(HomeActivity.this, PointOfSaleActivity.class);
-                menuIntent.putExtra(LoginActivity.USER_NAME_TEXT, mUserName);
+                menuIntent.putParcelableArrayListExtra("InventoryItem", posInventoryItems);
                 startActivity(menuIntent);
             }
         });
