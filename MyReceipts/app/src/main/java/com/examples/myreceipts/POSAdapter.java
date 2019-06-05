@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -28,8 +29,9 @@ public class POSAdapter extends RecyclerView.Adapter<POSAdapter.POSHolder> {
 
     @Override
     public void onBindViewHolder(POSHolder holder, int position) {
-        holder.tvMenuItem.setText(mData.get(position).getItemName());
-        holder.tvMenuItemPrice.setText(Double.toString(mData.get(position).getItemPrice()));
+        InventoryItem item = mData.get(position);
+        holder.tvMenuItem.setText(item.getItemName());
+        holder.tvMenuItemPrice.setText(String.format("$ %.2f", item.getItemPrice()));
 
 
     }
@@ -41,13 +43,13 @@ public class POSAdapter extends RecyclerView.Adapter<POSAdapter.POSHolder> {
 
     public class POSHolder extends RecyclerView.ViewHolder{
 
-        TextView tvMenuItem;
+        Button tvMenuItem;
         TextView tvMenuItemPrice;
 
         public POSHolder(View itemView){
             super(itemView);
 
-            tvMenuItem = itemView.findViewById(R.id.tvMenuItem);
+            tvMenuItem = itemView.findViewById(R.id.btnMenuItemName);
             tvMenuItemPrice = itemView.findViewById(R.id.tvMenuItemPrice);
         }
     }

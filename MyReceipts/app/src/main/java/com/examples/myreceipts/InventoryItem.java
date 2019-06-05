@@ -16,7 +16,11 @@ public class InventoryItem implements Parcelable {
          this.mItemPrice = newPrice;
     }
 
-    protected InventoryItem(Parcel in) {
+    public InventoryItem(Parcel in) {
+        readFromParcel(in);
+    }
+
+    private void readFromParcel(Parcel in) {
         mItemName = in.readString();
         mItemPrice = in.readDouble();
     }

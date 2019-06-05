@@ -302,13 +302,10 @@ public class InventoryListActivity extends AppCompatActivity {
                 return true;
 
             case R.id.add_to_menu:
-//                InventoryItem item = mAdapter.getItem(position);
-                Intent menuIntent = new Intent(InventoryListActivity.this,
+                Intent posIntent = new Intent(InventoryListActivity.this,
                         PointOfSaleActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putParcelableArrayList("InventoryItem", existingData);
-//                menuIntent.putExtra(bundle);
-                startActivity(menuIntent);
+                posIntent.putParcelableArrayListExtra("InventoryItem", existingData);
+                startActivity(posIntent);
                 return true;
 
             default:
