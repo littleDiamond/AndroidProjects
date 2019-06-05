@@ -49,8 +49,6 @@ public class HomeActivity extends AppCompatActivity implements LogoutDialog.Logo
         mBtnCreateList.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Toast.makeText(HomeActivity.this, "List selected",
-                                                Toast.LENGTH_SHORT ).show();
                 Intent inventoryIntent = new Intent(HomeActivity.this, InventoryListActivity.class);
                 inventoryIntent.putExtra(LoginActivity.USER_NAME_TEXT, mUserName);
                 startActivity(inventoryIntent);
@@ -99,17 +97,9 @@ public class HomeActivity extends AppCompatActivity implements LogoutDialog.Logo
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()){
-            case R.id.my_account:
-                Toast.makeText(this, "My account selected", Toast.LENGTH_SHORT).show();
-                return true;
-
             case R.id.log_out:
                 LogoutDialog dialog = new LogoutDialog();
                 dialog.show(getSupportFragmentManager(),"Logout");
-                return true;
-
-            case R.id.user:
-                Toast.makeText(this, "User selected", Toast.LENGTH_SHORT).show();
                 return true;
 
             case R.id.help:

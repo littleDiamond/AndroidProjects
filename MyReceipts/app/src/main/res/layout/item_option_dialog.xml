@@ -10,6 +10,7 @@
         android:layout_height="wrap_content"
         android:textAllCaps="false"
         android:textColor="@color/purple"
+        android:fontFamily="sans-serif-medium"
         android:textSize="20sp"
         android:layout_marginTop="20sp"
         android:layout_marginStart="16dp"
@@ -59,6 +60,7 @@
         android:layout_weight="1"
         android:text="Update"
         android:textAllCaps="false"
+        android:fontFamily="sans-serif-medium"
         android:textColor="@color/colorPrimaryDark" />
 
     <Button
@@ -68,6 +70,7 @@
         android:layout_weight="1"
         android:text="Delete"
         android:textAllCaps="false"
+        android:fontFamily="sans-serif-medium"
         android:textColor="@color/colorAccent" />
     </LinearLayout>
 </RelativeLayout>

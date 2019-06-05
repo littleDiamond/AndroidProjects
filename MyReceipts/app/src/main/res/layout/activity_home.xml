@@ -67,6 +67,7 @@
         android:layout_marginEnd="16dp"
         android:text="@string/inventory_list"
         android:textAllCaps="false"
+        android:fontFamily="sans-serif-medium"
         android:textSize="20sp" />
 
     <Button
@@ -79,6 +80,7 @@
         android:layout_marginEnd="16dp"
         android:text="@string/pos_menu"
         android:textAllCaps="false"
+        android:fontFamily="sans-serif-medium"
         android:textSize="20sp"/>
 
     <Button
@@ -91,6 +93,7 @@
         android:layout_marginEnd="16dp"
         android:text="Sales receipt keeper"
         android:textAllCaps="false"
+        android:fontFamily="sans-serif-medium"
         android:textSize="20sp" />
 
 </LinearLayout>
