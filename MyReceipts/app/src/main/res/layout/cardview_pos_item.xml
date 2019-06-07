@@ -12,7 +12,7 @@
 
         <Button
             android:id="@+id/btnInventoryItemName"
-            android:layout_width="wrap_content"
+            android:layout_width="120dp"
             android:layout_height="80dp"
             android:elevation="0dp"
             android:text="Item Name"
@@ -39,8 +39,8 @@
 
             <Button
                 android:id="@+id/btnIncrease"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="46dp"
+                android:layout_height="46dp"
                 android:layout_weight="1"
                 android:text="+"
                 android:textSize="10sp"
@@ -60,8 +60,8 @@
 
             <Button
                 android:id="@+id/btnDecrease"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="46dp"
+                android:layout_height="46dp"
                 android:layout_weight="1"
                 android:text="-"
                 android:textSize="10sp"
