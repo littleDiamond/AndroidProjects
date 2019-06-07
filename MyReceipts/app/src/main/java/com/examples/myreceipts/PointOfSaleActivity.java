@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public class PointOfSaleActivity extends AppCompatActivity {
     private static final String TAG = "PointOfSaleActivity";
-    ArrayList<InventoryItem> posItems = new ArrayList<>();
+    ArrayList<SaleItem> saleItems = new ArrayList<>();
     private RecyclerView rvPOS;
     private RecyclerView.LayoutManager manager;
     private POSAdapter mPOSAdapter;
@@ -34,9 +34,16 @@ public class PointOfSaleActivity extends AppCompatActivity {
         rvPOS.setLayoutManager(manager);
 
         // populate the grid with inventory items
-        posItems = getIntent().getExtras().getParcelableArrayList("InventoryItem");
-        mPOSAdapter = new POSAdapter(this, posItems);
+        ArrayList<InventoryItem> inventoryItems;
+        inventoryItems = getIntent().getExtras().getParcelableArrayList("InventoryItem");
+        for( InventoryItem item  : inventoryItems )
+        {
+            saleItems.add( new SaleItem(item, 1));
+        }
+        mPOSAdapter = new POSAdapter(this, saleItems);
         rvPOS.setAdapter(mPOSAdapter);
+
+
 
     }
 }

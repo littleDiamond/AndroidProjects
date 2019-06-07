@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/salesItemView"
+    android:padding="4dp"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:padding=".5dp">
+    android:layout_height="wrap_content">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -11,14 +11,16 @@
         android:orientation="vertical">
 
         <Button
-            android:id="@+id/btnMenuItemName"
-            style="@style/Widget.AppCompat.Button.Colored"
+            android:id="@+id/btnInventoryItemName"
             android:layout_width="wrap_content"
-            android:layout_height="100dp"
-            android:background="@color/purple"
+            android:layout_height="80dp"
             android:elevation="0dp"
             android:text="Item Name"
-            android:textSize="24sp" />
+            android:textAlignment="center"
+            android:textAllCaps="false"
+            android:textColor="@color/purple"
+            android:fontFamily="sans-serif-medium"
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/tvMenuItemPrice"
@@ -26,24 +28,46 @@
             android:layout_height="wrap_content"
             android:text="Item Price"
             android:textAlignment="center"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            android:layout_gravity="center_horizontal"
+            android:textSize="12sp"
+            android:fontFamily="sans-serif-light" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
+            <Button
+                android:id="@+id/btnIncrease"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_weight="1"
+                android:text="+"
+                android:textSize="10sp"
+                android:layout_marginEnd="5dp"
+                android:textStyle="bold" />
+
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/tvQuantity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Unit  "
-                android:textAlignment="viewStart"
-                android:textSize="12sp"
+                android:text="1"
+                android:textAlignment="center"
+                android:textSize="13sp"
+                android:layout_marginEnd="5dp"
+                android:fontFamily="sans-serif-medium" />
+
+            <Button
+                android:id="@+id/btnDecrease"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_weight="1"
+                android:text="-"
+                android:textSize="10sp"
                 android:textStyle="bold" />
 
+            <!--
             <Spinner
                 android:id="@+id/spinUnitCount"
                 android:layout_width="wrap_content"
@@ -53,17 +77,17 @@
                 android:minWidth="20dp"
                 android:spinnerMode="dropdown"
                 android:textAlignment="center"
-                android:tooltipText="Unit" />
+                android:tooltipText="Unit" /> -->
         </LinearLayout>
 
+        <!--
         <Button
-            android:id="@+id/btnAddToCart"
+            android:id="@+id/btnOrder"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_height="38dp"
             android:fontFamily="sans-serif-medium"
-            android:text="Add To Cart"
-            android:textAllCaps="false" />
+            android:text="Order"
+            android:textAllCaps="false" />  -->
 
     </LinearLayout>
 
