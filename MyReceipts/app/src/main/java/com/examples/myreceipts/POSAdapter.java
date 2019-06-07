@@ -57,7 +57,6 @@ public class POSAdapter extends RecyclerView.Adapter<POSAdapter.POSHolder> {
 
         public Button btnItemSelect, btnIncrease, btnDecrease;
         public TextView tvMenuItemPrice, tvQuantity;
-        //private int quantityCount = 1;
         public static final int MaxQuantity = 99;
         public static final int MinQuantity = 1;
 
@@ -70,6 +69,7 @@ public class POSAdapter extends RecyclerView.Adapter<POSAdapter.POSHolder> {
             btnDecrease = itemView.findViewById(R.id.btnDecrease);
             tvQuantity = itemView.findViewById(R.id.tvQuantity);
 
+            //add the item to the shopping cart
             btnItemSelect.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
