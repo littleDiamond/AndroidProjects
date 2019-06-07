@@ -80,7 +80,6 @@ public class  ItemArrayAdapter extends ArrayAdapter<InventoryItem> implements Fi
 
                 // clear the current filter
                 filteredList.clear();
-               // ArrayList<InventoryItem> newFilterList = new ArrayList<>();
 
                 if(constraint == null || constraint.length() == 0){
                  //   newFilterList .addAll(originalItems);
