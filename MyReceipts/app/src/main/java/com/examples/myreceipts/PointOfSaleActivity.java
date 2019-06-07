@@ -34,8 +34,7 @@ public class PointOfSaleActivity extends AppCompatActivity {
         rvPOS.setLayoutManager(manager);
 
         // populate the grid with inventory items
-        ArrayList<InventoryItem> inventoryItems;
-        inventoryItems = getIntent().getExtras().getParcelableArrayList("InventoryItem");
+        ArrayList<InventoryItem> inventoryItems = getIntent().getExtras().getParcelableArrayList("InventoryItem");
         for( InventoryItem item  : inventoryItems )
         {
             saleItems.add( new SaleItem(item, 1));
