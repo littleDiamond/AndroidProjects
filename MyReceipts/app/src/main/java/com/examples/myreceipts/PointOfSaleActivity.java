@@ -30,7 +30,7 @@ public class PointOfSaleActivity extends AppCompatActivity {
 
         // setup the grid layout
         rvPOS = findViewById(R.id.rvPOS);
-        manager = new GridLayoutManager(this, 4, GridLayoutManager.VERTICAL, false);
+        manager = new GridLayoutManager(this, 3, GridLayoutManager.VERTICAL, false);
         rvPOS.setLayoutManager(manager);
 
         // populate the grid with inventory items

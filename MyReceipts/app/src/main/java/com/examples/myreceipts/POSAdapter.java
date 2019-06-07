@@ -57,7 +57,7 @@ public class POSAdapter extends RecyclerView.Adapter<POSAdapter.POSHolder> {
 
         public Button btnItemSelect, btnIncrease, btnDecrease;
         public TextView tvMenuItemPrice, tvQuantity;
-        private int quantityCount = 1;
+        //private int quantityCount = 1;
         public static final int MaxQuantity = 99;
         public static final int MinQuantity = 1;
 
@@ -81,6 +81,8 @@ public class POSAdapter extends RecyclerView.Adapter<POSAdapter.POSHolder> {
             btnIncrease.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    SaleItem currentItem = mData.get(getAdapterPosition());
+                    int quantityCount = currentItem.getQuantity();
                     if ( quantityCount >= MaxQuantity )
                         return;
 
@@ -94,6 +96,8 @@ public class POSAdapter extends RecyclerView.Adapter<POSAdapter.POSHolder> {
             btnDecrease.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    SaleItem currentItem = mData.get(getAdapterPosition());
+                    int quantityCount = currentItem.getQuantity();
                     if ( quantityCount <= MinQuantity )
                         return;
 
