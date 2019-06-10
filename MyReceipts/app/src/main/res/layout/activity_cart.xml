@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="5dp"
+    tools:context=".CartActivity">
+
+    <TextView
+        android:id="@+id/tvClose"
+        android:layout_margin="3dp"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:clickable="true"
+        android:textAlignment="center"
+        android:drawableRight="@drawable/ic_close" />
+
+        <TextView
+            android:id="@+id/yourOder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:fontFamily="sans-serif-medium"
+            android:padding="15dp"
+            android:text="Your order"
+            android:textAlignment="center"
+            android:textColor="@color/purple"
+            android:textSize="20sp" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvCartList"
+        android:layout_above="@id/total"
+        android:layout_width="match_parent"
+        android:layout_height="550dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="16dp">
+    </android.support.v7.widget.RecyclerView>
+
+    <RelativeLayout
+        android:id="@+id/total"
+        android:layout_above="@id/btnCheckOut"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="16dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="viewStart"
+            android:padding="3dp"
+            android:fontFamily="sans-serif-medium"
+            android:text="Total"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/tvTotalAmount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="sans-serif-medium"
+            android:padding="3dp"
+            android:text="Total amount"
+            android:textAlignment="viewEnd"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/btnCheckOut"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-medium"
+        android:text="Check out"
+        android:background="@color/purple"
+        android:textColor="@color/white"
+        android:textAllCaps="false" />
+
+</LinearLayout>

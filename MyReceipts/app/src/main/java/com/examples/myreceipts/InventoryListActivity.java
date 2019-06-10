@@ -301,7 +301,7 @@ public class InventoryListActivity extends AppCompatActivity {
                 sortArrayListByPrice();
                 return true;
 
-            case R.id.add_to_menu:
+            case R.id.add_to_pos:
                 Intent posIntent = new Intent(InventoryListActivity.this,
                         PointOfSaleActivity.class);
                 posIntent.putParcelableArrayListExtra("InventoryItem", existingData);

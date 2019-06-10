@@ -29,7 +29,7 @@ import static com.examples.myreceipts.InventoryListActivity.USER_DATA;
 
 public class HomeActivity extends AppCompatActivity implements LogoutDialog.LogoutDialogListener{
     private static final String TAG = "HomeActivity";
-    private Button mBtnCreateList, mBtnMenu,mBtnKeeper;
+    private Button mBtnCreateList, mBtnPOS,mBtnKeeper;
     private String mUserName;
 
     private Map<String, InventoryItem[]> mUserDataMap = new
@@ -95,8 +95,8 @@ public class HomeActivity extends AppCompatActivity implements LogoutDialog.Logo
         /**
          * Tap checkout panel button and open PointOfSaleActivity.
          */
-        mBtnMenu = findViewById(R.id.btnPOSMenu);
-        mBtnMenu.setOnClickListener(new View.OnClickListener(){
+        mBtnPOS = findViewById(R.id.btnPOSMenu);
+        mBtnPOS.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                 Toast.makeText(HomeActivity.this, "Menu selected",
