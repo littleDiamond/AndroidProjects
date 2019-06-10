@@ -28,27 +28,15 @@
         android:layout_alignParentBottom="true"
         android:layout_marginStart="16dp"
         android:layout_marginTop="5dp"
-        android:layout_marginEnd="16dp"
-        android:orientation="horizontal">
+        android:layout_marginEnd="16dp">
 
         <Button
-            android:id="@+id/btnPay"
+            android:id="@+id/btnNewOrder"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:fontFamily="sans-serif-medium"
-            android:text="Pay"
-            android:textColor="@color/colorPrimaryDark"
-            android:textAllCaps="false" />
-
-        <Button
-            android:id="@+id/btnCancel"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:fontFamily="sans-serif-medium"
-            android:text="Cancel"
-            android:textColor="@color/colorAccent"
+            android:text="New order"
             android:textAllCaps="false" />
 
     </LinearLayout>

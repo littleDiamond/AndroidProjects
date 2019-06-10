@@ -11,22 +11,20 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 public class POSAdapter extends RecyclerView.Adapter<POSAdapter.POSHolder> {
-
     private Context mContext;
     private ArrayList<SaleItem> mData;
+
     private static final String TAG = "POS adapter";
 
 
-    public POSAdapter(Context mContext, ArrayList<SaleItem> mData){
+    public POSAdapter(Context mContext,ArrayList<SaleItem> mData){
         this.mContext = mContext;
         this.mData = mData;
     }
 
-    private void updateSaleItemQuantity(int position, int newQuantity)
-    {
+    private void updateSaleItemQuantity(int position, int newQuantity) {
         SaleItem item = mData.get(position);
         item.setQuantity(newQuantity);
-
         notifyItemChanged(position);
     }
 
@@ -43,7 +41,8 @@ public class POSAdapter extends RecyclerView.Adapter<POSAdapter.POSHolder> {
         // display the item content
         SaleItem item = mData.get(position);
         holder.btnItemSelect.setText(item.getInventoryItem().getItemName());
-        holder.tvMenuItemPrice.setText(String.format("$ %.2f", item.getInventoryItem().getItemPrice()));
+        holder.tvMenuItemPrice.setText(String.format("$ %.2f",
+                        item.getInventoryItem().getItemPrice()));
         holder.tvQuantity.setText(String.valueOf(item.getQuantity()));
 
     }
@@ -52,6 +51,7 @@ public class POSAdapter extends RecyclerView.Adapter<POSAdapter.POSHolder> {
     public int getItemCount() {
         return mData.size();
     }
+
 
     public class POSHolder extends RecyclerView.ViewHolder{
 
@@ -70,13 +70,16 @@ public class POSAdapter extends RecyclerView.Adapter<POSAdapter.POSHolder> {
             tvQuantity = itemView.findViewById(R.id.tvQuantity);
 
             //add the item to the shopping cart
-            btnItemSelect.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    SaleItem currentItem = mData.get(getAdapterPosition());
-                    Log.d(TAG, String.format("Add item to shopping list: %s", currentItem));
-                }
-            });
+//            btnItemSelect.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    SaleItem currentItem = mData.get(getAdapterPosition());
+//                    Log.d(TAG, String.format("Add item to shopping list: %s", currentItem));
+//
+//                    int quantityCount = currentItem.getQuantity();
+//
+//                }
+//            });
 
             btnIncrease.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -108,6 +111,7 @@ public class POSAdapter extends RecyclerView.Adapter<POSAdapter.POSHolder> {
                 }
             });
         }
+
 
     }
 }
