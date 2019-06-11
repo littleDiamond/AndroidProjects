@@ -3,18 +3,14 @@ package com.examples.myreceipts;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-
 public class CartActivity extends AppCompatActivity {
-    ArrayList<CartItem> cartItems = new ArrayList<>();
+    private ShoppingCart shoppingCart;
     private TextView tvClose, tvTotalAmount;
     private RecyclerView rvCartList;
     private RecyclerView.LayoutManager manager;
@@ -31,14 +27,15 @@ public class CartActivity extends AppCompatActivity {
         rvCartList.setLayoutManager(manager);
 
         // populate the grid with inventory items
-        ArrayList<SaleItem> saleItems = getIntent().getExtras().getParcelableArrayList("SaleItem");
-        for( SaleItem item  : saleItems ) {
-            cartItems.add( new CartItem(item, 1));
-        }
-        mCartAdapter = new CartAdapter(this, cartItems);
+        shoppingCart = getIntent().getExtras().getParcelable("ShoppingCart");
+
+        mCartAdapter = new CartAdapter(this, shoppingCart);
         rvCartList.setAdapter(mCartAdapter);
 
         tvClose = findViewById(R.id.tvClose);
+
+        // FIXME: instead of creating an empty POS activity, we need to set the activity type to stack
+        // so that we can go back and maintain the data (singleTop ?? )
         tvClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -48,14 +45,15 @@ public class CartActivity extends AppCompatActivity {
         });
 
         tvTotalAmount = findViewById(R.id.tvTotalAmount);
-        calculateTotal();
+
+        updateSaleTotal();
     }
 
-    public static void calculateTotal(){
-        int i =0;
-        double total =0;
-
-
+    public void updateSaleTotal(){
+        if ( shoppingCart != null )
+        {
+            tvTotalAmount.setText(String.format("$ %.2f", shoppingCart.getSaleTotal()));
+        }
     }
 
 }

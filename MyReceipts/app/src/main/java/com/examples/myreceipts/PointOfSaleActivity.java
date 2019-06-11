@@ -36,6 +36,8 @@ public class PointOfSaleActivity extends AppCompatActivity {
         ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
 
+
+
         // setup the grid layout
         rvPOS = findViewById(R.id.rvPOS);
         manager = new GridLayoutManager(this, 3, GridLayoutManager.VERTICAL, false);
@@ -48,6 +50,13 @@ public class PointOfSaleActivity extends AppCompatActivity {
         }
         mPOSAdapter = new POSAdapter(this,saleItems);
         rvPOS.setAdapter(mPOSAdapter);
+//        mPOSAdapter.setOnItemClickListener(new POSAdapter.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(int position) {
+//                SaleItem selectedItem =
+//                getSelectedItem(position, saleItems);
+//            }
+//        });
 
         /**
          * Tap new order and clear all the order data that has create in case user cancels the order
@@ -61,7 +70,19 @@ public class PointOfSaleActivity extends AppCompatActivity {
             }
         });
 
+
     } // end of onCreate
+
+//    public final void getSelectedItem (int position,SaleItem selecteditem) {
+//        saleItems.get(position).getInventoryItem();
+//        saleItems.get(position).getQuantity();
+//        mPOSAdapter.notifyItemInserted(position);
+//    }
+//
+//    public void removeItem (int position) {
+//        saleItems.remove(position);
+//        mPOSAdapter.notifyItemRemoved(position);
+//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -78,7 +99,7 @@ public class PointOfSaleActivity extends AppCompatActivity {
 
             case R.id.cart:
                 Intent cartIntent = new Intent(this, CartActivity.class);
-   //             cartIntent.putParcelableArrayListExtra("SaleItem", saleItems );
+                cartIntent.putExtra("ShoppingCart", mPOSAdapter.getShoppingCart() );
                 startActivity(cartIntent);
                 return true;
 
