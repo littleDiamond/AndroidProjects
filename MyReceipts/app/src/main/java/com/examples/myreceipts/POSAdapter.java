@@ -1,7 +1,6 @@
 package com.examples.myreceipts;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -9,16 +8,27 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class POSAdapter extends RecyclerView.Adapter<POSAdapter.POSHolder> {
     private Context mContext;
     private ArrayList<SaleItem> mData;
-    private List<SaleItem> selectedItemList;
+    private ShoppingCart shoppingCart = new ShoppingCart();
+
+
     private static final String TAG = "POS adapter";
+
+
+//    public interface OnItemClickListener {
+//        void onItemClick(int position);
+//
+//    }
+//
+//    public void setOnItemClickListener(OnItemClickListener listener) {
+//        mListener = listener;
+//    }
+//
 
     public POSAdapter(Context mContext,ArrayList<SaleItem> mData){
         this.mContext = mContext;
@@ -31,23 +41,45 @@ public class POSAdapter extends RecyclerView.Adapter<POSAdapter.POSHolder> {
         notifyItemChanged(position);
     }
 
-    private void addSelectedItem(int position, SaleItem selectedItem){
-        selectedItemList.add(position,selectedItem);
-        notifyItemChanged(position);
-        Intent cartIntent = new Intent(POSAdapter.this, CartActivity.class);
-        cartIntent.putParcelableArrayListExtra("SaleItem", selectedItemList );
-
-
-        Toast.makeText(mContext, "Add "
-                + selectedItem.getInventoryItem().getItemName(),Toast.LENGTH_SHORT).show();
-
+    public ShoppingCart getShoppingCart() {
+        return shoppingCart;
     }
 
-    public void removedSelectedItem(List<SaleItem> selectedItemList){
-        int position = selectedItemList.indexOf(selectedItemList);
-        selectedItemList.remove(position);
-        notifyItemRemoved(position);
-    }
+//    public void getSelectedItem (int position,SaleItem selectedItem) {
+//        SaleItem item = mData.get(position);
+//        item.getInventoryItem();
+//        item.getQuantity();
+//
+//        ArrayList<SaleItem> selectedItemList = new ArrayList<>();
+//
+//        selectedItemList.add(item);
+//
+//        notifyItemInserted(position);
+//        Toast.makeText(mContext, "Add " + selectedItem.getInventoryItem().getItemName(),Toast.LENGTH_SHORT).show();
+//    }
+
+//    public ArrayList<SaleItem> getSelectedItemList( int position){
+//        ArrayList<SaleItem> selectedItems = new ArrayList<>();
+//        for(SaleItem item : selectedItems){
+//            selectedItems.add(item);
+//            notifyItemChanged(position);
+//        }
+//        return selectedItems;
+//
+////        selectedItemList.add(position,selectedItem);
+////        notifyItemChanged(position);
+////        Intent cartIntent = new Intent(POSAdapter.this, CartActivity.class);
+////        cartIntent.putParcelableArrayListExtra("SaleItem", selectedItemList );
+////
+//        Toast.makeText(mContext, "Add " + selectedItems.,Toast.LENGTH_SHORT).show();
+//
+//    }
+
+//    public void removedSelectedItem(List<SaleItem> selectedItemList){
+//        int position = selectedItemList.indexOf(selectedItemList);
+//        selectedItemList.remove(position);
+//        notifyItemRemoved(position);
+//    }
 
     @Override
     public POSHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -90,46 +122,46 @@ public class POSAdapter extends RecyclerView.Adapter<POSAdapter.POSHolder> {
             tvQuantity = itemView.findViewById(R.id.tvQuantity);
 
 
-                    //add the item to the shopping cart
+            //add the item to the shopping shoppingCart
             btnItemSelect.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    int position = Integer.parseInt( btnItemSelect.getText().toString());
                     SaleItem currentItem = mData.get(getAdapterPosition());
+
+                    // add new item to shopping shoppingCart
+                    shoppingCart.addItem(currentItem);
+
                     Log.d(TAG, String.format("Add item to shopping list: %s", currentItem));
-
-                    addSelectedItem(position);
-
                 }
             });
 
-                    btnIncrease.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            SaleItem currentItem = mData.get(getAdapterPosition());
-                            int quantityCount = currentItem.getQuantity();
-                            if ( quantityCount >= MaxQuantity )
-                                return;
+            btnIncrease.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    SaleItem currentItem = mData.get(getAdapterPosition());
+                    int quantityCount = currentItem.getQuantity();
+                    if ( quantityCount >= MaxQuantity )
+                        return;
 
-                            tvQuantity.setText(String.valueOf(++quantityCount));
+                    tvQuantity.setText(String.valueOf(++quantityCount));
 
-                            updateSelectedItemQuantity(getAdapterPosition(), quantityCount);
-                        }
-                    });
+                    updateSelectedItemQuantity(getAdapterPosition(), quantityCount);
+                }
+            });
 
-                    btnDecrease.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            SaleItem currentItem = mData.get(getAdapterPosition());
-                            int quantityCount = currentItem.getQuantity();
-                            if ( quantityCount <= MinQuantity )
-                                return;
+            btnDecrease.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    SaleItem currentItem = mData.get(getAdapterPosition());
+                    int quantityCount = currentItem.getQuantity();
+                    if ( quantityCount <= MinQuantity )
+                        return;
 
-                            tvQuantity.setText(String.valueOf(--quantityCount));
+                    tvQuantity.setText(String.valueOf(--quantityCount));
 
-                            updateSelectedItemQuantity(getAdapterPosition(), quantityCount);
-                        }
-                    });
-            }
+                    updateSelectedItemQuantity(getAdapterPosition(), quantityCount);
+                }
+            });
         }
+    }
 }

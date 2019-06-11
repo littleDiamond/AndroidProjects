@@ -3,6 +3,7 @@ package com.examples.myreceipts;
 import android.app.Dialog;
 import android.app.SearchManager;
 import android.view.MenuItem;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.SearchView;
 import android.content.Context;
 import android.content.Intent;
@@ -177,9 +178,12 @@ public class InventoryListActivity extends AppCompatActivity {
 
         mTextItem.setText("");          // clear the EditText field
         mTextPrice.setText("");
+
         Toast.makeText(getApplicationContext(), "Add "
                 + inventoryItem.getItemName(),Toast.LENGTH_SHORT).show();
+
     }
+
 
     public void activeItemOption(InventoryItem currentItem, final int position){
         final Dialog mDialog = new Dialog(InventoryListActivity.this);
