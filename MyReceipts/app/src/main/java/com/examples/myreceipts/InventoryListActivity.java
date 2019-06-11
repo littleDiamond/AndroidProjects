@@ -308,7 +308,12 @@ public class InventoryListActivity extends AppCompatActivity {
             case R.id.go_to_pos:
                 Intent posIntent = new Intent(InventoryListActivity.this,
                         PointOfSaleActivity.class);
-                posIntent.putParcelableArrayListExtra("InventoryItem", existingData);
+
+                // get the list of items from list view
+                ItemArrayAdapter listToSave = (ItemArrayAdapter) mItemList.getAdapter();
+                ArrayList<InventoryItem> allItems = listToSave.getAllItems();
+
+                posIntent.putParcelableArrayListExtra("InventoryItem", allItems);
                 startActivity(posIntent);
                 return true;
 
