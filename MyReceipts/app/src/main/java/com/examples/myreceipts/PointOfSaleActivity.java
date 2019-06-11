@@ -57,6 +57,7 @@ public class PointOfSaleActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+
             }
         });
 
@@ -77,7 +78,7 @@ public class PointOfSaleActivity extends AppCompatActivity {
 
             case R.id.cart:
                 Intent cartIntent = new Intent(this, CartActivity.class);
-                cartIntent.putParcelableArrayListExtra("SaleItem", saleItems );
+   //             cartIntent.putParcelableArrayListExtra("SaleItem", saleItems );
                 startActivity(cartIntent);
                 return true;
 

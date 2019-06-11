@@ -31,7 +31,7 @@
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rvCartList"
-        android:layout_above="@id/total"
+        android:layout_above="@id/layoutTotal"
         android:layout_width="match_parent"
         android:layout_height="550dp"
         android:layout_marginStart="16dp"
@@ -40,7 +40,7 @@
     </android.support.v7.widget.RecyclerView>
 
     <RelativeLayout
-        android:id="@+id/total"
+        android:id="@+id/layoutTotal"
         android:layout_above="@id/btnCheckOut"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -55,9 +55,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="viewStart"
-            android:padding="3dp"
+
             android:fontFamily="sans-serif-medium"
-            android:text="Total"
+            android:text="Total : "
             android:textSize="18sp" />
 
         <TextView
@@ -66,8 +66,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:fontFamily="sans-serif-medium"
-            android:padding="3dp"
-            android:text="Total amount"
+            android:text="0 Rs"
             android:textAlignment="viewEnd"
             android:textSize="20sp"
             android:textStyle="bold" />
