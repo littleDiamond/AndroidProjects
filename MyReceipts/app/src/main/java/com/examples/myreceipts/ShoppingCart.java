@@ -2,6 +2,7 @@ package com.examples.myreceipts;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -9,12 +10,11 @@ public final class ShoppingCart implements Parcelable {
 
     public ShoppingCart()
     {
-
     }
 
     protected ShoppingCart(Parcel in) {
         shoppingList = in.createTypedArrayList(SaleItem.CREATOR);
-        saleTotal = in.readInt();
+        saleTotal = in.readDouble();
     }
 
     public static final Creator<ShoppingCart> CREATOR = new Creator<ShoppingCart>() {
@@ -41,6 +41,28 @@ public final class ShoppingCart implements Parcelable {
         saleTotal += newItem.getInventoryItem().getItemPrice() * newItem.getQuantity();
     }
 
+    public void removeItem(SaleItem oldItem)
+    {
+        shoppingList.remove(oldItem);
+
+        // deduct the item price from total
+        saleTotal -= oldItem.getInventoryItem().getItemPrice() * oldItem.getQuantity();
+    }
+
+    public void clearAllItems()
+    {
+        shoppingList.clear();
+
+        saleTotal = 0;
+    }
+
+    public void updateSaleTotal(SaleItem changedItem, int oldQuantity, int newQuantity)
+    {
+        // add the item sale difference to total to update the sale total
+        double price = changedItem.getInventoryItem().getItemPrice();
+        saleTotal += price * ( newQuantity - oldQuantity );
+    }
+
     public SaleItem getItem(int positionInCart)
     {
         return shoppingList.get(positionInCart);
@@ -49,21 +71,6 @@ public final class ShoppingCart implements Parcelable {
     public int getItemCount()
     {
         return shoppingList.size();
-    }
-
-    public void removeItem(SaleItem newItem)
-    {
-        shoppingList.remove(newItem);
-
-        // deduct the item price from total
-        saleTotal -= newItem.getInventoryItem().getItemPrice() * newItem.getQuantity();
-    }
-
-    public void clearAllItems()
-    {
-        shoppingList.clear();
-
-        saleTotal = 0;
     }
 
     private ArrayList<SaleItem> shoppingList = new ArrayList<>();

@@ -1,10 +1,12 @@
 package com.examples.myreceipts;
 
 import android.content.Intent;
+import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -15,6 +17,8 @@ public class CartActivity extends AppCompatActivity {
     private RecyclerView rvCartList;
     private RecyclerView.LayoutManager manager;
     private CartAdapter mCartAdapter;
+
+    private CartAdapter.QuantityChangedListener saleItemChangedListener;
 
 
     @Override
@@ -30,6 +34,25 @@ public class CartActivity extends AppCompatActivity {
         shoppingCart = getIntent().getExtras().getParcelable("ShoppingCart");
 
         mCartAdapter = new CartAdapter(this, shoppingCart);
+//        mCartAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+//            @Override
+//            public void onItemRangeChanged(int positionStart, int itemCount) {
+//                super.onItemRangeChanged(positionStart, itemCount);
+//                // update the sales total when any sale item quantity is updated
+//                updateSaleTotal();
+//            }
+//        });
+
+        mCartAdapter.setQuantityChangedListener(new CartAdapter.QuantityChangedListener(){
+            @Override
+            public void onItemQuantityChange(SaleItem changedItem,
+                                             int oldQuantity, int newQuantity) {
+
+                shoppingCart.updateSaleTotal(changedItem, oldQuantity, newQuantity);
+                updateSaleTotal();
+            }
+        });
+
         rvCartList.setAdapter(mCartAdapter);
 
         tvClose = findViewById(R.id.tvClose);
@@ -49,7 +72,8 @@ public class CartActivity extends AppCompatActivity {
         updateSaleTotal();
     }
 
-    public void updateSaleTotal(){
+    public void updateSaleTotal()
+    {
         if ( shoppingCart != null )
         {
             tvTotalAmount.setText(String.format("$ %.2f", shoppingCart.getSaleTotal()));

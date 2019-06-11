@@ -2,6 +2,7 @@ package com.examples.myreceipts;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 
 public final class SaleItem implements Parcelable {
     InventoryItem inventoryItem;
@@ -41,8 +42,8 @@ public final class SaleItem implements Parcelable {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
+    public void setQuantity(int newQuantity) {
+        quantity = newQuantity;
     }
 
     @Override

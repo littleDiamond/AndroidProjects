@@ -2,6 +2,8 @@ package com.examples.myreceipts;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -18,8 +20,20 @@ import java.util.ArrayList;
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartHolder> {
     private Context mContext;
     private ShoppingCart mCartData;
-
     private static final String TAG = "Cart adapter";
+    QuantityChangedListener listener;
+
+    public interface QuantityChangedListener
+    {
+        void onItemQuantityChange( SaleItem changedItem,
+                                   int oldQuantity,
+                                   int newQuantity );
+    }
+
+    public void setQuantityChangedListener( QuantityChangedListener newListener)
+    {
+        listener = newListener;
+    }
 
 
     public CartAdapter(Context mContext, ShoppingCart shoppingCart){
@@ -27,12 +41,26 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartHolder> {
         this.mCartData = shoppingCart;
     }
 
-    private void updateCartItemQuantity(int position, int newQuantity) {
+    private void updateCartItemQuantity(int position, int newQuantity, boolean skipItemChangedEvent )
+    {
         SaleItem item = mCartData.getItem(position);
+        int oldQuantity = item.getQuantity();
         item.setQuantity(newQuantity);
 
-        Log.d(TAG, mCartData.toString());
-        notifyItemChanged(position);
+        if ( listener != null )
+        {
+            listener.onItemQuantityChange( item, oldQuantity, newQuantity );
+        }
+
+        if ( !skipItemChangedEvent )
+        {
+            //Log.d(TAG, mCartData.toString());
+            notifyItemChanged(position);
+        }
+    }
+
+    private void updateCartItemQuantity(int position, int newQuantity) {
+        updateCartItemQuantity(position, newQuantity, false);
     }
 
     @Override
@@ -77,24 +105,29 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartHolder> {
             etCartQuantity = itemView.findViewById(R.id.etCartQuantity);
             ivDelete =itemView.findViewById(R.id.ivDelete);
 
-//            etCartQuantity.setOnTouchListener(new View.OnTouchListener() {
-//                @Override
-//                public  boolean onTouch(View v, MotionEvent event) {
-//                    switch (event.getAction()){
-//                        case MotionEvent.ACTION_DOWN:
-//                            count++;
-//                            if( count == 1){
-//                                etCartQuantity.requestFocus();
-//                                InputMethodManager manager = Context.getSystemService(Context.INPUT_METHOD_SERVICE);
-//                                manager.showSoftInput(etCartQuantity, 0);
-//                            }
-//                            break;
-//                            default:
-//                                break;
-//                    }
-//                    return true;
-//                }
-//            });
+
+            etCartQuantity.addTextChangedListener(new TextWatcher() {
+
+                @Override
+                public void afterTextChanged(Editable s) {}
+
+                @Override
+                public void beforeTextChanged(CharSequence s, int start,
+                                              int count, int after) {
+                }
+                @Override
+                public void onTextChanged(CharSequence s, int start,
+                                          int before, int count) {
+                    try {
+                        int newQuantity = Integer.parseInt(s.toString());
+                        updateCartItemQuantity(getAdapterPosition(), newQuantity, true);
+                    }
+                    catch(NumberFormatException e) {
+                    }
+
+                }
+            });
+
 
             btnIncrease.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -126,6 +159,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartHolder> {
                 }
             });
         }
+
 
     }
 }
