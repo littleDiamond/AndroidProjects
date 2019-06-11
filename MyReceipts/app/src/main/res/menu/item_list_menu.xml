@@ -20,8 +20,8 @@
         app:showAsAction="never" />
 
     <item
-        android:id="@+id/add_to_pos"
-        android:title="Add to menu"
+        android:id="@+id/go_to_pos"
+        android:title="Go to POS"
         app:showAsAction="never" />
 
 </menu>

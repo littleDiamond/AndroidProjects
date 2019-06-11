@@ -46,6 +46,16 @@ public class CartActivity extends AppCompatActivity {
                 startActivity(closeIntent);
             }
         });
+
+        tvTotalAmount = findViewById(R.id.tvTotalAmount);
+        calculateTotal();
+    }
+
+    public static void calculateTotal(){
+        int i =0;
+        double total =0;
+
+
     }
 
 }
