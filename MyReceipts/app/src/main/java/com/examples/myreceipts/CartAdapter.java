@@ -19,32 +19,31 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartHolder> {
     QuantityChangedListener listener;
 
     public interface QuantityChangedListener {
-        void onItemQuantityChange( SaleItem changedItem,
-                                   int oldQuantity,
-                                   int newQuantity );
+        void onItemQuantityChange(SaleItem changedItem,
+                                  int oldQuantity,
+                                  int newQuantity);
     }
 
-    public void setQuantityChangedListener( QuantityChangedListener newListener) {
+    public void setQuantityChangedListener(QuantityChangedListener newListener) {
         listener = newListener;
     }
 
 
-    public CartAdapter(Context mContext, ShoppingCart shoppingCart){
+    public CartAdapter(Context mContext, ShoppingCart shoppingCart) {
         this.mContext = mContext;
         this.mCartData = shoppingCart;
     }
 
-    private void updateCartItemQuantity(int position, int newQuantity, boolean skipItemChangedEvent )
-    {
+    private void updateCartItemQuantity(int position, int newQuantity, boolean skipItemChangedEvent) {
         SaleItem item = mCartData.getItem(position);
         int oldQuantity = item.getQuantity();
         item.setQuantity(newQuantity);
 
-        if ( listener != null ) {
-            listener.onItemQuantityChange( item, oldQuantity, newQuantity );
+        if (listener != null) {
+            listener.onItemQuantityChange(item, oldQuantity, newQuantity);
         }
 
-        if ( !skipItemChangedEvent ) {
+        if (!skipItemChangedEvent) {
             notifyItemChanged(position);
         }
     }
@@ -56,7 +55,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartHolder> {
     @Override
     public CartHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.cart_item_list,parent,false);
+                .inflate(R.layout.cart_item_list, parent, false);
         return new CartHolder(view);
     }
 
@@ -77,9 +76,9 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartHolder> {
         return mCartData.getItemCount();
     }
 
-    public class CartHolder extends RecyclerView.ViewHolder{
+    public class CartHolder extends RecyclerView.ViewHolder {
         public Button btnIncrease, btnDecrease;
-        public TextView tvCartItem,tvCartItemPrice,tvDelete;
+        public TextView tvCartItem, tvCartItemPrice, tvDelete;
         public EditText etCartQuantity;
         public static final int MaxQuantity = 99;
         public static final int MinQuantity = 1;
@@ -92,27 +91,27 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartHolder> {
             tvCartItem = itemView.findViewById(R.id.tvCartItem);
             tvCartItemPrice = itemView.findViewById(R.id.tvCartPrice);
             etCartQuantity = itemView.findViewById(R.id.etCartQuantity);
-            tvDelete =itemView.findViewById(R.id.tvDelete);
-
+            tvDelete = itemView.findViewById(R.id.tvDelete);
 
             etCartQuantity.addTextChangedListener(new TextWatcher() {
 
                 @Override
-                public void afterTextChanged(Editable s) {}
+                public void afterTextChanged(Editable s) {
+                }
 
                 @Override
                 public void beforeTextChanged(CharSequence s, int start,
                                               int count, int after) {
                 }
+
                 @Override
                 public void onTextChanged(CharSequence s, int start,
                                           int before, int count) {
                     try {
                         int newQuantity = Integer.parseInt(s.toString());
                         updateCartItemQuantity(getAdapterPosition(), newQuantity, true);
-                    } catch(NumberFormatException e) {
+                    } catch (NumberFormatException e) {
                     }
-
                 }
             });
 
@@ -121,7 +120,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartHolder> {
                 public void onClick(View v) {
                     SaleItem currentItem = mCartData.getItem(getAdapterPosition());
                     int quantityCount = currentItem.getQuantity();
-                    if ( quantityCount >= MaxQuantity )
+                    if (quantityCount >= MaxQuantity)
                         return;
 
                     ++quantityCount;
@@ -136,7 +135,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartHolder> {
                 public void onClick(View v) {
                     SaleItem currentItem = mCartData.getItem(getAdapterPosition());
                     int quantityCount = currentItem.getQuantity();
-                    if ( quantityCount <= MinQuantity )
+                    if (quantityCount <= MinQuantity)
                         return;
 
                     --quantityCount;
@@ -151,14 +150,13 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartHolder> {
                 public void onClick(View v) {
                     int position = getAdapterPosition();
                     SaleItem deleteItem = mCartData.getItem(position);
-                    Toast.makeText(mContext,"Removed " + deleteItem.getQuantity()
+                    Toast.makeText(mContext, "Removed " + deleteItem.getQuantity()
                                     + " " + deleteItem.getInventoryItem().getItemName(),
                             Toast.LENGTH_SHORT).show();
 
                     mCartData.removeItem(position);
                     notifyItemRemoved(position);
                 }
-
             });
         }
     }

@@ -38,8 +38,7 @@ public class POSAdapter extends RecyclerView.Adapter<POSAdapter.POSHolder> {
         shoppingCart = updatedCart;
     }
 
-    public void clearShoppingCart()
-    {
+    public void clearShoppingCart() {
         shoppingCart.clearAllItems();
     }
 
@@ -86,10 +85,12 @@ public class POSAdapter extends RecyclerView.Adapter<POSAdapter.POSHolder> {
             btnItemSelect.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
                     SaleItem currentItem = mData.get(getAdapterPosition());
 
                     // add new item to shopping shoppingCart
                     shoppingCart.addItem(currentItem);
+
                     Toast.makeText(mContext, "Add " + currentItem.getQuantity() + " " +
                             currentItem.getInventoryItem().getItemName(),Toast.LENGTH_SHORT).show();
                     Log.d(TAG, String.format("Add item to shopping list: %s", currentItem));

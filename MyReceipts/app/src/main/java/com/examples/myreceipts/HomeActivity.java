@@ -133,6 +133,7 @@ public class HomeActivity extends AppCompatActivity implements LogoutDialog.Logo
      */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        
         switch(item.getItemId()){
             case R.id.log_out:
                 LogoutDialog dialog = new LogoutDialog();

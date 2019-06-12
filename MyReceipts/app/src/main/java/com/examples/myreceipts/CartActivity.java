@@ -33,7 +33,7 @@ public class CartActivity extends AppCompatActivity {
         shoppingCart = getIntent().getExtras().getParcelable("ShoppingCart");
 
         mCartAdapter = new CartAdapter(this, shoppingCart);
-        mCartAdapter.setQuantityChangedListener(new CartAdapter.QuantityChangedListener(){
+        mCartAdapter.setQuantityChangedListener(new CartAdapter.QuantityChangedListener() {
             @Override
             public void onItemQuantityChange(SaleItem changedItem,
                                              int oldQuantity, int newQuantity) {
@@ -45,12 +45,11 @@ public class CartActivity extends AppCompatActivity {
         rvCartList.setAdapter(mCartAdapter);
 
         tvTotalAmount = findViewById(R.id.tvTotalAmount);
-
         updateSaleTotal();
     }
 
-    public void onCloseClick(View v){
-        Toast.makeText(this,"Cart is closed", Toast.LENGTH_SHORT).show();
+    public void onCloseClick(View v) {
+        Toast.makeText(this, "Cart is closed", Toast.LENGTH_SHORT).show();
 
         // pass the updated shopping cart back to the POS activity
         ShoppingCart updatedCart = shoppingCart;
@@ -58,13 +57,11 @@ public class CartActivity extends AppCompatActivity {
         intent.putExtra("ShoppingCart", updatedCart);
         setResult(RESULT_OK, intent);
         finish();
-
     }
 
     public void updateSaleTotal() {
-        if ( shoppingCart != null ) {
+        if (shoppingCart != null) {
             tvTotalAmount.setText(String.format("$ %.2f", shoppingCart.getSaleTotal()));
         }
     }
-
 }

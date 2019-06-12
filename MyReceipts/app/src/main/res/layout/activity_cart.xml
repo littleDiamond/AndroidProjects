@@ -10,43 +10,42 @@
 
     <TextView
         android:id="@+id/tvClose"
-        android:layout_margin="3dp"
         android:layout_width="35dp"
         android:layout_height="35dp"
-        android:onClick="onCloseClick"
+        android:layout_margin="3dp"
         android:clickable="true"
-        android:textAlignment="center"
-        android:drawableRight="@drawable/ic_close" />
+        android:drawableRight="@drawable/ic_close"
+        android:onClick="onCloseClick"
+        android:textAlignment="center" />
 
-        <TextView
-            android:id="@+id/yourOder"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:fontFamily="sans-serif-medium"
-            android:padding="15dp"
-            android:text="Your order"
-            android:textAlignment="center"
-            android:textColor="@color/purple"
-            android:textSize="20sp" />
+    <TextView
+        android:id="@+id/yourOder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:fontFamily="sans-serif-medium"
+        android:padding="15dp"
+        android:text="Your order"
+        android:textAlignment="center"
+        android:textColor="@color/purple"
+        android:textSize="20sp" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rvCartList"
-        android:layout_above="@id/layoutTotal"
         android:layout_width="match_parent"
         android:layout_height="550dp"
+        android:layout_above="@id/layoutTotal"
         android:layout_marginStart="16dp"
         android:layout_marginTop="5dp"
-        android:layout_marginEnd="16dp">
-    </android.support.v7.widget.RecyclerView>
+        android:layout_marginEnd="16dp"></android.support.v7.widget.RecyclerView>
 
     <RelativeLayout
         android:id="@+id/layoutTotal"
-        android:layout_above="@id/btnCheckOut"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_above="@id/btnCheckOut"
         android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
         android:layout_marginStart="16dp"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="16dp"
@@ -55,9 +54,9 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAlignment="center"
             android:fontFamily="sans-serif-medium"
             android:text="Total : "
+            android:textAlignment="center"
             android:textSize="18sp" />
 
         <TextView
@@ -75,15 +74,15 @@
 
     <Button
         android:id="@+id/btnCheckOut"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="16dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:background="@color/purple"
         android:fontFamily="sans-serif-medium"
         android:text="Check out"
-        android:background="@color/purple"
-        android:textColor="@color/white"
-        android:textAllCaps="false" />
+        android:textAllCaps="false"
+        android:textColor="@color/white" />
 
 </LinearLayout>

@@ -25,8 +25,10 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -78,14 +80,15 @@ public class InventoryListActivity extends AppCompatActivity {
         String itemsInJson = settings.getString(USER_DATA, "");
 
         // if we have existing user data
-        if ( !itemsInJson.isEmpty() ) {
+        if (!itemsInJson.isEmpty()) {
             Gson gson = new Gson();  // Deserialize user data from json string
             mUserDataMap = gson.fromJson(itemsInJson, new TypeToken<Map<String,
-                                            InventoryItem[]>>() {}.getType());
+                    InventoryItem[]>>() {
+            }.getType());
             // find the data specific to the current user
-            if ( mUserDataMap != null ) {
+            if (mUserDataMap != null) {
                 InventoryItem[] itemList = mUserDataMap.get(mUserName.toLowerCase());
-                if ( itemList != null && itemList.length > 0 ) {
+                if (itemList != null && itemList.length > 0) {
                     existingData = new ArrayList<>(Arrays.asList(itemList));
                 }
             }
@@ -98,8 +101,8 @@ public class InventoryListActivity extends AppCompatActivity {
         mItemList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                activeItemOption((InventoryItem)mItemList.getItemAtPosition(position),
-                                                                        position);
+                activeItemOption((InventoryItem) mItemList.getItemAtPosition(position),
+                        position);
                 return true;
             }
         });
@@ -118,7 +121,8 @@ public class InventoryListActivity extends AppCompatActivity {
         mTextItem.addTextChangedListener(new TextWatcher() {
 
             @Override
-            public void afterTextChanged(Editable s) {}
+            public void afterTextChanged(Editable s) {
+            }
 
             @Override
             public void beforeTextChanged(CharSequence s, int start,
@@ -136,7 +140,8 @@ public class InventoryListActivity extends AppCompatActivity {
         mTextPrice.addTextChangedListener(new TextWatcher() {
 
             @Override
-            public void afterTextChanged(Editable s) {}
+            public void afterTextChanged(Editable s) {
+            }
 
             @Override
             public void beforeTextChanged(CharSequence s, int start,
@@ -149,7 +154,7 @@ public class InventoryListActivity extends AppCompatActivity {
                 try {
                     double price = Double.parseDouble(s.toString());
                     mItemPriceValid = true;
-                } catch(NumberFormatException e) {
+                } catch (NumberFormatException e) {
                     mItemPriceValid = false;
                 }
 
@@ -163,12 +168,12 @@ public class InventoryListActivity extends AppCompatActivity {
         String itemName = mTextItem.getText().toString();
         String itemPrice = mTextPrice.getText().toString();
 
-        if ( itemName.isEmpty() || itemPrice.isEmpty() )
+        if (itemName.isEmpty() || itemPrice.isEmpty())
             return;
 
         // add mTextItem to mAdapter
         InventoryItem inventoryItem = new InventoryItem(itemName,
-                                 Double.parseDouble(itemPrice));
+                Double.parseDouble(itemPrice));
 
         if (!isInventoryItemValid(inventoryItem))
             return;
@@ -180,15 +185,15 @@ public class InventoryListActivity extends AppCompatActivity {
         mTextPrice.setText("");
 
         Toast.makeText(getApplicationContext(), "Add "
-                + inventoryItem.getItemName(),Toast.LENGTH_SHORT).show();
+                + inventoryItem.getItemName(), Toast.LENGTH_SHORT).show();
 
     }
 
 
-    public void activeItemOption(InventoryItem currentItem, final int position){
+    public void activeItemOption(InventoryItem currentItem, final int position) {
         final Dialog mDialog = new Dialog(InventoryListActivity.this);
         InventoryItem inventoryItem = currentItem;
-        
+
         mDialog.setTitle("Choose option");
         mDialog.setContentView(R.layout.item_option_dialog);
 
@@ -205,13 +210,14 @@ public class InventoryListActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 InventoryItem updatedItem = new InventoryItem(mEdItem.getText().toString(),
-                                        Double.parseDouble(mEdPrice.getText().toString()));
+                        Double.parseDouble(mEdPrice.getText().toString()));
                 updateItem(updatedItem, position);
-                mDialog.dismiss();;
+                mDialog.dismiss();
+                ;
             }
         });
 
-        Button btnDelete =mDialog.findViewById(R.id.btnDelete);
+        Button btnDelete = mDialog.findViewById(R.id.btnDelete);
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -223,7 +229,7 @@ public class InventoryListActivity extends AppCompatActivity {
     }
 
     //Update item method
-    private void updateItem(InventoryItem updatedItem, int position){
+    private void updateItem(InventoryItem updatedItem, int position) {
         if (!isInventoryItemValid(updatedItem))
             return;
 
@@ -233,35 +239,35 @@ public class InventoryListActivity extends AppCompatActivity {
         mAdapter.notifyDataSetChanged();         //refresh
 
         Toast.makeText(getApplicationContext(), "Updated "
-                + currentItem.getItemName(),Toast.LENGTH_SHORT).show();
+                + currentItem.getItemName(), Toast.LENGTH_SHORT).show();
 
     }
 
     //Check if the item name EditView field is empty and the item price EditView field is positive integer
     private boolean isInventoryItemValid(InventoryItem item) {
-        if( item.getItemName().isEmpty()) {
+        if (item.getItemName().isEmpty()) {
             Toast.makeText(getApplicationContext(), "Name can't be empty",
-                                                    Toast.LENGTH_SHORT).show();
+                    Toast.LENGTH_SHORT).show();
             return false;
         }
 
-        if( item.getItemPrice() <= 0.0 ) {
+        if (item.getItemPrice() <= 0.0) {
             Toast.makeText(getApplicationContext(), "Price has to be positive.",
-                                                        Toast.LENGTH_SHORT).show();
+                    Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;
     }
 
     //Delete item method
-    private void deleteItem(int position){
-        if(position >=0 && position < mAdapter.getCount()){
+    private void deleteItem(int position) {
+        if (position >= 0 && position < mAdapter.getCount()) {
             InventoryItem currentItem = mAdapter.getItem(position);
             mAdapter.remove(currentItem);      //remove item
             mAdapter.notifyDataSetChanged();     //refresh
 
             Toast.makeText(getApplicationContext(), "Deleted "
-                    + currentItem.getItemName(),Toast.LENGTH_SHORT).show();
+                    + currentItem.getItemName(), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -271,8 +277,8 @@ public class InventoryListActivity extends AppCompatActivity {
         inflater.inflate(R.menu.item_list_menu, menu);
 
         // Associate searchable configuration with the SearchView
-        SearchManager searchManager = (SearchManager)getSystemService(Context.SEARCH_SERVICE);
-        SearchView searchView = (SearchView)menu.findItem(R.id.search).getActionView();
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView = (SearchView) menu.findItem(R.id.search).getActionView();
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
 
         final SearchView.OnQueryTextListener queryTextListener = new SearchView.OnQueryTextListener() {
@@ -296,7 +302,7 @@ public class InventoryListActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()) {
+        switch (item.getItemId()) {
             case R.id.sort_name:
                 sortArrayListByName();
                 return true;
@@ -340,7 +346,7 @@ public class InventoryListActivity extends AppCompatActivity {
             @Override
             public int compare(InventoryItem p1, InventoryItem p2) {
                 return Double.compare(p1.getItemPrice(), p2.getItemPrice());
-               // return p1.getItemPrice().Double.compareTo(p2.getItemName());
+                // return p1.getItemPrice().Double.compareTo(p2.getItemName());
             }
         });
         mAdapter.notifyDataSetChanged();

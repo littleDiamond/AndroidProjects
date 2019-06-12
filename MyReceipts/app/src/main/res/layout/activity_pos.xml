@@ -15,29 +15,9 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rvPOS"
         android:layout_width="match_parent"
-        android:layout_height="650dp"
-        android:layout_above="@id/rvButton"
+        android:layout_height="match_parent"
         android:layout_marginStart="16dp"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="16dp"/>
 
-    <LinearLayout
-        android:id="@+id/rvButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="16dp">
-
-        <Button
-            android:id="@+id/btnNewOrder"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:fontFamily="sans-serif-medium"
-            android:text="New order"
-            android:textAllCaps="false" />
-
-    </LinearLayout>
 </LinearLayout>
