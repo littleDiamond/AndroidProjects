@@ -18,7 +18,7 @@ public class POSAdapter extends RecyclerView.Adapter<POSAdapter.POSHolder> {
     private ShoppingCart shoppingCart = new ShoppingCart();
     private static final String TAG = "POS adapter";
 
-    public POSAdapter(Context mContext,ArrayList<SaleItem> mData){
+    public POSAdapter(Context mContext, ArrayList<SaleItem> mData){
         this.mContext = mContext;
         this.mData = mData;
     }
@@ -31,6 +31,16 @@ public class POSAdapter extends RecyclerView.Adapter<POSAdapter.POSHolder> {
 
     public ShoppingCart getShoppingCart() {
         return shoppingCart;
+    }
+
+    public void updateShoppingCart( ShoppingCart updatedCart )
+    {
+        shoppingCart = updatedCart;
+    }
+
+    public void clearShoppingCart()
+    {
+        shoppingCart.clearAllItems();
     }
 
     @Override

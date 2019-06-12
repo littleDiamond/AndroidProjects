@@ -14,7 +14,7 @@
         android:layout_width="35dp"
         android:layout_height="35dp"
         android:onClick="onCloseClick"
-    android:clickable="true"
+        android:clickable="true"
         android:textAlignment="center"
         android:drawableRight="@drawable/ic_close" />
 
@@ -55,8 +55,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAlignment="viewStart"
-
+            android:textAlignment="center"
             android:fontFamily="sans-serif-medium"
             android:text="Total : "
             android:textSize="18sp" />
