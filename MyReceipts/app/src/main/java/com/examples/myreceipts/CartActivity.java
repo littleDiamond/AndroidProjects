@@ -8,8 +8,10 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class CartActivity extends AppCompatActivity {
     private ShoppingCart shoppingCart;
@@ -30,19 +32,10 @@ public class CartActivity extends AppCompatActivity {
         manager = new LinearLayoutManager(this, LinearLayout.VERTICAL, false);
         rvCartList.setLayoutManager(manager);
 
-        // populate the grid with inventory items
+        // populate the selected items into the shopping cart
         shoppingCart = getIntent().getExtras().getParcelable("ShoppingCart");
 
         mCartAdapter = new CartAdapter(this, shoppingCart);
-//        mCartAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
-//            @Override
-//            public void onItemRangeChanged(int positionStart, int itemCount) {
-//                super.onItemRangeChanged(positionStart, itemCount);
-//                // update the sales total when any sale item quantity is updated
-//                updateSaleTotal();
-//            }
-//        });
-
         mCartAdapter.setQuantityChangedListener(new CartAdapter.QuantityChangedListener(){
             @Override
             public void onItemQuantityChange(SaleItem changedItem,
@@ -52,30 +45,27 @@ public class CartActivity extends AppCompatActivity {
                 updateSaleTotal();
             }
         });
-
         rvCartList.setAdapter(mCartAdapter);
-
-        tvClose = findViewById(R.id.tvClose);
-
-        // FIXME: instead of creating an empty POS activity, we need to set the activity type to stack
-        // so that we can go back and maintain the data (singleTop ?? )
-        tvClose.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent closeIntent = new Intent(CartActivity.this, PointOfSaleActivity.class);
-                startActivity(closeIntent);
-            }
-        });
 
         tvTotalAmount = findViewById(R.id.tvTotalAmount);
 
         updateSaleTotal();
     }
 
-    public void updateSaleTotal()
-    {
-        if ( shoppingCart != null )
-        {
+    public void onCloseClick(View v){
+        tvClose = this.findViewById(R.id.tvClose);
+        Toast.makeText(this,"Cart is closed", Toast.LENGTH_SHORT).show();
+        ShoppingCart currentItem = shoppingCart;
+        Intent intent = new Intent(this,PointOfSaleActivity.class);
+
+        intent.putExtra("ShoppingCart",currentItem);
+        setResult(RESULT_OK);
+        finish();
+
+    }
+
+    public void updateSaleTotal() {
+        if ( shoppingCart != null ) {
             tvTotalAmount.setText(String.format("$ %.2f", shoppingCart.getSaleTotal()));
         }
     }

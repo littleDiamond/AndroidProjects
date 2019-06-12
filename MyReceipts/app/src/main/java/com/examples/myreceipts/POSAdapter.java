@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -15,20 +16,7 @@ public class POSAdapter extends RecyclerView.Adapter<POSAdapter.POSHolder> {
     private Context mContext;
     private ArrayList<SaleItem> mData;
     private ShoppingCart shoppingCart = new ShoppingCart();
-
-
     private static final String TAG = "POS adapter";
-
-
-//    public interface OnItemClickListener {
-//        void onItemClick(int position);
-//
-//    }
-//
-//    public void setOnItemClickListener(OnItemClickListener listener) {
-//        mListener = listener;
-//    }
-//
 
     public POSAdapter(Context mContext,ArrayList<SaleItem> mData){
         this.mContext = mContext;
@@ -44,42 +32,6 @@ public class POSAdapter extends RecyclerView.Adapter<POSAdapter.POSHolder> {
     public ShoppingCart getShoppingCart() {
         return shoppingCart;
     }
-
-//    public void getSelectedItem (int position,SaleItem selectedItem) {
-//        SaleItem item = mData.get(position);
-//        item.getInventoryItem();
-//        item.getQuantity();
-//
-//        ArrayList<SaleItem> selectedItemList = new ArrayList<>();
-//
-//        selectedItemList.add(item);
-//
-//        notifyItemInserted(position);
-//        Toast.makeText(mContext, "Add " + selectedItem.getInventoryItem().getItemName(),Toast.LENGTH_SHORT).show();
-//    }
-
-//    public ArrayList<SaleItem> getSelectedItemList( int position){
-//        ArrayList<SaleItem> selectedItems = new ArrayList<>();
-//        for(SaleItem item : selectedItems){
-//            selectedItems.add(item);
-//            notifyItemChanged(position);
-//        }
-//        return selectedItems;
-//
-////        selectedItemList.add(position,selectedItem);
-////        notifyItemChanged(position);
-////        Intent cartIntent = new Intent(POSAdapter.this, CartActivity.class);
-////        cartIntent.putParcelableArrayListExtra("SaleItem", selectedItemList );
-////
-//        Toast.makeText(mContext, "Add " + selectedItems.,Toast.LENGTH_SHORT).show();
-//
-//    }
-
-//    public void removedSelectedItem(List<SaleItem> selectedItemList){
-//        int position = selectedItemList.indexOf(selectedItemList);
-//        selectedItemList.remove(position);
-//        notifyItemRemoved(position);
-//    }
 
     @Override
     public POSHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -97,7 +49,6 @@ public class POSAdapter extends RecyclerView.Adapter<POSAdapter.POSHolder> {
         holder.tvMenuItemPrice.setText(String.format("$ %.2f",
                         item.getInventoryItem().getItemPrice()));
         holder.tvQuantity.setText(String.valueOf(item.getQuantity()));
-
     }
 
     @Override
@@ -121,7 +72,6 @@ public class POSAdapter extends RecyclerView.Adapter<POSAdapter.POSHolder> {
             btnDecrease = itemView.findViewById(R.id.btnDecrease);
             tvQuantity = itemView.findViewById(R.id.tvQuantity);
 
-
             //add the item to the shopping shoppingCart
             btnItemSelect.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -130,7 +80,8 @@ public class POSAdapter extends RecyclerView.Adapter<POSAdapter.POSHolder> {
 
                     // add new item to shopping shoppingCart
                     shoppingCart.addItem(currentItem);
-
+                    Toast.makeText(mContext, "Add " + currentItem.getQuantity() + " " +
+                            currentItem.getInventoryItem().getItemName(),Toast.LENGTH_SHORT).show();
                     Log.d(TAG, String.format("Add item to shopping list: %s", currentItem));
                 }
             });
