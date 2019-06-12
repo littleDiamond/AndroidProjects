@@ -15,13 +15,10 @@ import android.widget.Toast;
 
 public class CartActivity extends AppCompatActivity {
     private ShoppingCart shoppingCart;
-    private TextView tvClose, tvTotalAmount;
+    private TextView tvTotalAmount;
     private RecyclerView rvCartList;
     private RecyclerView.LayoutManager manager;
     private CartAdapter mCartAdapter;
-
-    private CartAdapter.QuantityChangedListener saleItemChangedListener;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,13 +50,13 @@ public class CartActivity extends AppCompatActivity {
     }
 
     public void onCloseClick(View v){
-        tvClose = this.findViewById(R.id.tvClose);
         Toast.makeText(this,"Cart is closed", Toast.LENGTH_SHORT).show();
-        ShoppingCart currentItem = shoppingCart;
-        Intent intent = new Intent(this,PointOfSaleActivity.class);
 
-        intent.putExtra("ShoppingCart",currentItem);
-        setResult(RESULT_OK);
+        // pass the updated shopping cart back to the POS activity
+        ShoppingCart updatedCart = shoppingCart;
+        Intent intent = new Intent(this, PointOfSaleActivity.class);
+        intent.putExtra("ShoppingCart", updatedCart);
+        setResult(RESULT_OK, intent);
         finish();
 
     }

@@ -25,7 +25,7 @@ public class PointOfSaleActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager manager;
     private POSAdapter mPOSAdapter;
     private Button btnNewOrder;
-    ShoppingCart shoppingCart;
+    private ShoppingCart updatedShoppingCart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,11 +44,12 @@ public class PointOfSaleActivity extends AppCompatActivity {
         rvPOS.setLayoutManager(manager);
 
         // populate the grid with inventory items
-        ArrayList<InventoryItem> inventoryItems = getIntent().getExtras().getParcelableArrayList("InventoryItem");
+        ArrayList<InventoryItem> inventoryItems = getIntent().getExtras().
+                getParcelableArrayList("InventoryItem");
         for( InventoryItem item  : inventoryItems ) {
             saleItems.add( new SaleItem(item, 1));
         }
-        mPOSAdapter = new POSAdapter(this,saleItems);
+        mPOSAdapter = new POSAdapter(this, saleItems);
         rvPOS.setAdapter(mPOSAdapter);
 
         /**
@@ -58,7 +59,7 @@ public class PointOfSaleActivity extends AppCompatActivity {
         btnNewOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                shoppingCart.clearAllItems();
+                mPOSAdapter.clearShoppingCart();
                 Toast.makeText(getApplicationContext(),
                         "clear all items",Toast.LENGTH_SHORT ).show();
             }
@@ -79,15 +80,15 @@ public class PointOfSaleActivity extends AppCompatActivity {
         switch(item.getItemId()) {
 
             case R.id.cart:
-                if(mPOSAdapter.getShoppingCart().equals("")){
-                    Toast.makeText(PointOfSaleActivity.this,"Nothing in the cart",
-                            Toast.LENGTH_SHORT).show();
-                }else {
-                    Intent cartIntent = new Intent(this, CartActivity.class);
-                    cartIntent.putExtra("ShoppingCart", mPOSAdapter.getShoppingCart() );
-                    startActivityForResult(cartIntent,1);
-                    return true;
-                }
+                Intent cartIntent = new Intent(this, CartActivity.class);
+
+                // pass the updated shopping cart if we have any
+                // otherwise, pass the current shopping cart in the POS activity
+
+                cartIntent.putExtra("ShoppingCart", mPOSAdapter.getShoppingCart() );
+                startActivityForResult(cartIntent,1);
+
+                return true;
 
             default:
                 return super.onOptionsItemSelected(item);
@@ -96,16 +97,20 @@ public class PointOfSaleActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-    //    super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 1 && resultCode == RESULT_OK
-                && data != null && data.getExtras() != null) {
+        super.onActivityResult(requestCode, resultCode, data);
 
-                ShoppingCart selectedItem = data.getExtras().getParcelable("ShoppingCart");
-            }
-            if (resultCode == RESULT_CANCELED) {
-               Toast.makeText(PointOfSaleActivity.this,"Data lost",
-                       Toast.LENGTH_SHORT).show();
-          }
+        if (requestCode == 1 && resultCode == RESULT_OK &&
+                data != null && data.getExtras() != null)
+        {
+            // update the adapter with updated shopping cart data from CartActivity
+            updatedShoppingCart = data.getExtras().getParcelable("ShoppingCart");
+            mPOSAdapter.updateShoppingCart(updatedShoppingCart);
+        }
+        else if (resultCode == RESULT_CANCELED)
+        {
+            Toast.makeText(PointOfSaleActivity.this,"Data lost",
+                   Toast.LENGTH_SHORT).show();
+        }
 
     }
 }// end

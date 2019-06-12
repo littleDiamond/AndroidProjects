@@ -40,14 +40,11 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartHolder> {
         int oldQuantity = item.getQuantity();
         item.setQuantity(newQuantity);
 
-        if ( listener != null )
-        {
+        if ( listener != null ) {
             listener.onItemQuantityChange( item, oldQuantity, newQuantity );
         }
 
-        if ( !skipItemChangedEvent )
-        {
-            //Log.d(TAG, mCartData.toString());
+        if ( !skipItemChangedEvent ) {
             notifyItemChanged(position);
         }
     }
@@ -152,11 +149,14 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartHolder> {
             tvDelete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(mContext,"item removed", Toast.LENGTH_SHORT).show();
-//                    SaleItem deleteItem = mCartData.getItem(getAdapterPosition());
-//                    int quantityCount = deleteItem.getQuantity();
-//                    mCartData.removeItem(deleteItem);
-//                    updateCartItemQuantity(getAdapterPosition(), quantityCount);
+                    int position = getAdapterPosition();
+                    SaleItem deleteItem = mCartData.getItem(position);
+                    Toast.makeText(mContext,"Removed " + deleteItem.getQuantity()
+                                    + " " + deleteItem.getInventoryItem().getItemName(),
+                            Toast.LENGTH_SHORT).show();
+
+                    mCartData.removeItem(position);
+                    notifyItemRemoved(position);
                 }
 
             });
