@@ -11,8 +11,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -24,7 +22,6 @@ public class PointOfSaleActivity extends AppCompatActivity {
     private RecyclerView rvPOS;
     private RecyclerView.LayoutManager manager;
     private POSAdapter mPOSAdapter;
-    private Button btnNewOrder;
     private ShoppingCart updatedShoppingCart;
 
     @Override
@@ -46,24 +43,12 @@ public class PointOfSaleActivity extends AppCompatActivity {
         // populate the grid with inventory items
         ArrayList<InventoryItem> inventoryItems = getIntent().getExtras().
                 getParcelableArrayList("InventoryItem");
-        for( InventoryItem item  : inventoryItems ) {
-            saleItems.add( new SaleItem(item, 1));
+        for (InventoryItem item : inventoryItems) {
+            saleItems.add(new SaleItem(item, 1));
         }
         mPOSAdapter = new POSAdapter(this, saleItems);
         rvPOS.setAdapter(mPOSAdapter);
 
-        /**
-         * Tap new order and clear all the order data that has create in case user cancels the order
-         */
-        btnNewOrder = findViewById(R.id.btnNewOrder);
-        btnNewOrder.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mPOSAdapter.clearShoppingCart();
-                Toast.makeText(getApplicationContext(),
-                        "clear all items",Toast.LENGTH_SHORT ).show();
-            }
-        });
     } // end of onCreate
 
     @Override
@@ -77,17 +62,24 @@ public class PointOfSaleActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        switch(item.getItemId()) {
+        switch (item.getItemId()) {
 
-            case R.id.cart:
-                Intent cartIntent = new Intent(this, CartActivity.class);
+            case R.id.cart_list:
 
                 // pass the updated shopping cart if we have any
                 // otherwise, pass the current shopping cart in the POS activity
+                Intent cartIntent = new Intent(this, CartActivity.class);
+                cartIntent.putExtra("ShoppingCart", mPOSAdapter.getShoppingCart());
+                startActivityForResult(cartIntent, 1);
+                return true;
 
-                cartIntent.putExtra("ShoppingCart", mPOSAdapter.getShoppingCart() );
-                startActivityForResult(cartIntent,1);
+            case R.id.new_order:
 
+                //Tap new order to clear all the order data that has created
+                // for user wants to cancel the order
+                mPOSAdapter.clearShoppingCart();
+                Toast.makeText(getApplicationContext(),
+                        "clear all items", Toast.LENGTH_SHORT).show();
                 return true;
 
             default:
@@ -100,17 +92,13 @@ public class PointOfSaleActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == 1 && resultCode == RESULT_OK &&
-                data != null && data.getExtras() != null)
-        {
+                data != null && data.getExtras() != null) {
             // update the adapter with updated shopping cart data from CartActivity
             updatedShoppingCart = data.getExtras().getParcelable("ShoppingCart");
             mPOSAdapter.updateShoppingCart(updatedShoppingCart);
+        } else if (resultCode == RESULT_CANCELED) {
+            Toast.makeText(PointOfSaleActivity.this, "Data lost",
+                    Toast.LENGTH_SHORT).show();
         }
-        else if (resultCode == RESULT_CANCELED)
-        {
-            Toast.makeText(PointOfSaleActivity.this,"Data lost",
-                   Toast.LENGTH_SHORT).show();
-        }
-
     }
 }// end

@@ -4,6 +4,8 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.Log;
 
+import java.util.Objects;
+
 public final class SaleItem implements Parcelable {
     InventoryItem inventoryItem;
     int quantity;
@@ -47,9 +49,22 @@ public final class SaleItem implements Parcelable {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        SaleItem saleItem = (SaleItem) o;
+        return inventoryItem.getItemName().equals(saleItem.inventoryItem.getItemName());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(inventoryItem.getItemName());
+    }
+
+    @Override
     public String toString() {
         return String.format("[Sale Item] Name : {%s} Price: {%.2f} Quantity: {%d}",
-                inventoryItem.getItemName(), inventoryItem.getItemPrice(), quantity );
+                inventoryItem.getItemName(), inventoryItem.getItemPrice(), quantity);
     }
 
     @Override
