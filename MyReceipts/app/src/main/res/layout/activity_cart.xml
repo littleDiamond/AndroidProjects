@@ -13,7 +13,8 @@
         android:layout_margin="3dp"
         android:layout_width="35dp"
         android:layout_height="35dp"
-        android:clickable="true"
+        android:onClick="onCloseClick"
+    android:clickable="true"
         android:textAlignment="center"
         android:drawableRight="@drawable/ic_close" />
 

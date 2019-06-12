@@ -13,6 +13,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -24,6 +25,7 @@ public class PointOfSaleActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager manager;
     private POSAdapter mPOSAdapter;
     private Button btnNewOrder;
+    ShoppingCart shoppingCart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,8 +37,6 @@ public class PointOfSaleActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
-
-
 
         // setup the grid layout
         rvPOS = findViewById(R.id.rvPOS);
@@ -50,13 +50,6 @@ public class PointOfSaleActivity extends AppCompatActivity {
         }
         mPOSAdapter = new POSAdapter(this,saleItems);
         rvPOS.setAdapter(mPOSAdapter);
-//        mPOSAdapter.setOnItemClickListener(new POSAdapter.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(int position) {
-//                SaleItem selectedItem =
-//                getSelectedItem(position, saleItems);
-//            }
-//        });
 
         /**
          * Tap new order and clear all the order data that has create in case user cancels the order
@@ -65,24 +58,12 @@ public class PointOfSaleActivity extends AppCompatActivity {
         btnNewOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
+                shoppingCart.clearAllItems();
+                Toast.makeText(getApplicationContext(),
+                        "clear all items",Toast.LENGTH_SHORT ).show();
             }
         });
-
-
     } // end of onCreate
-
-//    public final void getSelectedItem (int position,SaleItem selecteditem) {
-//        saleItems.get(position).getInventoryItem();
-//        saleItems.get(position).getQuantity();
-//        mPOSAdapter.notifyItemInserted(position);
-//    }
-//
-//    public void removeItem (int position) {
-//        saleItems.remove(position);
-//        mPOSAdapter.notifyItemRemoved(position);
-//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -98,13 +79,33 @@ public class PointOfSaleActivity extends AppCompatActivity {
         switch(item.getItemId()) {
 
             case R.id.cart:
-                Intent cartIntent = new Intent(this, CartActivity.class);
-                cartIntent.putExtra("ShoppingCart", mPOSAdapter.getShoppingCart() );
-                startActivity(cartIntent);
-                return true;
+                if(mPOSAdapter.getShoppingCart().equals("")){
+                    Toast.makeText(PointOfSaleActivity.this,"Nothing in the cart",
+                            Toast.LENGTH_SHORT).show();
+                }else {
+                    Intent cartIntent = new Intent(this, CartActivity.class);
+                    cartIntent.putExtra("ShoppingCart", mPOSAdapter.getShoppingCart() );
+                    startActivityForResult(cartIntent,1);
+                    return true;
+                }
 
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
-}
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    //    super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1 && resultCode == RESULT_OK
+                && data != null && data.getExtras() != null) {
+
+                ShoppingCart selectedItem = data.getExtras().getParcelable("ShoppingCart");
+            }
+            if (resultCode == RESULT_CANCELED) {
+               Toast.makeText(PointOfSaleActivity.this,"Data lost",
+                       Toast.LENGTH_SHORT).show();
+          }
+
+    }
+}// end

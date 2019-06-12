@@ -2,15 +2,11 @@ package com.examples.myreceipts;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.util.Log;
-
 import java.util.ArrayList;
 
 public final class ShoppingCart implements Parcelable {
 
-    public ShoppingCart()
-    {
-    }
+    public ShoppingCart() { }
 
     protected ShoppingCart(Parcel in) {
         shoppingList = in.createTypedArrayList(SaleItem.CREATOR);
@@ -33,31 +29,26 @@ public final class ShoppingCart implements Parcelable {
         return saleTotal;
     }
 
-    public void addItem(SaleItem newItem)
-    {
+    public void addItem(SaleItem newItem) {
         shoppingList.add(newItem);
 
         // add the item price to total
         saleTotal += newItem.getInventoryItem().getItemPrice() * newItem.getQuantity();
     }
 
-    public void removeItem(SaleItem oldItem)
-    {
+    public void removeItem(SaleItem oldItem) {
         shoppingList.remove(oldItem);
 
         // deduct the item price from total
         saleTotal -= oldItem.getInventoryItem().getItemPrice() * oldItem.getQuantity();
     }
 
-    public void clearAllItems()
-    {
+    public void clearAllItems() {
         shoppingList.clear();
-
         saleTotal = 0;
     }
 
-    public void updateSaleTotal(SaleItem changedItem, int oldQuantity, int newQuantity)
-    {
+    public void updateSaleTotal(SaleItem changedItem, int oldQuantity, int newQuantity) {
         // add the item sale difference to total to update the sale total
         double price = changedItem.getInventoryItem().getItemPrice();
         saleTotal += price * ( newQuantity - oldQuantity );
@@ -75,7 +66,6 @@ public final class ShoppingCart implements Parcelable {
 
     private ArrayList<SaleItem> shoppingList = new ArrayList<>();
     private double saleTotal = 0;
-
 
     @Override
     public int describeContents() {
