@@ -12,8 +12,11 @@ import android.widget.Toast;
 public class SignUpActivity extends AppCompatActivity {
     private static final String TAG = "SignUpActivity";
     UserDbHandler dbHandler;
-    private EditText mTextUsername, mTextEmail,mTextPassword, mTextCnfPassword;
     private Button mBtnCreateAccount;
+    private EditText mTextUsername, mTextEmail,mTextPassword, mTextCnfPassword;
+
+//    public static final String USER_NAME_TEXT = "com.examples.myreceipts.EXTRA_TEXT";
+//    public static final String USER_EMAIL_TEXT = "com.examples.myreceipts.EXTRA_TEXT";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +64,8 @@ public class SignUpActivity extends AppCompatActivity {
                                 Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(SignUpActivity.this,
                                                                 LoginActivity.class);
+//                        intent.putExtra(USER_NAME_TEXT, name);
+//                        intent.putExtra(USER_EMAIL_TEXT, email);
                         startActivity(intent);
                     }
                     else{

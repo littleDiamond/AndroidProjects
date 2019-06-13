@@ -19,6 +19,7 @@ public class CartActivity extends AppCompatActivity {
     private RecyclerView rvCartList;
     private RecyclerView.LayoutManager manager;
     private CartAdapter mCartAdapter;
+    private Button btnCheckout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +47,17 @@ public class CartActivity extends AppCompatActivity {
 
         tvTotalAmount = findViewById(R.id.tvTotalAmount);
         updateSaleTotal();
+
+        btnCheckout = findViewById(R.id.btnCheckOut);
+        btnCheckout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ShoppingCart updatedCart = shoppingCart;
+                Intent receiptIntent = new Intent(CartActivity.this, ReceiptActivity.class);
+                receiptIntent.putExtra("ShoppingCart", updatedCart);
+                startActivity(receiptIntent);
+            }
+        });
     }
 
     public void onCloseClick(View v) {

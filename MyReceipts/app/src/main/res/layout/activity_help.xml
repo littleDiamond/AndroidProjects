@@ -19,7 +19,7 @@
         android:textColor="@color/purple"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"/>
 
@@ -29,66 +29,75 @@
         android:background="@color/purple"
         android:layout_marginTop="10dp"
         android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"/>
+        android:layout_marginEnd="16dp" />
 
-    <TextView
-        android:textSize="20sp"
-        android:text="Home Dashboard"
-        android:fontFamily="sans-serif-medium"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:fillViewport="true"
         android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"/>
+        android:layout_marginEnd="16dp">
 
-    <TextView
-        android:textSize="15sp"
-        android:text="@string/the_home"
-        android:fontFamily="sans-serif-medium"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="3dp"
+            android:orientation="vertical">
 
-    <ImageView
-        android:layout_width="155dp"
-        android:layout_height="300dp"
-        android:layout_centerHorizontal="true"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:contentDescription="TODO"
-        android:src="@drawable/homedashboard" />
+            <TextView
+                android:textSize="20sp"
+                android:text="Home Dashboard"
+                android:fontFamily="sans-serif-medium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"/>
 
-    <TextView
-        android:textSize="20sp"
-        android:text="Inventory List"
-        android:fontFamily="sans-serif-medium"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"/>
+            <TextView
+                android:textSize="15sp"
+                android:text="@string/the_home"
+                android:fontFamily="sans-serif-medium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp" />
 
-    <TextView
-        android:textSize="15sp"
-        android:text="@string/the_inventory_list"
-        android:fontFamily="sans-serif-medium"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"/>
+            <ImageView
+                android:layout_width="155dp"
+                android:layout_height="300dp"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:contentDescription="TODO"
+                android:src="@drawable/homedashboard" />
 
-    <ImageView
-        android:layout_width="155dp"
-        android:layout_height="300dp"
-        android:layout_centerHorizontal="true"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:contentDescription="TODO"
-        android:src="@drawable/inventory_list" />
+            <TextView
+                android:textSize="20sp"
+                android:text="Inventory List"
+                android:fontFamily="sans-serif-medium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp" />
 
+            <TextView
+                android:textSize="15sp"
+                android:text="@string/the_inventory_list"
+                android:fontFamily="sans-serif-medium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp" />
 
+            <ImageView
+                android:layout_width="155dp"
+                android:layout_height="300dp"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:contentDescription="TODO"
+                android:src="@drawable/inventory_list" />
+
+        </LinearLayout>
+
+    </ScrollView>
 
 </LinearLayout>

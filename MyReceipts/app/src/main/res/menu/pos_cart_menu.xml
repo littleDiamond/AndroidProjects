@@ -12,6 +12,6 @@
             android:id="@+id/new_order"
             android:title="New order"
             android:icon="@drawable/ic_delete"
-            app:showAsAction="ifRoom" />
+            app:showAsAction="never" />
 
 </menu>
