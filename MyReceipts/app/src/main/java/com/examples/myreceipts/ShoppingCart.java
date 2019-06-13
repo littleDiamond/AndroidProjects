@@ -59,6 +59,9 @@ public final class ShoppingCart implements Parcelable {
     }
 
     public SaleItem getItem(int positionInCart) {
+        if (positionInCart < 0 || positionInCart >= getItemCount()) {
+            return null;
+        }
         return shoppingList.get(positionInCart);
     }
 
