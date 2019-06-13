@@ -13,7 +13,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ReceiptActivity"></activity>
+        <activity
+            android:name=".ReceiptActivity"
+            android:parentActivityName=".PointOfSaleActivity"/>
         <activity
             android:name=".AccountSettingActivity"/>
         <activity
