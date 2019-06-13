@@ -11,7 +11,13 @@ import android.util.Log;
 import java.util.ArrayList;
 
 public class UserDbHandler extends SQLiteOpenHelper {
-    private static final int DB_VERSION = 1;                //DATABASE VERSION
+    // version 1, columns
+    // KEY_ID
+    // KEY_NAME
+    // KEY_EMAIL
+    // KEY_PASSWORD
+
+    private static final int DB_VERSION = 2;                //DATABASE VERSION
     private static final String DB_NAME = "register.db";    //DATABASE NAME
     private static final String TABLE_USERS = "Register";   //TABLE NAME
 
@@ -52,12 +58,21 @@ public class UserDbHandler extends SQLiteOpenHelper {
                 + ")";
         db.execSQL(USER_CREATE_TABLE);
     }
-    @Override
-    public void onUpgrade(SQLiteDatabase db, int i, int i1) {
-        //Drop Register Table if exist
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_USERS);
 
-        onCreate(db);   // Create tables again
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)  {
+        //Drop Register Table if exist
+        //db.execSQL("DROP TABLE IF EXISTS " + TABLE_USERS);
+        //onCreate(db);   // Create tables again
+
+        // we need to upgrade the db from v1 to v2
+        if (newVersion > oldVersion) {
+            db.execSQL("ALTER TABLE " + TABLE_USERS + " ADD COLUMN " + KEY_COMPANY + " TEXT");
+            db.execSQL("ALTER TABLE " + TABLE_USERS + " ADD COLUMN " + KEY_STREET_ADDRESS + " TEXT");
+            db.execSQL("ALTER TABLE " + TABLE_USERS + " ADD COLUMN " + KEY_AREA_ADDRESS + " TEXT");
+            db.execSQL("ALTER TABLE " + TABLE_USERS + " ADD COLUMN " + KEY_PHONE_NUMBER + " TEXT");
+            db.execSQL("ALTER TABLE " + TABLE_USERS + " ADD COLUMN " + KEY_GST + " TEXT");
+        }
     }
     /**
      * This method is to create user record
@@ -84,108 +99,171 @@ public class UserDbHandler extends SQLiteOpenHelper {
 
         return newRowId;
     }
-    public boolean updateUser(long id, User user) {
+    public boolean updateUser(User user) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues cValues = new ContentValues();
-        cValues.put(KEY_NAME,  user.getName().toLowerCase());
-        cValues.put(KEY_EMAIL, user.getEmail().toLowerCase());
-        cValues.put(KEY_PASSWORD, user.getPassword());
+        //cValues.put(KEY_NAME,  user.getName().toLowerCase());
+        //cValues.put(KEY_EMAIL, user.getEmail().toLowerCase());
+        //cValues.put(KEY_PASSWORD, user.getPassword());
         cValues.put(KEY_COMPANY, user.getCompanyName().toLowerCase());
         cValues.put(KEY_STREET_ADDRESS, user.getStreetAddress().toLowerCase());
         cValues.put(KEY_AREA_ADDRESS, user.getAreaAddress().toLowerCase());
         cValues.put(KEY_PHONE_NUMBER, user.getPhoneNumber());
         cValues.put(KEY_GST, user.getGST());
 
+        String[] whereArgs = {user.getName().toLowerCase()};
+
         // updating row
-        db.update(TABLE_USERS, cValues, KEY_ID + " = ?" + id, null);
+        int updatedRow = db.update(TABLE_USERS, cValues, KEY_NAME + " = ?", whereArgs);
+        if ( updatedRow > 0 )
+        {
+            Log.d("DB", "updateUser is successful!");
+        }
         return true;
     }
 
 
-    public String getUserName(String userName) {
+//    public String getUserName(String userName) {
+//        SQLiteDatabase db = this.getReadableDatabase();
+//        Cursor mCursor = db.query(TABLE_USERS, new String[]{KEY_NAME},
+//                null, null, null, null, null);
+//
+//        mCursor.moveToFirst();
+//        String user = mCursor.getString(mCursor.getColumnIndex(KEY_NAME));
+//
+//        mCursor.close();
+//        return user;
+//    }
+
+    public User getUserByName(String userName) {
+//        SQLiteDatabase db = this.getReadableDatabase();
+//        Cursor mCursor = db.query(TABLE_USERS, new String[]{KEY_EMAIL},
+//                null, null, null, null, null);
+//
+//        mCursor.moveToFirst();
+//        String email = mCursor.getString(mCursor.getColumnIndex(KEY_EMAIL));
+//
+//        mCursor.close();
+//        return email;
+
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor mCursor = db.query(TABLE_USERS, new String[]{KEY_NAME},
-                null, null, null, null, null);
 
-        mCursor.moveToFirst();
-        String user = mCursor.getString(mCursor.getColumnIndex(KEY_NAME));
+        String whereClause = KEY_NAME + " = ?";    //Selection criteria
+        String[] selectionArs = {userName.toLowerCase()};        //Selection argument
 
+        Cursor mCursor = db.query(TABLE_USERS, null, whereClause, selectionArs,
+                null, null,null);
+        //boolean result = false;
+        User existingUser = null;
+        if (mCursor != null && mCursor.getCount() > 0) {
+            mCursor.moveToFirst();
+
+            existingUser = new User();
+
+            int columnIndex = mCursor.getColumnIndex(KEY_EMAIL);
+            if ( columnIndex >= 0 )
+            {
+                existingUser.setEmail(mCursor.getString(columnIndex));
+            }
+
+            columnIndex = mCursor.getColumnIndex(KEY_COMPANY);
+            if ( columnIndex >= 0 )
+            {
+                existingUser.setCompanyName(mCursor.getString(columnIndex));
+            }
+
+            columnIndex = mCursor.getColumnIndex(KEY_STREET_ADDRESS);
+            if ( columnIndex >= 0 )
+            {
+                existingUser.setStreetAddress(mCursor.getString(columnIndex));
+            }
+
+            columnIndex = mCursor.getColumnIndex(KEY_AREA_ADDRESS);
+            if ( columnIndex >= 0 )
+            {
+                existingUser.setAreaAddress(mCursor.getString(columnIndex));
+            }
+
+            columnIndex = mCursor.getColumnIndex(KEY_PHONE_NUMBER);
+            if ( columnIndex >= 0 )
+            {
+                existingUser.setPhoneNumber(mCursor.getString(columnIndex));
+            }
+
+            columnIndex = mCursor.getColumnIndex(KEY_GST);
+            if ( columnIndex >= 0 )
+            {
+                existingUser.setGST(mCursor.getString(columnIndex));
+            }
+
+            Log.d("DB", existingUser.toString());
+        }
         mCursor.close();
-        return user;
+        db.close();
+
+        return existingUser;
     }
 
-    public String getUserEmail(String userEmail) {
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor mCursor = db.query(TABLE_USERS, new String[]{KEY_EMAIL},
-                null, null, null, null, null);
-
-        mCursor.moveToFirst();
-        String email = mCursor.getString(mCursor.getColumnIndex(KEY_EMAIL));
-
-        mCursor.close();
-        return email;
-    }
-
-    public String getCompanyName(String userCompany) {
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor mCursor = db.query(TABLE_USERS, new String[]{KEY_COMPANY},
-                null, null, null, null, null);
-
-        mCursor.moveToFirst();
-        String company = mCursor.getString(mCursor.getColumnIndex(KEY_COMPANY));
-
-        mCursor.close();
-        return company;
-    }
-
-    public String getStreetAddress(String streetAddress) {
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor mCursor = db.query(TABLE_USERS, new String[]{KEY_STREET_ADDRESS},
-                null, null, null, null, null);
-
-        mCursor.moveToFirst();
-        String street = mCursor.getString(mCursor.getColumnIndex(KEY_STREET_ADDRESS));
-
-        mCursor.close();
-        return street;
-    }
-
-    public String getAreaAddress(String areaAddress) {
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor mCursor = db.query(TABLE_USERS, new String[]{KEY_AREA_ADDRESS},
-                null, null, null, null, null);
-
-        mCursor.moveToFirst();
-        String area = mCursor.getString(mCursor.getColumnIndex(KEY_AREA_ADDRESS));
-
-        mCursor.close();
-        return area;
-    }
-
-    public String getPhoneNumber(String phoneNumber) {
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor mCursor = db.query(TABLE_USERS, new String[]{KEY_PHONE_NUMBER},
-                null, null, null, null, null);
-
-        mCursor.moveToFirst();
-        String phone = mCursor.getString(mCursor.getColumnIndex(KEY_PHONE_NUMBER));
-
-        mCursor.close();
-        return phone;
-    }
-
-    public String getGSTNumber(String gstNumber) {
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor mCursor = db.query(TABLE_USERS, new String[]{KEY_GST},
-                null, null, null, null, null);
-
-        mCursor.moveToFirst();
-        String gst = mCursor.getString(mCursor.getColumnIndex(KEY_GST));
-
-        mCursor.close();
-        return gst;
-    }
+//    public String getCompanyName(String userCompany) {
+//        SQLiteDatabase db = this.getReadableDatabase();
+//        Cursor mCursor = db.query(TABLE_USERS, new String[]{KEY_COMPANY},
+//                null, null, null, null, null);
+//
+//        mCursor.moveToFirst();
+//        String company = mCursor.getString(mCursor.getColumnIndex(KEY_COMPANY));
+//
+//        mCursor.close();
+//        return company;
+//    }
+//
+//    public String getStreetAddress(String streetAddress) {
+//        SQLiteDatabase db = this.getReadableDatabase();
+//        Cursor mCursor = db.query(TABLE_USERS, new String[]{KEY_STREET_ADDRESS},
+//                null, null, null, null, null);
+//
+//        mCursor.moveToFirst();
+//        String street = mCursor.getString(mCursor.getColumnIndex(KEY_STREET_ADDRESS));
+//
+//        mCursor.close();
+//        return street;
+//    }
+//
+//    public String getAreaAddress(String areaAddress) {
+//        SQLiteDatabase db = this.getReadableDatabase();
+//        Cursor mCursor = db.query(TABLE_USERS, new String[]{KEY_AREA_ADDRESS},
+//                null, null, null, null, null);
+//
+//        mCursor.moveToFirst();
+//        String area = mCursor.getString(mCursor.getColumnIndex(KEY_AREA_ADDRESS));
+//
+//        mCursor.close();
+//        return area;
+//    }
+//
+//    public String getPhoneNumber(String phoneNumber) {
+//        SQLiteDatabase db = this.getReadableDatabase();
+//        Cursor mCursor = db.query(TABLE_USERS, new String[]{KEY_PHONE_NUMBER},
+//                null, null, null, null, null);
+//
+//        mCursor.moveToFirst();
+//        String phone = mCursor.getString(mCursor.getColumnIndex(KEY_PHONE_NUMBER));
+//
+//        mCursor.close();
+//        return phone;
+//    }
+//
+//    public String getGSTNumber(String gstNumber) {
+//        SQLiteDatabase db = this.getReadableDatabase();
+//        Cursor mCursor = db.query(TABLE_USERS, new String[]{KEY_GST},
+//                null, null, null, null, null);
+//
+//        mCursor.moveToFirst();
+//        String gst = mCursor.getString(mCursor.getColumnIndex(KEY_GST));
+//
+//        mCursor.close();
+//        return gst;
+//    }
 
     /**
      * This method is to check user exist or not

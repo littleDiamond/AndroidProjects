@@ -27,24 +27,26 @@ public class ReceiptActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_receipt);
 
+        MyReceiptsApplication app = (MyReceiptsApplication)getApplication();
+        String userName = app.getCurrentUser();
+
         dbHandler = new UserDbHandler(this);
-        user = new User();
+        user = dbHandler.getUserByName(userName);
 
         tvCompany = findViewById(R.id.tvCompany);
-        tvCompany.setText(dbHandler.getCompanyName(user.getCompanyName()));
+        tvCompany.setText(user.getCompanyName());
 
         tvStreetAddress = findViewById(R.id.tvStreetAddress);
-        tvStreetAddress.setText(dbHandler.getStreetAddress(user.getStreetAddress()));
+        tvStreetAddress.setText(user.getStreetAddress());
 
         tvAreaAddress = findViewById(R.id.tvAreaAddress);
-        tvAreaAddress.setText(dbHandler.getAreaAddress(user.getAreaAddress()));
+        tvAreaAddress.setText(user.getAreaAddress());
 
         tvPhoneNumber = findViewById(R.id.tvPhoneNumber);
-        tvPhoneNumber.setText(dbHandler.getPhoneNumber(user.getPhoneNumber()));
-
+        tvPhoneNumber.setText(user.getPhoneNumber());
 
         tvGST = findViewById(R.id.tvGST);
-        tvGST.setText(dbHandler.getGSTNumber(user.getGST()));
+        tvGST.setText(user.getGST());
 
         tvDate = findViewById(R.id.tvDate);
         tvTime = findViewById(R.id.tvTime);
