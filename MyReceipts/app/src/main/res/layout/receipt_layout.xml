@@ -9,7 +9,7 @@
     <TextView
         android:id="@+id/receiptQTY"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_weight="45"
         android:text="qty"
         android:textAlignment="center"
@@ -18,7 +18,7 @@
     <TextView
         android:id="@+id/receiptItem"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_weight="20"
         android:text="item"
         android:textAlignment="center"
@@ -27,7 +27,7 @@
     <TextView
         android:id="@+id/receiptPrice"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_weight="35"
         android:text="@string/price"
         android:textAlignment="center"

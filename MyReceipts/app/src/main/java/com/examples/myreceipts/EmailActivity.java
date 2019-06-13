@@ -40,7 +40,8 @@ public class EmailActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent eIntent = new Intent (EmailActivity.this,
                                                     FeedBackActivity.class);
-                startActivity(eIntent);
+                setResult(RESULT_OK, eIntent);
+                finish();
             }
         });
     }

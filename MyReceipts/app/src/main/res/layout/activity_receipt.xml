@@ -123,15 +123,15 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:fontFamily="sans-serif-light"
-                    android:text="Date "
-                    android:textSize="13dp" />
+                    android:text="DateTime "
+                    android:textSize="15dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-light"
-                    android:text="Order Number: "
-                    android:textSize="13dp" />
+                    android:text="Order Number : "
+                    android:textSize="14dp" />
 
                 <TextView
                     android:id="@+id/tvOrderNumber"
@@ -139,7 +139,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-light"
                     android:text="123"
-                    android:textSize="13dp" />
+                    android:textSize="14dp" />
 
             </LinearLayout>
 
@@ -196,7 +196,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="25dp"
                 android:orientation="horizontal">
 
                 <TextView
