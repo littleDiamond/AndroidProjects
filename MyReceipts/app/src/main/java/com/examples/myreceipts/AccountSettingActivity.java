@@ -12,8 +12,10 @@ import android.widget.Toast;
 public class AccountSettingActivity extends AppCompatActivity {
 
     UserDbHandler dbHandler;
+    User user;
     private Button mBtnFinish;
-    private EditText  mEmail,mPhoneNumber, mCompanyName, mStreetAddress, mAreaAddress, mGST;
+    private TextView mUsername, mEmail;
+    private EditText mPhoneNumber, mCompanyName, mStreetAddress, mAreaAddress, mGST;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,10 +23,16 @@ public class AccountSettingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_account_setting);
 
         dbHandler = new UserDbHandler(this);
+        user = new User();
+
+        mUsername = findViewById(R.id.asUserName);
+        mUsername.setText(dbHandler.getUserName(user.getName()));
 
         mEmail = findViewById(R.id.asEmail);
+        mEmail.setText(dbHandler.getUserEmail(user.getEmail()));
+
         mPhoneNumber = findViewById(R.id.asPhoneNumber);
-        mCompanyName = findViewById(R.id.etCnfPassword);
+        mCompanyName = findViewById(R.id.asCompanyName);
         mStreetAddress = findViewById(R.id.asStreetAddress);
         mAreaAddress = findViewById(R.id.asAreaAddress);
         mGST = findViewById(R.id.asGST);
@@ -33,39 +41,32 @@ public class AccountSettingActivity extends AppCompatActivity {
         mBtnFinish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                User user = new User();
 
-//                if (email.equals(user.getEmail())) {
-
-//                    String email = user.getEmail();
-                String email = mEmail.getText().toString().trim();
-
-                String phoneNumber = mPhoneNumber.getText().toString().trim();
                 String company = mCompanyName.getText().toString().trim();
                 String street = mStreetAddress.getText().toString().trim();
                 String area = mAreaAddress.getText().toString().trim();
-                String gst =  mGST.getText().toString().trim();
+                String phone = mPhoneNumber.getText().toString().trim();
+                String gst = mGST.getText().toString().trim();
 
-                user.setEmail(email);
-                user.setPhoneNumber(Integer.parseInt(phoneNumber));
                 user.setCompanyName(company);
                 user.setStreetAddress(street);
                 user.setAreaAddress(area);
-                user.setGST(Integer.parseInt(gst));
+                user.setPhoneNumber(Integer.parseInt(phone));
+                user.setGST(gst);
 
+                dbHandler.finishUserAccount(user);
 
-                    long value = dbHandler.addUser(user);
-                    if (value > 0) {
-                        Toast.makeText(AccountSettingActivity.this,
-                                "Account setting is updated",
-                                Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(AccountSettingActivity.this,
-                                HomeActivity.class);
-                        startActivity(intent);
-                    }
-                }
+                Toast.makeText(AccountSettingActivity.this,
+                        "Account setting is updated",
+                        Toast.LENGTH_SHORT).show();
+//                Intent intent = new Intent(AccountSettingActivity.this,
+//                        HomeActivity.class);
+//                startActivity(intent);
 
+                Intent intent = new Intent(AccountSettingActivity.this, HomeActivity.class);
+                setResult(RESULT_OK, intent);
+                finish();
+            }
         });
-
     }//end of onCreate
 }

@@ -3,7 +3,6 @@ package com.examples.myreceipts;
 import android.app.Dialog;
 import android.app.SearchManager;
 import android.view.MenuItem;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.SearchView;
 import android.content.Context;
 import android.content.Intent;
@@ -46,7 +45,7 @@ public class InventoryListActivity extends AppCompatActivity {
     public static final String USER_DATA = "USER_DATA";
 
     ArrayList<InventoryItem> existingData = new ArrayList<>();
-    private ItemArrayAdapter mAdapter;
+    private InventoryAdapter mAdapter;
     private String mUserName;
 
     // a map between user name and user data
@@ -95,7 +94,7 @@ public class InventoryListActivity extends AppCompatActivity {
         }
 
         // create the mAdapter to convert the array to views
-        mAdapter = new ItemArrayAdapter(InventoryListActivity.this, existingData);
+        mAdapter = new InventoryAdapter(InventoryListActivity.this, existingData);
         mItemList.setAdapter(mAdapter); //attach the mAdapter to a ListView
 
         mItemList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -316,7 +315,7 @@ public class InventoryListActivity extends AppCompatActivity {
                         PointOfSaleActivity.class);
 
                 // get the list of items from list view
-                ItemArrayAdapter listToSave = (ItemArrayAdapter) mItemList.getAdapter();
+                InventoryAdapter listToSave = (InventoryAdapter) mItemList.getAdapter();
                 ArrayList<InventoryItem> allItems = listToSave.getAllItems();
 
                 posIntent.putParcelableArrayListExtra("InventoryItem", allItems);
@@ -360,7 +359,7 @@ public class InventoryListActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = settings.edit();
 
         // get the list of items from list view
-        ItemArrayAdapter listToSave = (ItemArrayAdapter) mItemList.getAdapter();
+        InventoryAdapter listToSave = (InventoryAdapter) mItemList.getAdapter();
         ArrayList<InventoryItem> allItems = listToSave.getAllItems();
 
         Gson gson = new Gson();

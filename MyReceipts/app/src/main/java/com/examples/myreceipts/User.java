@@ -7,12 +7,12 @@ public class User {
     private int mId;
     private String mName;
     private String mEmail;
-    private int mPhoneNumber;
     private String mPassword;
     private String mCompanyName;
     private String mStreetAddress;
     private String mAreaAddress;
-    private int mGST;
+    private int mPhoneNumber;
+    private String mGST;
 
 
     public int getId() {
@@ -79,11 +79,11 @@ public class User {
         this.mAreaAddress = mAreaAddress;
     }
 
-    public int getGST() {
+    public String getGST() {
         return mGST;
     }
 
-    public void setGST(int mGST) {
+    public void setGST(String mGST) {
         this.mGST = mGST;
     }
 

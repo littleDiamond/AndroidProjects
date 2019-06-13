@@ -13,7 +13,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".ReceiptActivity"></activity>
-        <activity android:name=".AccountSettingActivity" />
+        <activity
+            android:name=".AccountSettingActivity"/>
         <activity
             android:name=".CartActivity"
             android:launchMode="singleTop"

@@ -7,106 +7,126 @@
     android:layout_marginStart="16dp"
     android:layout_marginEnd="16dp"
     android:orientation="vertical"
+    android:focusableInTouchMode="true"
     tools:context=".AccountSettingActivity">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="25dp"
         android:fontFamily="sans-serif-medium"
         android:text="Account Setting"
         android:textColor="@color/purple"
-        android:textSize="28sp" />
+        android:textSize="25sp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
+        android:fontFamily="sans-serif-light"
+        android:text="Username"
+        android:textColor="@color/purple"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/asUserName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:fontFamily="sans-serif-medium"
+        android:textSize="18sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:fontFamily="sans-serif-light"
         android:text="Email"
         android:textColor="@color/purple"
-        android:textSize="18sp" />
+        android:textSize="15sp" />
 
-    <EditText
+    <TextView
         android:id="@+id/asEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
         android:fontFamily="sans-serif-medium"
         android:inputType="textEmailAddress"
-        android:textSize="20sp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:fontFamily="sans-serif-light"
-        android:text="Phone numbers"
-        android:textColor="@color/purple"
         android:textSize="18sp" />
 
-    <EditText
-        android:id="@+id/asPhoneNumber"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:fontFamily="sans-serif-medium"
-        android:inputType="number"
-        android:textSize="20sp" />
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
         android:fontFamily="sans-serif-light"
         android:text="Company Name"
         android:textColor="@color/purple"
-        android:textSize="18sp" />
+        android:textSize="15sp" />
 
     <EditText
         android:id="@+id/asCompanyName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
         android:fontFamily="sans-serif-medium"
-        android:inputType="text"
-        android:textSize="20sp" />
+        android:inputType="textCapWords"
+        android:textSize="18sp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
         android:fontFamily="sans-serif-light"
         android:text="Company Address"
         android:textColor="@color/purple"
-        android:textSize="18sp" />
+        android:textSize="15sp" />
 
     <EditText
         android:id="@+id/asStreetAddress"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
         android:fontFamily="sans-serif-medium"
-        android:inputType="text"
-        android:textSize="20sp" />
+        android:hint="Street address"
+        android:inputType="textCapWords"
+        android:textSize="18sp" />
 
     <EditText
         android:id="@+id/asAreaAddress"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
         android:fontFamily="sans-serif-medium"
-        android:inputType="text"
-        android:textSize="20sp" />
+        android:hint="Suburb and city"
+        android:inputType="textCapWords"
+        android:textSize="18sp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
+        android:fontFamily="sans-serif-light"
+        android:text="Phone numbers"
+        android:textColor="@color/purple"
+        android:textSize="15sp" />
+
+    <EditText
+        android:id="@+id/asPhoneNumber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:fontFamily="sans-serif-medium"
+        android:inputType="number"
+        android:textSize="18sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:fontFamily="sans-serif-light"
         android:text="GST number"
         android:textColor="@color/purple"
-        android:textSize="18sp" />
+        android:textSize="15sp" />
 
     <EditText
         android:id="@+id/asGST"
@@ -114,15 +134,16 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:fontFamily="sans-serif-medium"
-        android:inputType="number"
-        android:textSize="20sp" />
+        android:hint="xx-xxx-xxx"
+        android:inputType="text|number"
+        android:textSize="18sp" />
 
     <Button
         android:id="@+id/btnFinish"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="30dp"
         android:text="Finish"
         android:textAllCaps="false"
         android:textSize="20sp"
