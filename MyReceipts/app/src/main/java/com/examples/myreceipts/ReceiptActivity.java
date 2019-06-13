@@ -40,7 +40,7 @@ public class ReceiptActivity extends AppCompatActivity {
         tvAreaAddress.setText(dbHandler.getAreaAddress(user.getAreaAddress()));
 
         tvPhoneNumber = findViewById(R.id.tvPhoneNumber);
-        tvPhoneNumber.setText(dbHandler.getPhoneNumber(Integer.toString(user.getPhoneNumber())));
+        tvPhoneNumber.setText(dbHandler.getPhoneNumber(user.getPhoneNumber()));
 
 
         tvGST = findViewById(R.id.tvGST);

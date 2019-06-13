@@ -14,8 +14,8 @@ public class AccountSettingActivity extends AppCompatActivity {
     UserDbHandler dbHandler;
     User user;
     private Button mBtnFinish;
-    private TextView mUsername, mEmail;
-    private EditText mPhoneNumber, mCompanyName, mStreetAddress, mAreaAddress, mGST;
+//    private TextView mUsername, mEmail;
+    private EditText mUsername, mEmail, mPhoneNumber, mCompanyName, mStreetAddress, mAreaAddress, mGST;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,34 +31,66 @@ public class AccountSettingActivity extends AppCompatActivity {
         mEmail = findViewById(R.id.asEmail);
         mEmail.setText(dbHandler.getUserEmail(user.getEmail()));
 
-        mPhoneNumber = findViewById(R.id.asPhoneNumber);
         mCompanyName = findViewById(R.id.asCompanyName);
+        if(!mCompanyName.getText().toString().isEmpty()){
+            mCompanyName.setText(dbHandler.getCompanyName(user.getCompanyName()));
+        }
+
         mStreetAddress = findViewById(R.id.asStreetAddress);
+        if(!mStreetAddress.getText().toString().isEmpty()){
+            mStreetAddress.setText(dbHandler.getStreetAddress(user.getStreetAddress()));
+        }
+
         mAreaAddress = findViewById(R.id.asAreaAddress);
+        if(!mAreaAddress.getText().toString().isEmpty()){
+            mAreaAddress.setText(dbHandler.getAreaAddress(user.getAreaAddress()));
+        }
+
+        mPhoneNumber = findViewById(R.id.asPhoneNumber);
+        if(!mPhoneNumber.getText().toString().isEmpty()){
+            mPhoneNumber.setText(dbHandler.getPhoneNumber(user.getPhoneNumber()));
+        }
+
         mGST = findViewById(R.id.asGST);
+        if(!mGST.getText().toString().isEmpty()){
+            mGST.setText(dbHandler.getGSTNumber(user.getGST()));
+        }
 
         mBtnFinish = findViewById(R.id.btnFinish);
         mBtnFinish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
+                String name = mUsername.getText().toString().trim();
+                String email = mEmail.getText().toString().trim();
                 String company = mCompanyName.getText().toString().trim();
                 String street = mStreetAddress.getText().toString().trim();
                 String area = mAreaAddress.getText().toString().trim();
                 String phone = mPhoneNumber.getText().toString().trim();
                 String gst = mGST.getText().toString().trim();
 
+                user.setName(name);
+                user.setEmail(email);
                 user.setCompanyName(company);
                 user.setStreetAddress(street);
                 user.setAreaAddress(area);
-                user.setPhoneNumber(Integer.parseInt(phone));
+                user.setPhoneNumber(phone);
                 user.setGST(gst);
 
-                dbHandler.finishUserAccount(user);
+         //       dbHandler.updateUser(user);
+                boolean result =dbHandler.updateUser(user.getId(), user);
 
-                Toast.makeText(AccountSettingActivity.this,
-                        "Account setting is updated",
-                        Toast.LENGTH_SHORT).show();
+                if(result){
+                    Toast.makeText(AccountSettingActivity.this,
+                            "Account setting is updated",
+                            Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(AccountSettingActivity.this,
+                            "Account setting is fail",
+                            Toast.LENGTH_SHORT).show();
+                }
+
+
 //                Intent intent = new Intent(AccountSettingActivity.this,
 //                        HomeActivity.class);
 //                startActivity(intent);
