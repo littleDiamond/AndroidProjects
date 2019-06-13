@@ -11,8 +11,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class ReceiptActivity extends AppCompatActivity {
-    UserDbHandler dbHandler;
-    User user;
+    private UserDbHandler dbHandler;
+    private User user;
     private ShoppingCart receiptItems;
     private RecyclerView rvReceiptList;
     private RecyclerView.LayoutManager manager;
@@ -73,7 +73,9 @@ public class ReceiptActivity extends AppCompatActivity {
     }
     public void updateSaleTotal() {
         if (receiptItems != null) {
-            tvTotal.setText(String.format("$ %.2f", receiptItems.getSaleTotal()));
+            double total = receiptItems.getSaleTotal();
+            tvGSTAmount.setText(String.format("$ %.2f", total*0.15));
+            tvTotal.setText(String.format("$ %.2f", total));
         }
     }
 

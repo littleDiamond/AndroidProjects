@@ -51,9 +51,8 @@ public class CartActivity extends AppCompatActivity {
         btnCheckout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ShoppingCart updatedCart = shoppingCart;
                 Intent receiptIntent = new Intent(CartActivity.this, ReceiptActivity.class);
-                receiptIntent.putExtra("ShoppingCart", updatedCart);
+                receiptIntent.putExtra("ShoppingCart", shoppingCart);
                 startActivity(receiptIntent);
             }
         });
@@ -63,9 +62,8 @@ public class CartActivity extends AppCompatActivity {
         Toast.makeText(this, "Cart is closed", Toast.LENGTH_SHORT).show();
 
         // pass the updated shopping cart back to the POS activity
-        ShoppingCart updatedCart = shoppingCart;
         Intent intent = new Intent(this, PointOfSaleActivity.class);
-        intent.putExtra("ShoppingCart", updatedCart);
+        intent.putExtra("ShoppingCart", shoppingCart);
         setResult(RESULT_OK, intent);
         finish();
     }
