@@ -13,13 +13,14 @@ import android.widget.Toast;
 public class ReceiptActivity extends AppCompatActivity {
     private UserDbHandler dbHandler;
     private User user;
-    private ShoppingCart receiptItems;
+    private ShoppingCart order;
+    private Receipt newReceipt;
     private RecyclerView rvReceiptList;
     private RecyclerView.LayoutManager manager;
     private ReceiptAdapter mReceiptAdapter;
     private TextView tvCompany, tvStreetAddress,
             tvAreaAddress, tvPhoneNumber, tvGST,
-            tvDate, tvTime, tvOrderNumber,
+            tvDate, tvOrderNumber,
             tvGSTAmount, tvTotal;
 
     @Override
@@ -32,6 +33,8 @@ public class ReceiptActivity extends AppCompatActivity {
 
         dbHandler = new UserDbHandler(this);
         user = dbHandler.getUserByName(userName);
+
+        // =============  User Data =======================
 
         tvCompany = findViewById(R.id.tvCompany);
         tvCompany.setText(user.getCompanyName());
@@ -48,34 +51,37 @@ public class ReceiptActivity extends AppCompatActivity {
         tvGST = findViewById(R.id.tvGST);
         tvGST.setText(user.getGST());
 
+        // =============  Receipt data =======================
+        newReceipt = new Receipt(userName, order);
+
         tvDate = findViewById(R.id.tvDate);
-        tvTime = findViewById(R.id.tvTime);
+        tvDate.setText(newReceipt.getDateTime());
+
         tvOrderNumber = findViewById(R.id.tvOrderNumber);
-        tvGSTAmount = findViewById(R.id.tvGSTAmount);
+        tvOrderNumber.setText(String.valueOf(newReceipt.getReceiptID()));
 
         rvReceiptList = findViewById(R.id.rvReceiptList);
         manager = new LinearLayoutManager(this, LinearLayout.VERTICAL, false);
         rvReceiptList.setLayoutManager(manager);
 
-        receiptItems = getIntent().getExtras().getParcelable("ShoppingCart");
-        mReceiptAdapter = new ReceiptAdapter(this, receiptItems);
+        order = getIntent().getExtras().getParcelable("ShoppingCart");
+        mReceiptAdapter = new ReceiptAdapter(this, order);
         rvReceiptList.setAdapter(mReceiptAdapter);
 
+        tvGSTAmount = findViewById(R.id.tvGSTAmount);
         tvTotal = findViewById(R.id.tvTotal);
         updateSaleTotal();
     }
 
     public void onCloseReceiptClick(View v) {
         Toast.makeText(this, "Receipt is closed", Toast.LENGTH_SHORT).show();
-
         Intent intent = new Intent(this, PointOfSaleActivity.class);
-        startActivity(intent);
-
+        setResult(RESULT_OK, intent);
         finish();
     }
     public void updateSaleTotal() {
-        if (receiptItems != null) {
-            double total = receiptItems.getSaleTotal();
+        if (order != null) {
+            double total = order.getSaleTotal();
             tvGSTAmount.setText(String.format("$ %.2f", total*0.15));
             tvTotal.setText(String.format("$ %.2f", total));
         }

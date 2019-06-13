@@ -14,8 +14,8 @@ public class AccountSettingActivity extends AppCompatActivity {
     UserDbHandler dbHandler;
     User user;
     private Button mBtnFinish;
-//    private TextView mUsername, mEmail;
-    private EditText mUsername, mEmail, mPhoneNumber, mCompanyName, mStreetAddress, mAreaAddress, mGST;
+    private TextView mUsername, mEmail;
+    private EditText mPhoneNumber, mCompanyName, mStreetAddress, mAreaAddress, mGST;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,11 +85,6 @@ public class AccountSettingActivity extends AppCompatActivity {
                             "Account setting is fail",
                             Toast.LENGTH_SHORT).show();
                 }
-
-
-//                Intent intent = new Intent(AccountSettingActivity.this,
-//                        HomeActivity.class);
-//                startActivity(intent);
 
                 Intent intent = new Intent(AccountSettingActivity.this, HomeActivity.class);
                 setResult(RESULT_OK, intent);

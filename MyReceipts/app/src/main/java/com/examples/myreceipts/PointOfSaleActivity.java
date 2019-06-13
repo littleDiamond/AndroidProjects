@@ -91,12 +91,18 @@ public class PointOfSaleActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == 1 && resultCode == RESULT_OK &&
-                data != null && data.getExtras() != null) {
-            // update the adapter with updated shopping cart data from CartActivity
-            updatedShoppingCart = data.getExtras().getParcelable("ShoppingCart");
-            mPOSAdapter.updateShoppingCart(updatedShoppingCart);
-        } else if (resultCode == RESULT_CANCELED) {
+        if (requestCode == 1 && resultCode == RESULT_OK) {
+            if (data != null && data.getExtras() != null) {
+                // update the adapter with updated shopping cart data from CartActivity
+                updatedShoppingCart = data.getExtras().getParcelable("ShoppingCart");
+                mPOSAdapter.updateShoppingCart(updatedShoppingCart);
+            }
+            else
+            {
+                mPOSAdapter.clearShoppingCart();
+            }
+        }
+        else if (resultCode == RESULT_CANCELED) {
             Toast.makeText(PointOfSaleActivity.this, "Data lost",
                     Toast.LENGTH_SHORT).show();
         }

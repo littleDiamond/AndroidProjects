@@ -124,33 +124,22 @@
                     android:layout_weight="1"
                     android:fontFamily="sans-serif-light"
                     android:text="Date "
-                    android:textSize="15dp" />
-
-                <TextView
-                    android:id="@+id/tvTime"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:fontFamily="sans-serif-light"
-                    android:text="Time "
-                    android:textSize="15dp" />
+                    android:textSize="13dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:fontFamily="sans-serif-light"
                     android:text="Order Number: "
-                    android:textSize="15dp" />
+                    android:textSize="13dp" />
 
                 <TextView
                     android:id="@+id/tvOrderNumber"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:fontFamily="sans-serif-light"
-                    android:text="Order Number"
-                    android:textSize="15dp" />
+                    android:text="123"
+                    android:textSize="13dp" />
 
             </LinearLayout>
 
@@ -207,7 +196,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="15dp"
                 android:orientation="horizontal">
 
                 <TextView

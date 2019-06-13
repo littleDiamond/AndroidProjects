@@ -136,7 +136,7 @@ public class UserDbHandler extends SQLiteOpenHelper {
 //        return user;
 //    }
 
-    public User getUserByName(String userName) {
+    public User getUserByName(String username) {
 //        SQLiteDatabase db = this.getReadableDatabase();
 //        Cursor mCursor = db.query(TABLE_USERS, new String[]{KEY_EMAIL},
 //                null, null, null, null, null);
@@ -150,7 +150,7 @@ public class UserDbHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
 
         String whereClause = KEY_NAME + " = ?";    //Selection criteria
-        String[] selectionArs = {userName.toLowerCase()};        //Selection argument
+        String[] selectionArs = {username.toLowerCase()};        //Selection argument
 
         Cursor mCursor = db.query(TABLE_USERS, null, whereClause, selectionArs,
                 null, null,null);
