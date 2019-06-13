@@ -22,38 +22,34 @@ public class AccountSettingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account_setting);
 
+        MyReceiptsApplication app = (MyReceiptsApplication)getApplication();
+        String userName = app.getCurrentUser();
+
         dbHandler = new UserDbHandler(this);
-        user = new User();
+        user = dbHandler.getUserByName(userName);
 
         mUsername = findViewById(R.id.asUserName);
-        mUsername.setText(dbHandler.getUserName(user.getName()));
+        mUsername.setText(userName);
 
-        mEmail = findViewById(R.id.asEmail);
-        mEmail.setText(dbHandler.getUserEmail(user.getEmail()));
+        if ( user != null )
+        {
+            mEmail = findViewById(R.id.asEmail);
+            mEmail.setText(user.getEmail());
 
-        mCompanyName = findViewById(R.id.asCompanyName);
-        if(!mCompanyName.getText().toString().isEmpty()){
-            mCompanyName.setText(dbHandler.getCompanyName(user.getCompanyName()));
-        }
+            mCompanyName = findViewById(R.id.asCompanyName);
+            mCompanyName.setText(user.getCompanyName());
 
-        mStreetAddress = findViewById(R.id.asStreetAddress);
-        if(!mStreetAddress.getText().toString().isEmpty()){
-            mStreetAddress.setText(dbHandler.getStreetAddress(user.getStreetAddress()));
-        }
+            mStreetAddress = findViewById(R.id.asStreetAddress);
+            mStreetAddress.setText(user.getStreetAddress());
 
-        mAreaAddress = findViewById(R.id.asAreaAddress);
-        if(!mAreaAddress.getText().toString().isEmpty()){
-            mAreaAddress.setText(dbHandler.getAreaAddress(user.getAreaAddress()));
-        }
+            mAreaAddress = findViewById(R.id.asAreaAddress);
+            mAreaAddress.setText(user.getAreaAddress());
 
-        mPhoneNumber = findViewById(R.id.asPhoneNumber);
-        if(!mPhoneNumber.getText().toString().isEmpty()){
-            mPhoneNumber.setText(dbHandler.getPhoneNumber(user.getPhoneNumber()));
-        }
+            mPhoneNumber = findViewById(R.id.asPhoneNumber);
+            mPhoneNumber.setText(user.getPhoneNumber());
 
-        mGST = findViewById(R.id.asGST);
-        if(!mGST.getText().toString().isEmpty()){
-            mGST.setText(dbHandler.getGSTNumber(user.getGST()));
+            mGST = findViewById(R.id.asGST);
+            mGST.setText(user.getGST());
         }
 
         mBtnFinish = findViewById(R.id.btnFinish);
@@ -78,7 +74,7 @@ public class AccountSettingActivity extends AppCompatActivity {
                 user.setGST(gst);
 
          //       dbHandler.updateUser(user);
-                boolean result =dbHandler.updateUser(user.getId(), user);
+                boolean result =dbHandler.updateUser(user);
 
                 if(result){
                     Toast.makeText(AccountSettingActivity.this,

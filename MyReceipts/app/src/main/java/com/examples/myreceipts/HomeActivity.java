@@ -48,6 +48,10 @@ public class HomeActivity extends AppCompatActivity implements LogoutDialog.Logo
          */
         Intent intent = getIntent();
         mUserName = intent.getStringExtra(LoginActivity.USER_NAME_TEXT);
+
+        MyReceiptsApplication app = (MyReceiptsApplication)getApplication();
+        app.setCurretUser(mUserName);
+
         TextView mTextHelloUser = findViewById(R.id.tvHelloUser);
         if(mUserName != null) {
             mTextHelloUser.setText(mUserName);

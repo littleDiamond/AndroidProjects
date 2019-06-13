@@ -90,7 +90,7 @@ public class User {
 
     @Override
     public String toString() {
-        return String.format("[User detail] ID : {%d} Name : {%s} Email : {%s} Phone : {%d} " +
+        return String.format("[User detail] ID : {%d} Name : {%s} Email : {%s} Phone : {%s} " +
                         "Password : {%s} Company : {%s} Street : {%s} Area : {%s} GST : {%s}",
                 mId,mName,mEmail,mPhoneNumber,mPassword,mCompanyName,mStreetAddress,mAreaAddress,mGST);
     }
