@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
+    android:focusableInTouchMode="true"
     tools:context=".LoginActivity">
 
     <ImageView
@@ -19,8 +20,6 @@
         android:src="@drawable/receipt"
         android:contentDescription="TODO" />
 
-    <!-- this text view causes the crashes -->
-    <!-- android:layout_below="@mId/receipt" maybe not be correct-->
     <TextView
         android:id="@+id/tvWelcome"
         android:fontFamily="sans-serif-medium"
@@ -29,7 +28,7 @@
         android:text="@string/welcome"
         android:layout_marginTop="32dp"
         android:layout_centerHorizontal="true"
-        android:textSize="32sp"
+        android:textSize="30sp"
         android:textColor="@color/purple"
         android:layout_below="@id/receipt"/>
 

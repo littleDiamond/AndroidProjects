@@ -12,8 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class  ItemArrayAdapter extends ArrayAdapter<InventoryItem> implements Filterable {
-    private  static final String TAG = "ItemArrayAdapter";
+public class InventoryAdapter extends ArrayAdapter<InventoryItem> implements Filterable {
+    private  static final String TAG = "InventoryAdapter";
 
     // a backup for all the original items in the list view
     private ArrayList<InventoryItem> originalItems;
@@ -22,7 +22,7 @@ public class  ItemArrayAdapter extends ArrayAdapter<InventoryItem> implements Fi
     private List<InventoryItem> filteredList;
 
 
-    public ItemArrayAdapter(Context context, ArrayList<InventoryItem> originalItems){
+    public InventoryAdapter(Context context, ArrayList<InventoryItem> originalItems){
         super(context, 0, originalItems);
 
         // important to note that we use filtered list to reference to the current content
@@ -40,7 +40,7 @@ public class  ItemArrayAdapter extends ArrayAdapter<InventoryItem> implements Fi
 
         //Check if an existing view is being reused, otherwise inflate the view
         if(convertView == null){
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.adapter_item_list,
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.inventory_item_list_layout,
                                                                 parent, false);
         }
 

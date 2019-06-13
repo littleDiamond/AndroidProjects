@@ -15,9 +15,6 @@ public class SignUpActivity extends AppCompatActivity {
     private Button mBtnCreateAccount;
     private EditText mTextUsername, mTextEmail,mTextPassword, mTextCnfPassword;
 
-//    public static final String USER_NAME_TEXT = "com.examples.myreceipts.EXTRA_TEXT";
-//    public static final String USER_EMAIL_TEXT = "com.examples.myreceipts.EXTRA_TEXT";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,6 +22,7 @@ public class SignUpActivity extends AppCompatActivity {
         Log.d(TAG, "onCreate: Started.");
 
         dbHandler = new UserDbHandler(this);
+
         mTextUsername = findViewById(R.id.etUsername);
         mTextEmail = findViewById(R.id.etEmail);
         mTextPassword = findViewById(R.id.etPassword);
@@ -64,8 +62,6 @@ public class SignUpActivity extends AppCompatActivity {
                                 Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(SignUpActivity.this,
                                                                 LoginActivity.class);
-//                        intent.putExtra(USER_NAME_TEXT, name);
-//                        intent.putExtra(USER_EMAIL_TEXT, email);
                         startActivity(intent);
                     }
                     else{

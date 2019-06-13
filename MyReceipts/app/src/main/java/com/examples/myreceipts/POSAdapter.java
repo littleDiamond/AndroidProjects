@@ -18,7 +18,7 @@ public class POSAdapter extends RecyclerView.Adapter<POSAdapter.POSHolder> {
     private ShoppingCart shoppingCart = new ShoppingCart();
     private static final String TAG = "POS adapter";
 
-    public POSAdapter(Context mContext, ArrayList<SaleItem> mData){
+    public POSAdapter(Context mContext, ArrayList<SaleItem> mData) {
         this.mContext = mContext;
         this.mData = mData;
     }
@@ -33,8 +33,7 @@ public class POSAdapter extends RecyclerView.Adapter<POSAdapter.POSHolder> {
         return shoppingCart;
     }
 
-    public void updateShoppingCart( ShoppingCart updatedCart )
-    {
+    public void updateShoppingCart(ShoppingCart updatedCart) {
         shoppingCart = updatedCart;
     }
 
@@ -45,7 +44,7 @@ public class POSAdapter extends RecyclerView.Adapter<POSAdapter.POSHolder> {
     @Override
     public POSHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                                .inflate(R.layout.cardview_pos_item,parent,false);
+                .inflate(R.layout.pos_item_list, parent, false);
 
         return new POSHolder(view);
     }
@@ -56,7 +55,7 @@ public class POSAdapter extends RecyclerView.Adapter<POSAdapter.POSHolder> {
         SaleItem item = mData.get(position);
         holder.btnItemSelect.setText(item.getInventoryItem().getItemName());
         holder.tvMenuItemPrice.setText(String.format("$ %.2f",
-                        item.getInventoryItem().getItemPrice()));
+                item.getInventoryItem().getItemPrice()));
         holder.tvQuantity.setText(String.valueOf(item.getQuantity()));
     }
 
@@ -65,14 +64,14 @@ public class POSAdapter extends RecyclerView.Adapter<POSAdapter.POSHolder> {
         return mData.size();
     } // end of pos adapter
 
-    public class POSHolder extends RecyclerView.ViewHolder{
+    public class POSHolder extends RecyclerView.ViewHolder {
 
         public Button btnItemSelect, btnIncrease, btnDecrease;
         public TextView tvMenuItemPrice, tvQuantity;
         public static final int MaxQuantity = 99;
         public static final int MinQuantity = 1;
 
-        public POSHolder(View itemView){
+        public POSHolder(View itemView) {
             super(itemView);
 
             btnItemSelect = itemView.findViewById(R.id.btnInventoryItemName);
@@ -92,7 +91,7 @@ public class POSAdapter extends RecyclerView.Adapter<POSAdapter.POSHolder> {
                     shoppingCart.addItem(currentItem);
 
                     Toast.makeText(mContext, "Add " + currentItem.getQuantity() + " " +
-                            currentItem.getInventoryItem().getItemName(),Toast.LENGTH_SHORT).show();
+                            currentItem.getInventoryItem().getItemName(), Toast.LENGTH_SHORT).show();
                     Log.d(TAG, String.format("Add item to shopping list: %s", currentItem));
                 }
             });
@@ -102,7 +101,7 @@ public class POSAdapter extends RecyclerView.Adapter<POSAdapter.POSHolder> {
                 public void onClick(View v) {
                     SaleItem currentItem = mData.get(getAdapterPosition());
                     int quantityCount = currentItem.getQuantity();
-                    if ( quantityCount >= MaxQuantity )
+                    if (quantityCount >= MaxQuantity)
                         return;
 
                     tvQuantity.setText(String.valueOf(++quantityCount));
@@ -116,7 +115,7 @@ public class POSAdapter extends RecyclerView.Adapter<POSAdapter.POSHolder> {
                 public void onClick(View v) {
                     SaleItem currentItem = mData.get(getAdapterPosition());
                     int quantityCount = currentItem.getQuantity();
-                    if ( quantityCount <= MinQuantity )
+                    if (quantityCount <= MinQuantity)
                         return;
 
                     tvQuantity.setText(String.valueOf(--quantityCount));

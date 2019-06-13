@@ -169,4 +169,9 @@ public class HomeActivity extends AppCompatActivity implements LogoutDialog.Logo
         Intent logoutIntent = new Intent(this,LoginActivity.class);
         startActivity(logoutIntent);
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+    }
 }
