@@ -3,6 +3,8 @@ package com.examples.myreceipts;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.Objects;
+
 /**
  * Create each mItemName and mItemPrice in the itemArray.
  */
@@ -25,18 +27,6 @@ public class InventoryItem implements Parcelable {
         mItemPrice = in.readDouble();
     }
 
-    public static final Creator<InventoryItem> CREATOR = new Creator<InventoryItem>() {
-        @Override
-        public InventoryItem createFromParcel(Parcel in) {
-            return new InventoryItem(in);
-        }
-
-        @Override
-        public InventoryItem[] newArray(int size) {
-            return new InventoryItem[size];
-        }
-    };
-
     public void setItemName(String itemName){
         this.mItemName = itemName;
     }
@@ -52,6 +42,20 @@ public class InventoryItem implements Parcelable {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        InventoryItem that = (InventoryItem) o;
+        return Double.compare(that.mItemPrice, mItemPrice) == 0 &&
+                mItemName.equals(that.mItemName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(mItemName, mItemPrice);
+    }
+
+    @Override
     public int describeContents() {
         return 0;
     }
@@ -61,4 +65,16 @@ public class InventoryItem implements Parcelable {
         dest.writeString(mItemName);
         dest.writeDouble(mItemPrice);
     }
+
+    public static final Creator<InventoryItem> CREATOR = new Creator<InventoryItem>() {
+        @Override
+        public InventoryItem createFromParcel(Parcel in) {
+            return new InventoryItem(in);
+        }
+
+        @Override
+        public InventoryItem[] newArray(int size) {
+            return new InventoryItem[size];
+        }
+    };
 }
