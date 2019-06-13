@@ -16,9 +16,14 @@ public class UserDbHandler extends SQLiteOpenHelper {
     private static final String TABLE_USERS = "Register";   //TABLE NAME
 
     private static final String KEY_ID = "id";              //TABLE USERS COLUMNS,ID COLUMN @primaryKey
-    private static final String KEY_NAME = "username";      //modify this,COLUMN user name
-    private static final String KEY_EMAIL = "email";        //modify this,COLUMN email
-    private static final String KEY_PASSWORD = "password";  //modify this,COLUMN password
+    private static final String KEY_NAME = "username";
+    private static final String KEY_EMAIL = "email";
+    private static final String KEY_PHONE_NUMBER = "phoneNumber";
+    private static final String KEY_PASSWORD = "password";
+    private static final String KEY_COMPANY = "company";
+    private static final String KEY_STREET_ADDRESS = "street";
+    private static final String KEY_AREA_ADDRESS = "area";
+    private static final String KEY_GST = "gst";
 
     private static final String TAG = "UserDbHandler";
     /**
@@ -38,7 +43,12 @@ public class UserDbHandler extends SQLiteOpenHelper {
                 + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + KEY_NAME + " TEXT,"
                 + KEY_EMAIL + " TEXT,"
-                + KEY_PASSWORD + " TEXT"
+                + KEY_PHONE_NUMBER + " TEXT,"
+                + KEY_PASSWORD + " TEXT,"
+                + KEY_COMPANY + " TEXT,"
+                + KEY_STREET_ADDRESS + " TEXT,"
+                + KEY_AREA_ADDRESS + " TEXT,"
+                + KEY_GST + " TEXT"
                 + ")";
         db.execSQL(USER_CREATE_TABLE);
     }
@@ -62,7 +72,12 @@ public class UserDbHandler extends SQLiteOpenHelper {
         ContentValues cValues = new ContentValues();
         cValues.put(KEY_NAME,  user.getName().toLowerCase());
         cValues.put(KEY_EMAIL, user.getEmail().toLowerCase());
+        cValues.put(KEY_PHONE_NUMBER, user.getPhoneNumber());
         cValues.put(KEY_PASSWORD, user.getPassword());
+        cValues.put(KEY_COMPANY, user.getCompanyName().toLowerCase());
+        cValues.put(KEY_STREET_ADDRESS, user.getStreetAddress().toLowerCase());
+        cValues.put(KEY_AREA_ADDRESS, user.getAreaAddress().toLowerCase());
+        cValues.put(KEY_GST, user.getGST());
 
         long newRowId = db.insert(TABLE_USERS, null, cValues);  //Insert the new row
         db.close(); // Close the db after insertion
@@ -74,7 +89,10 @@ public class UserDbHandler extends SQLiteOpenHelper {
      * @return arrayList
      */
     public ArrayList<User> getUsers(){
-        String[] column = {KEY_ID, KEY_NAME, KEY_EMAIL, KEY_PASSWORD};  //Array of columns to fetch
+
+        //Array of columns to fetch
+        String[] column = {KEY_ID, KEY_NAME, KEY_EMAIL, KEY_PHONE_NUMBER,
+                KEY_PASSWORD, KEY_COMPANY, KEY_STREET_ADDRESS,KEY_AREA_ADDRESS,KEY_GST};
         String sortOrder = KEY_NAME + " ASC";    //Sorting orders
         ArrayList<User> userList = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
@@ -88,7 +106,12 @@ public class UserDbHandler extends SQLiteOpenHelper {
             int columnID = mCursor.getColumnIndex(KEY_ID);
             int columnName = mCursor.getColumnIndex(KEY_NAME);
             int columnEmail = mCursor.getColumnIndex(KEY_EMAIL);
+            int columnPhoneNumber = mCursor.getColumnIndex(KEY_PHONE_NUMBER);
             int columnPassword = mCursor.getColumnIndex(KEY_PASSWORD);
+            int columnCompany = mCursor.getColumnIndex(KEY_COMPANY);
+            int columnStreetAddress = mCursor.getColumnIndex(KEY_STREET_ADDRESS);
+            int columnAreaAddress = mCursor.getColumnIndex(KEY_AREA_ADDRESS);
+            int columnGST = mCursor.getColumnIndex(KEY_GST);
 
             if (mCursor.moveToFirst()) {
                 do {

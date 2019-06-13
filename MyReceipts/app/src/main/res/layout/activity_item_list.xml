@@ -12,34 +12,34 @@
 
     <ListView
         android:id="@+id/lvItemList"
-        android:choiceMode="singleChoice"
-        android:scrollbars="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@id/loItemList"
         android:layout_below="@id/toolbar"
         android:layout_marginStart="16dp"
         android:layout_marginTop="5dp"
-        android:layout_marginEnd="16dp"/>
+        android:layout_marginEnd="16dp"
+        android:choiceMode="singleChoice"
+        android:scrollbars="vertical" />
 
     <LinearLayout
         android:id="@+id/loItemList"
-        android:layout_above="@id/loButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_above="@id/loButton"
         android:layout_marginStart="16dp"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="16dp"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
         <EditText
             android:id="@+id/etAddItem"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:fontFamily="sans-serif-light"
             android:hint="Add an item..."
             android:inputType="textCapWords"
-            android:fontFamily="sans-serif-light"
             android:textColorHint="@color/purple" />
 
         <EditText
@@ -47,9 +47,9 @@
             android:layout_width="701dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:fontFamily="sans-serif-light"
             android:hint="@string/price"
             android:inputType="numberDecimal"
-            android:fontFamily="sans-serif-light"
             android:textColorHint="@color/purple" />
     </LinearLayout>
 
@@ -57,19 +57,19 @@
         android:id="@+id/loButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:layout_marginStart="16dp"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="16dp"
-        android:layout_alignParentBottom="true"
-        android:orientation="horizontal" >
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/btnAdd"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-medium"
-            android:textAllCaps="false"
-            android:text="Add Item" />
+            android:text="Add Item"
+            android:textAllCaps="false" />
 
     </LinearLayout>
 

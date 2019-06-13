@@ -29,8 +29,9 @@ import static com.examples.myreceipts.InventoryListActivity.USER_DATA;
 
 public class HomeActivity extends AppCompatActivity implements LogoutDialog.LogoutDialogListener{
     private static final String TAG = "HomeActivity";
-    private Button mBtnCreateList, mBtnPOS,mBtnKeeper;
+
     private String mUserName;
+    private Button mBtnCreateList, mBtnPOS,mBtnKeeper;
 
     private Map<String, InventoryItem[]> mUserDataMap = new
             HashMap<String, InventoryItem[]>();
@@ -133,7 +134,7 @@ public class HomeActivity extends AppCompatActivity implements LogoutDialog.Logo
      */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        
+
         switch(item.getItemId()){
             case R.id.log_out:
                 LogoutDialog dialog = new LogoutDialog();
@@ -151,8 +152,8 @@ public class HomeActivity extends AppCompatActivity implements LogoutDialog.Logo
                 return true;
 
             case R.id.setting:
-                Intent settingIntent = new Intent (this, SettingsActivity.class);
-                startActivity(settingIntent);
+                Intent asIntent = new Intent (this, AccountSettingActivity.class);
+                startActivity(asIntent);
                 return true;
 
             default:

@@ -4,101 +4,129 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:layout_marginStart="16dp"
     android:layout_marginEnd="16dp"
-    tools:context=".SignUpActivity">
+    android:orientation="vertical"
+    tools:context=".AccountSettingActivity">
 
     <TextView
-        android:textSize="28sp"
-        android:text="@string/sign_up_for_myreceipt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
         android:fontFamily="sans-serif-medium"
+        android:text="Account Setting"
         android:textColor="@color/purple"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp" />
+        android:textSize="28sp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="User Name"
+        android:layout_marginTop="15dp"
         android:fontFamily="sans-serif-light"
-        android:textColor="@color/purple"
-        android:textSize="20sp"/>
-
-    <EditText
-        android:id="@+id/etUsername"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:textSize="25sp"
-        android:inputType="text"
-        android:fontFamily="sans-serif-light" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
         android:text="Email"
-        android:fontFamily="sans-serif-light"
         android:textColor="@color/purple"
-        android:textSize="20sp"/>
+        android:textSize="18sp" />
 
     <EditText
-        android:id="@+id/etEmail"
+        android:id="@+id/asEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:textSize="25sp"
-        android:fontFamily="sans-serif-light"
-        android:inputType="textEmailAddress" />
+        android:fontFamily="sans-serif-medium"
+        android:inputType="textEmailAddress"
+        android:textSize="20sp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:text="Password"
         android:fontFamily="sans-serif-light"
+        android:text="Phone numbers"
         android:textColor="@color/purple"
-        android:textSize="20sp"/>
+        android:textSize="18sp" />
 
     <EditText
-        android:id="@+id/etPassword"
+        android:id="@+id/asPhoneNumber"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:textSize="25sp"
-        android:fontFamily="sans-serif-light"
-        android:inputType="textPassword" />
+        android:fontFamily="sans-serif-medium"
+        android:inputType="number"
+        android:textSize="20sp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:text="Confirm Password"
         android:fontFamily="sans-serif-light"
+        android:text="Company Name"
         android:textColor="@color/purple"
-        android:textSize="20sp"/>
+        android:textSize="18sp" />
 
     <EditText
-        android:id="@+id/etCnfPassword"
+        android:id="@+id/asCompanyName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:textSize="25sp"
+        android:fontFamily="sans-serif-medium"
+        android:inputType="text"
+        android:textSize="20sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
         android:fontFamily="sans-serif-light"
-        android:inputType="textPassword" />
+        android:text="Company Address"
+        android:textColor="@color/purple"
+        android:textSize="18sp" />
+
+    <EditText
+        android:id="@+id/asStreetAddress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:fontFamily="sans-serif-medium"
+        android:inputType="text"
+        android:textSize="20sp" />
+
+    <EditText
+        android:id="@+id/asAreaAddress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:fontFamily="sans-serif-medium"
+        android:inputType="text"
+        android:textSize="20sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:fontFamily="sans-serif-light"
+        android:text="GST number"
+        android:textColor="@color/purple"
+        android:textSize="18sp" />
+
+    <EditText
+        android:id="@+id/asGST"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:fontFamily="sans-serif-medium"
+        android:inputType="number"
+        android:textSize="20sp" />
 
     <Button
-        android:id="@+id/btnCreateAccount"
+        android:id="@+id/btnFinish"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginTop="35dp"
-        android:text="Create account"
+        android:text="Finish"
         android:textAllCaps="false"
         android:textSize="20sp"
         android:fontFamily="sans-serif-medium" />
+
 
 </LinearLayout>

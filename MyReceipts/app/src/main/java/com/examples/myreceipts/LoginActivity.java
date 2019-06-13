@@ -11,13 +11,14 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 public class LoginActivity extends AppCompatActivity {
-    UserDbHandler dbHandler;
-    private EditText mTextUsername, mTextPassword;
-    private Button mBntLogin, mBtnRegister;
-    private int mCounter = 3;
-    public static final String USER_NAME_TEXT = "com.examples.myreceipts.EXTRA_TEXT";
     private static final String TAG = "LoginActivity";
+    UserDbHandler dbHandler;
+    private Button mBntLogin, mBtnRegister;
+    private EditText mTextUsername, mTextPassword;
+    private int mCounter = 3;
     private Handler handler;
+
+    public static final String USER_NAME_TEXT = "com.examples.myreceipts.EXTRA_TEXT";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
