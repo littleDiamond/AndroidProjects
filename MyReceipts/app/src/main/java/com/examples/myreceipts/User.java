@@ -11,7 +11,7 @@ public class User {
     private String mCompanyName;
     private String mStreetAddress;
     private String mAreaAddress;
-    private int mPhoneNumber;
+    private String mPhoneNumber;
     private String mGST;
 
 
@@ -39,11 +39,11 @@ public class User {
         this.mEmail = email;
     }
 
-    public int getPhoneNumber() {
+    public String getPhoneNumber() {
         return mPhoneNumber;
     }
 
-    public void setPhoneNumber(int mPhoneNumber) {
+    public void setPhoneNumber(String mPhoneNumber) {
         this.mPhoneNumber = mPhoneNumber;
     }
 

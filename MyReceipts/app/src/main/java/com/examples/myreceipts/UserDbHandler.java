@@ -73,29 +73,35 @@ public class UserDbHandler extends SQLiteOpenHelper {
         cValues.put(KEY_NAME,  user.getName().toLowerCase());
         cValues.put(KEY_EMAIL, user.getEmail().toLowerCase());
         cValues.put(KEY_PASSWORD, user.getPassword());
-
-
-        long newRowId = db.insert(TABLE_USERS, null, cValues);  //Insert the new row
-        db.close(); // Close the db after insertion
-
-        return newRowId;
-    }
-
-    public long finishUserAccount(User user){
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues cValues = new ContentValues();
-
         cValues.put(KEY_COMPANY, user.getCompanyName().toLowerCase());
         cValues.put(KEY_STREET_ADDRESS, user.getStreetAddress().toLowerCase());
         cValues.put(KEY_AREA_ADDRESS, user.getAreaAddress().toLowerCase());
         cValues.put(KEY_PHONE_NUMBER, user.getPhoneNumber());
         cValues.put(KEY_GST, user.getGST());
 
-        long newRowId = db.insert(TABLE_USERS, null, cValues);
+        long newRowId = db.insert(TABLE_USERS, null, cValues);  //Insert the new row
         db.close(); // Close the db after insertion
 
         return newRowId;
     }
+    public boolean updateUser(long id, User user) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues cValues = new ContentValues();
+        cValues.put(KEY_NAME,  user.getName().toLowerCase());
+        cValues.put(KEY_EMAIL, user.getEmail().toLowerCase());
+        cValues.put(KEY_PASSWORD, user.getPassword());
+        cValues.put(KEY_COMPANY, user.getCompanyName().toLowerCase());
+        cValues.put(KEY_STREET_ADDRESS, user.getStreetAddress().toLowerCase());
+        cValues.put(KEY_AREA_ADDRESS, user.getAreaAddress().toLowerCase());
+        cValues.put(KEY_PHONE_NUMBER, user.getPhoneNumber());
+        cValues.put(KEY_GST, user.getGST());
+
+        // updating row
+        db.update(TABLE_USERS, cValues, KEY_ID + " = ?" + id, null);
+        return true;
+    }
+
 
     public String getUserName(String userName) {
         SQLiteDatabase db = this.getReadableDatabase();
