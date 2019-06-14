@@ -21,6 +21,8 @@ public final class ShoppingCart implements Parcelable {
 
     public void addItem(SaleItem newItem) {
 
+        int newQuantity = newItem.getQuantity();
+
         // Returns the index of the first occurrence of the specified element in this list,
         // or -1 if this list does not contain the element.Use equals() on InventoryItem class
         int existingIndex = shoppingList.indexOf(newItem);
@@ -34,7 +36,7 @@ public final class ShoppingCart implements Parcelable {
         }
 
         // add the item price to total
-        saleTotal += newItem.getInventoryItem().getItemPrice() * newItem.getQuantity();
+        saleTotal += newItem.getInventoryItem().getItemPrice() * newQuantity;
     }
 
     public void removeItem(int positionInCart) {

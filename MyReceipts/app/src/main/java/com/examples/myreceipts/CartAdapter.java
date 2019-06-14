@@ -123,10 +123,11 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartHolder> {
                     if (quantityCount >= MaxQuantity)
                         return;
 
-                    ++quantityCount;
-                    etCartQuantity.setText(String.valueOf(quantityCount));
+                    int newQuantity = Integer.parseInt(etCartQuantity.getText().toString());
+                    ++newQuantity;
+                    etCartQuantity.setText(String.valueOf(newQuantity));
 
-                    updateCartItemQuantity(getAdapterPosition(), quantityCount);
+                    updateCartItemQuantity(getAdapterPosition(), newQuantity);
                 }
             });
 
@@ -138,10 +139,11 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartHolder> {
                     if (quantityCount <= MinQuantity)
                         return;
 
-                    --quantityCount;
-                    etCartQuantity.setText(String.valueOf(quantityCount));
+                    int newQuantity = Integer.parseInt(etCartQuantity.getText().toString());
+                    --newQuantity;
+                    etCartQuantity.setText(String.valueOf(newQuantity));
 
-                    updateCartItemQuantity(getAdapterPosition(), quantityCount);
+                    updateCartItemQuantity(getAdapterPosition(), newQuantity);
                 }
             });
 

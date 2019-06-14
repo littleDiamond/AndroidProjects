@@ -87,11 +87,18 @@ public class POSAdapter extends RecyclerView.Adapter<POSAdapter.POSHolder> {
 
                     SaleItem currentItem = mData.get(getAdapterPosition());
 
-                    // add new item to shopping shoppingCart
-                    shoppingCart.addItem(currentItem);
+                    // add new item to shopping cart
+                    // P.S. add a new clone item from sale item instead of adding the instance itself
+                    //      as we will modify the quantity of POS sale item as template
+                    //      and avoid changing the item added the shopping cart
+                    shoppingCart.addItem(new SaleItem(currentItem.getInventoryItem(),
+                            currentItem.getQuantity()));
 
-                    Toast.makeText(mContext, "Add " + currentItem.getQuantity() + " " +
-                            currentItem.getInventoryItem().getItemName(), Toast.LENGTH_SHORT).show();
+                    int addedQuantity = Integer.parseInt(tvQuantity.getText().toString());
+
+                    Toast.makeText(mContext, String.format("Added %s x %d",
+                            currentItem.getInventoryItem().getItemName(),
+                            addedQuantity),  Toast.LENGTH_SHORT).show();
                     Log.d(TAG, String.format("Add item to shopping list: %s", currentItem));
                 }
             });
@@ -104,7 +111,8 @@ public class POSAdapter extends RecyclerView.Adapter<POSAdapter.POSHolder> {
                     if (quantityCount >= MaxQuantity)
                         return;
 
-                    tvQuantity.setText(String.valueOf(++quantityCount));
+                    ++quantityCount;
+                    tvQuantity.setText(String.valueOf(quantityCount));
 
                     updateSelectedItemQuantity(getAdapterPosition(), quantityCount);
                 }
@@ -118,7 +126,8 @@ public class POSAdapter extends RecyclerView.Adapter<POSAdapter.POSHolder> {
                     if (quantityCount <= MinQuantity)
                         return;
 
-                    tvQuantity.setText(String.valueOf(--quantityCount));
+                    --quantityCount;
+                    tvQuantity.setText(String.valueOf(quantityCount));
 
                     updateSelectedItemQuantity(getAdapterPosition(), quantityCount);
                 }
