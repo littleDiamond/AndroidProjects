@@ -88,11 +88,11 @@ public class ReceiptKeeperAdapter extends ArrayAdapter<Receipt> implements Filte
                 } else {
                     String filterPatten = constraint.toString().toLowerCase().trim();
 
-                    for (Receipt receipt : allReceipts) {
-                        if (!receipt.getDescription().isEmpty() &&
-                                receipt.getDescription().toLowerCase().contains(filterPatten)) {
-                            //  newFilterList .add(item);
-                            filteredList.add(receipt);
+                    for (Receipt receipt: allReceipts){
+                        String searchableContent = receipt.getDescription().toLowerCase() + receipt.getDateTimeStr();
+                        if (!searchableContent.isEmpty() &&
+                                searchableContent.contains(filterPatten)){
+                            filteredList .add(receipt);
                         }
                     }
                 }
