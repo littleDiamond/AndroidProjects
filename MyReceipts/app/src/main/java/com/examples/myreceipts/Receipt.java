@@ -21,12 +21,14 @@ public class Receipt {
         this.receiptID = receiptID;
     }
 
-    public String getUserName() {
-        return userName;
+    public static void updateGlobalReceiptID(int newStartID)
+    {
+        lastReceiptID = newStartID;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public static int getGlobalReceiptID()
+    {
+        return lastReceiptID;
     }
 
     public String getDateTimeStr() {
@@ -81,6 +83,6 @@ public class Receipt {
     private LocalDateTime dateTime;
     private ShoppingCart order;
 
-    public static int lastReceiptID = 0;
+    private static int lastReceiptID = 0;
 
 }

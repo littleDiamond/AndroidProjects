@@ -53,7 +53,6 @@ public class HomeActivity extends AppCompatActivity implements LogoutDialog.Logo
 
         // read save user data from preference file
         app.loadUserData();
-        posInventoryItems = app.getUserInventoryItems();
 
         /**
          * Tap create list button and open InventoryListActivity
@@ -79,7 +78,6 @@ public class HomeActivity extends AppCompatActivity implements LogoutDialog.Logo
                 Toast.makeText(HomeActivity.this, "Start shopping",
                                                 Toast.LENGTH_SHORT ).show();
                 Intent menuIntent = new Intent(HomeActivity.this, PointOfSaleActivity.class);
-                menuIntent.putParcelableArrayListExtra("InventoryItem", posInventoryItems);
                 startActivity(menuIntent);
             }
         });

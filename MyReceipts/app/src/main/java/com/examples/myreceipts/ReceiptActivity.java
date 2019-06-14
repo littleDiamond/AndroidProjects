@@ -83,12 +83,12 @@ public class ReceiptActivity extends AppCompatActivity {
             MyReceiptsApplication app = (MyReceiptsApplication)getApplication();
             app.saveReceipt(newReceipt);
 
-            Intent intent = new Intent(this, PointOfSaleActivity.class);
-            setResult(RESULT_OK, intent);
+            Intent intent = new Intent(ReceiptActivity.this, PointOfSaleActivity.class);
+            startActivity(intent);
         }
         else if ( caller.equals("ReceiptList") )
         {
-            Intent intent = new Intent(this, ReceiptKeeperActivity.class);
+        	Intent intent = new Intent(ReceiptActivity.this, ReceiptKeeperActivity.class);
             setResult(RESULT_OK, intent);
         }
 

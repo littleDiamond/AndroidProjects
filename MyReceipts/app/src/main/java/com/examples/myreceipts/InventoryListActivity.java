@@ -284,7 +284,10 @@ public class InventoryListActivity extends AppCompatActivity {
                 InventoryAdapter listToSave = (InventoryAdapter) mItemList.getAdapter();
                 ArrayList<InventoryItem> allItems = listToSave.getAllItems();
 
-                posIntent.putParcelableArrayListExtra("InventoryItem", allItems);
+                // save it
+                MyReceiptsApplication app = (MyReceiptsApplication)getApplication();
+                app.saveInventoryItems(allItems);
+
                 startActivity(posIntent);
                 return true;
 
