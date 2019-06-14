@@ -29,7 +29,7 @@ public class ReceiptActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_receipt);
 
-        MyReceiptsApplication app = (MyReceiptsApplication)getApplication();
+        MyReceiptsApplication app = (MyReceiptsApplication) getApplication();
         String userName = app.getCurrentUser();
 
         dbHandler = new UserDbHandler(this);
@@ -78,26 +78,24 @@ public class ReceiptActivity extends AppCompatActivity {
     }
 
     public void onCloseReceiptClick(View v) {
-        if ( caller.equals("ShoppingCart") )
-        {
-            MyReceiptsApplication app = (MyReceiptsApplication)getApplication();
+        if (caller.equals("ShoppingCart")) {
+            MyReceiptsApplication app = (MyReceiptsApplication) getApplication();
             app.saveReceipt(newReceipt);
 
             Intent intent = new Intent(ReceiptActivity.this, PointOfSaleActivity.class);
             startActivity(intent);
-        }
-        else if ( caller.equals("ReceiptList") )
-        {
-        	Intent intent = new Intent(ReceiptActivity.this, ReceiptKeeperActivity.class);
+        } else if (caller.equals("ReceiptList")) {
+            Intent intent = new Intent(ReceiptActivity.this, ReceiptKeeperActivity.class);
             setResult(RESULT_OK, intent);
         }
 
         finish();
     }
+
     public void updateSaleTotal() {
         if (order != null) {
             double total = order.getSaleTotal();
-            tvGSTAmount.setText(String.format("$ %.2f", total*0.15));
+            tvGSTAmount.setText(String.format("$ %.2f", total * 0.15));
             tvTotal.setText(String.format("$ %.2f", total));
         }
     }
