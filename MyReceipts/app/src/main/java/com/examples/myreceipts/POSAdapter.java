@@ -98,7 +98,7 @@ public class POSAdapter extends RecyclerView.Adapter<POSAdapter.POSHolder> {
 
                     Toast.makeText(mContext, String.format("Added %s x %d",
                             currentItem.getInventoryItem().getItemName(),
-                            addedQuantity),  Toast.LENGTH_SHORT).show();
+                            addedQuantity), Toast.LENGTH_SHORT).show();
                     Log.d(TAG, String.format("Add item to shopping list: %s", currentItem));
                 }
             });

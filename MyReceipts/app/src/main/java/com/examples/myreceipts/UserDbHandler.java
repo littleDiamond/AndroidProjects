@@ -32,14 +32,16 @@ public class UserDbHandler extends SQLiteOpenHelper {
     private static final String KEY_GST = "gst";
 
     private static final String TAG = "UserDbHandler";
+
     /**
      * Constructor
      *
      * @param context
      */
-    public UserDbHandler(@Nullable Context context){
+    public UserDbHandler(@Nullable Context context) {
         super(context, DB_NAME, null, DB_VERSION);
     }
+
     @Override
     public void onCreate(SQLiteDatabase db) {
         Log.d(TAG, "onCreate: Started."); //debug
@@ -60,7 +62,7 @@ public class UserDbHandler extends SQLiteOpenHelper {
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)  {
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         //Drop Register Table if exist
         //db.execSQL("DROP TABLE IF EXISTS " + TABLE_USERS);
         //onCreate(db);   // Create tables again
@@ -74,18 +76,20 @@ public class UserDbHandler extends SQLiteOpenHelper {
             db.execSQL("ALTER TABLE " + TABLE_USERS + " ADD COLUMN " + KEY_GST + " TEXT");
         }
     }
+
     /**
      * This method is to create user record
+     *
      * @param user
      */
-    public long addUser(User user){
+    public long addUser(User user) {
         //Add the required code and call the necessary methods
         SQLiteDatabase db = this.getWritableDatabase();
 
         //Get the data repository in write mode
         //Create a new map of values, where column names are the key
         ContentValues cValues = new ContentValues();
-        cValues.put(KEY_NAME,  user.getName().toLowerCase());
+        cValues.put(KEY_NAME, user.getName().toLowerCase());
         cValues.put(KEY_EMAIL, user.getEmail().toLowerCase());
         cValues.put(KEY_PASSWORD, user.getPassword());
 
@@ -100,6 +104,7 @@ public class UserDbHandler extends SQLiteOpenHelper {
 
         return newRowId;
     }
+
     public boolean updateUser(User user) {
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -114,8 +119,7 @@ public class UserDbHandler extends SQLiteOpenHelper {
 
         // updating row
         int updatedRow = db.update(TABLE_USERS, cValues, KEY_NAME + " = ?", whereArgs);
-        if ( updatedRow > 0 )
-        {
+        if (updatedRow > 0) {
             Log.d("DB", "updateUser is successful!");
         }
         return true;
@@ -129,7 +133,7 @@ public class UserDbHandler extends SQLiteOpenHelper {
         String[] selectionArs = {username.toLowerCase()};        //Selection argument
 
         Cursor mCursor = db.query(TABLE_USERS, null, whereClause, selectionArs,
-                null, null,null);
+                null, null, null);
         //boolean result = false;
         User existingUser = null;
         if (mCursor != null && mCursor.getCount() > 0) {
@@ -138,38 +142,32 @@ public class UserDbHandler extends SQLiteOpenHelper {
             existingUser = new User();
 
             int columnIndex = mCursor.getColumnIndex(KEY_EMAIL);
-            if ( columnIndex >= 0 )
-            {
+            if (columnIndex >= 0) {
                 existingUser.setEmail(mCursor.getString(columnIndex));
             }
 
             columnIndex = mCursor.getColumnIndex(KEY_COMPANY);
-            if ( columnIndex >= 0 )
-            {
+            if (columnIndex >= 0) {
                 existingUser.setCompanyName(mCursor.getString(columnIndex));
             }
 
             columnIndex = mCursor.getColumnIndex(KEY_STREET_ADDRESS);
-            if ( columnIndex >= 0 )
-            {
+            if (columnIndex >= 0) {
                 existingUser.setStreetAddress(mCursor.getString(columnIndex));
             }
 
             columnIndex = mCursor.getColumnIndex(KEY_AREA_ADDRESS);
-            if ( columnIndex >= 0 )
-            {
+            if (columnIndex >= 0) {
                 existingUser.setAreaAddress(mCursor.getString(columnIndex));
             }
 
             columnIndex = mCursor.getColumnIndex(KEY_PHONE_NUMBER);
-            if ( columnIndex >= 0 )
-            {
+            if (columnIndex >= 0) {
                 existingUser.setPhoneNumber(mCursor.getString(columnIndex));
             }
 
             columnIndex = mCursor.getColumnIndex(KEY_GST);
-            if ( columnIndex >= 0 )
-            {
+            if (columnIndex >= 0) {
                 existingUser.setGST(mCursor.getString(columnIndex));
             }
 
@@ -184,18 +182,19 @@ public class UserDbHandler extends SQLiteOpenHelper {
 
     /**
      * This method is to check user exist or not
+     *
      * @param username
      * @param password
      * @return
      */
-    public Boolean checkUser (String username, String password){
+    public Boolean checkUser(String username, String password) {
         SQLiteDatabase db = this.getReadableDatabase();
 
         String whereClause = KEY_NAME + " = ? AND " + KEY_PASSWORD + " = ?";    //Selection criteria
         String[] selectionArs = {username.toLowerCase(), password};        //Selection argument
 
         Cursor mCursor = db.query(TABLE_USERS, null, whereClause, selectionArs,
-                                                null, null,null);
+                null, null, null);
         boolean result = false;
         if (mCursor != null && mCursor.getCount() > 0) {
             result = true;
@@ -206,7 +205,7 @@ public class UserDbHandler extends SQLiteOpenHelper {
         return result;
     }
 
-    public Boolean doesEmailExist(String email){
+    public Boolean doesEmailExist(String email) {
         SQLiteDatabase db = this.getReadableDatabase();
 
         String[] columns = {KEY_ID}; //Array of columns to fetch
@@ -214,7 +213,7 @@ public class UserDbHandler extends SQLiteOpenHelper {
         String[] selectionArs = {email.toLowerCase()};        //Selection argument
 
         Cursor mCursor = db.query(TABLE_USERS, columns, whereClause, selectionArs,
-                                            null, null,null);
+                null, null, null);
         boolean result = false;
         if (mCursor != null && mCursor.getCount() > 0) {
             result = true;

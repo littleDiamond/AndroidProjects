@@ -40,7 +40,7 @@ public class PointOfSaleActivity extends AppCompatActivity {
         manager = new GridLayoutManager(this, 3, GridLayoutManager.VERTICAL, false);
         rvPOS.setLayoutManager(manager);
 
-        MyReceiptsApplication app = (MyReceiptsApplication)getApplication();
+        MyReceiptsApplication app = (MyReceiptsApplication) getApplication();
 
         // populate the grid with inventory items
         ArrayList<InventoryItem> inventoryItems = app.getUserInventoryItems();
@@ -99,9 +99,7 @@ public class PointOfSaleActivity extends AppCompatActivity {
                 // update the adapter with updated shopping cart data from CartActivity
                 updatedShoppingCart = data.getExtras().getParcelable("ShoppingCart");
                 mPOSAdapter.updateShoppingCart(updatedShoppingCart);
-            }
-            else
-            {
+            } else {
                 mPOSAdapter.clearShoppingCart();
             }
         }

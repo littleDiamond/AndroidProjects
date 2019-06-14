@@ -32,11 +32,11 @@ public class FeedBackActivity extends AppCompatActivity {
          * Tap help button to get back to HelpActivity
          */
         mBtnHelp = findViewById(R.id.btnHelp);
-        mBtnHelp.setOnClickListener(new View.OnClickListener(){
+        mBtnHelp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent hIntent = new Intent(FeedBackActivity.this,
-                                                            HelpActivity.class);
+                        HelpActivity.class);
                 startActivity(hIntent);
             }
         });
@@ -48,12 +48,13 @@ public class FeedBackActivity extends AppCompatActivity {
         mBtnBug.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent fbIntent = new Intent (FeedBackActivity.this,
-                                                            EmailActivity.class);
+                Intent fbIntent = new Intent(FeedBackActivity.this,
+                        EmailActivity.class);
                 startActivity(fbIntent);
             }
         });
     } // end of onCreate
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

@@ -2,80 +2,80 @@
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/salesItemView"
-    android:padding="4dp"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:focusableInTouchMode="true">
+    android:focusableInTouchMode="true"
+    android:padding="4dp">
 
     <TextView
         android:id="@+id/tvCartItem"
         android:layout_width="match_parent"
         android:layout_height="35dp"
+        android:fontFamily="sans-serif-medium"
         android:text="Item"
-        android:textSize="22sp"
-        android:fontFamily="sans-serif-medium"/>
+        android:textSize="22sp" />
 
     <LinearLayout
-        android:layout_below="@id/tvCartItem"
-        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@id/tvCartItem"
+        android:orientation="horizontal"
         android:weightSum="10">
 
         <Button
             android:id="@+id/btnCartIncrease"
             android:layout_width="43dp"
             android:layout_height="40dp"
+            android:layout_marginEnd="4dp"
             android:text="+"
             android:textSize="15sp"
-            android:layout_marginEnd="4dp"
             android:textStyle="bold" />
 
         <EditText
             android:id="@+id/etCartQuantity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
             android:layout_weight="1"
+            android:fontFamily="sans-serif-medium"
+            android:inputType="number"
             android:text="1"
             android:textAlignment="center"
-            android:textSize="15sp"
-            android:inputType="number"
-            android:layout_marginEnd="4dp"
-            android:fontFamily="sans-serif-medium" />
+            android:textSize="15sp" />
 
         <Button
             android:id="@+id/btnCartDecrease"
             android:layout_width="43dp"
             android:layout_height="40dp"
+            android:layout_marginEnd="4dp"
             android:text="-"
             android:textSize="15sp"
-            android:layout_marginEnd="4dp"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tvDelete"
             android:layout_width="20dp"
             android:layout_height="wrap_content"
-            android:layout_weight="5"
             android:layout_marginEnd="4dp"
-            android:text="X"
-            android:textSize="16sp"
-            android:textAlignment="center"
-            android:onClick="onClick"
+            android:layout_weight="5"
             android:fontFamily="sans-serif-medium"
-            android:textColor="@color/purple"/>
+            android:onClick="onClick"
+            android:text="X"
+            android:textAlignment="center"
+            android:textColor="@color/purple"
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/tvCartPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="4"
-            android:textAlignment="center"
-            android:text="Item Price"
             android:fontFamily="sans-serif-light"
+            android:text="Item Price"
+            android:textAlignment="center"
             android:textSize="15sp" />
 
-        </LinearLayout>
+    </LinearLayout>
 </RelativeLayout>
 
 

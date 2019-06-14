@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- *  User data sharing within the app
+ * User data sharing within the app
  */
 public final class MyReceiptsApplication extends Application {
 
@@ -29,13 +29,11 @@ public final class MyReceiptsApplication extends Application {
         return userInventoryItems;
     }
 
-    public ArrayList<Receipt> getUserReceipts()
-    {
+    public ArrayList<Receipt> getUserReceipts() {
         return userReceipts;
     }
 
-    public void loadUserData()
-    {
+    public void loadUserData() {
         // read save user data from preference file
         SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
         String inventoryItemsInJson = settings.getString(USER_INVENTORY_ITEMS, "");
@@ -45,29 +43,31 @@ public final class MyReceiptsApplication extends Application {
         // if we have existing user data
         Gson gson = new Gson();
 
-        if ( !inventoryItemsInJson.isEmpty() ) {
+        if (!inventoryItemsInJson.isEmpty()) {
             // Deserialize user data from json string
             globalUserInvetoryItems = gson.fromJson(inventoryItemsInJson, new TypeToken<Map<String,
-                    InventoryItem[]>>() {}.getType());
+                    InventoryItem[]>>() {
+            }.getType());
 
             // find the data specific to the current user
-            if ( globalUserInvetoryItems != null ) {
+            if (globalUserInvetoryItems != null) {
                 InventoryItem[] itemList = globalUserInvetoryItems.get(currentUserName.toLowerCase());
-                if ( itemList != null && itemList.length > 0 ) {
+                if (itemList != null && itemList.length > 0) {
                     userInventoryItems = new ArrayList<>(Arrays.asList(itemList));
                 }
             }
         }
 
-        if ( !receiptsInJson.isEmpty() ) {
+        if (!receiptsInJson.isEmpty()) {
             // Deserialize user data from json string
             globalUserReceipts = gson.fromJson(receiptsInJson, new TypeToken<Map<String,
-                    Receipt[]>>() {}.getType());
+                    Receipt[]>>() {
+            }.getType());
 
             // find the data specific to the current user
-            if ( globalUserReceipts != null ) {
+            if (globalUserReceipts != null) {
                 Receipt[] itemList = globalUserReceipts.get(currentUserName.toLowerCase());
-                if ( itemList != null && itemList.length > 0 ) {
+                if (itemList != null && itemList.length > 0) {
                     userReceipts = new ArrayList<>(Arrays.asList(itemList));
                 }
             }
@@ -76,8 +76,7 @@ public final class MyReceiptsApplication extends Application {
         Receipt.updateGlobalReceiptID(globalReceiptID);
     }
 
-    public void saveInventoryItems(ArrayList<InventoryItem> updatedInventoryItems)
-    {
+    public void saveInventoryItems(ArrayList<InventoryItem> updatedInventoryItems) {
         userInventoryItems = updatedInventoryItems;
 
         // save the inventory list to user preference file
@@ -93,8 +92,7 @@ public final class MyReceiptsApplication extends Application {
         editor.commit();    // Commit the edits!
     }
 
-    public void saveReceipt(Receipt newReceipt)
-    {
+    public void saveReceipt(Receipt newReceipt) {
         userReceipts.add(newReceipt);
 
         // save all the receipts to user preference file

@@ -152,12 +152,18 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartHolder> {
                 public void onClick(View v) {
                     int position = getAdapterPosition();
                     SaleItem deleteItem = mCartData.getItem(position);
+
                     Toast.makeText(mContext, "Removed " + deleteItem.getQuantity()
                                     + " " + deleteItem.getInventoryItem().getItemName(),
                             Toast.LENGTH_SHORT).show();
 
                     mCartData.removeItem(position);
                     notifyItemRemoved(position);
+
+                    // update shopping cart sale total in UI
+                    CartActivity cartActivity = (CartActivity) mContext;
+                    cartActivity.updateSaleTotal();
+
                 }
             });
         }

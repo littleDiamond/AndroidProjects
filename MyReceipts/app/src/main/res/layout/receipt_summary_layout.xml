@@ -13,8 +13,8 @@
         android:layout_weight="45"
         android:text="Date"
         android:textAlignment="viewStart"
-        android:textStyle="bold"
-        android:textSize="14sp" />
+        android:textSize="14sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/receiptDescription"

@@ -21,13 +21,11 @@ public class Receipt {
         this.receiptID = receiptID;
     }
 
-    public static void updateGlobalReceiptID(int newStartID)
-    {
+    public static void updateGlobalReceiptID(int newStartID) {
         lastReceiptID = newStartID;
     }
 
-    public static int getGlobalReceiptID()
-    {
+    public static int getGlobalReceiptID() {
         return lastReceiptID;
     }
 

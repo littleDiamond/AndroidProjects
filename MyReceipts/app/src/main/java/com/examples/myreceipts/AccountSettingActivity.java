@@ -22,7 +22,7 @@ public class AccountSettingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account_setting);
 
-        MyReceiptsApplication app = (MyReceiptsApplication)getApplication();
+        MyReceiptsApplication app = (MyReceiptsApplication) getApplication();
         String userName = app.getCurrentUser();
 
         dbHandler = new UserDbHandler(this);
@@ -31,8 +31,7 @@ public class AccountSettingActivity extends AppCompatActivity {
         mUsername = findViewById(R.id.asUserName);
         mUsername.setText(userName);
 
-        if ( user != null )
-        {
+        if (user != null) {
             mEmail = findViewById(R.id.asEmail);
             mEmail.setText(user.getEmail());
 
@@ -73,14 +72,14 @@ public class AccountSettingActivity extends AppCompatActivity {
                 user.setPhoneNumber(phone);
                 user.setGST(gst);
 
-         //       dbHandler.updateUser(user);
-                boolean result =dbHandler.updateUser(user);
+                //       dbHandler.updateUser(user);
+                boolean result = dbHandler.updateUser(user);
 
-                if(result){
+                if (result) {
                     Toast.makeText(AccountSettingActivity.this,
                             "Account setting is updated",
                             Toast.LENGTH_SHORT).show();
-                }else{
+                } else {
                     Toast.makeText(AccountSettingActivity.this,
                             "Account setting is fail",
                             Toast.LENGTH_SHORT).show();
