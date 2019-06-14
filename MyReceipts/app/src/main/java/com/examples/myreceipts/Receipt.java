@@ -39,7 +39,9 @@ public class Receipt {
         return dateTime.format(formatter);
     }
 
-    public LocalDateTime getDateTime() { return dateTime; }
+    public LocalDateTime getDateTime() {
+        return dateTime;
+    }
 
     /*
     get a brief description of the order
@@ -49,21 +51,16 @@ public class Receipt {
         StringBuilder strBuilder = new StringBuilder();
 
         int currentLength = 0;
-        for(SaleItem saleItem : order.getItems())
-        {
+        for (SaleItem saleItem : order.getItems()) {
             String itemDescription = saleItem.getDescription();
-            if ( currentLength + itemDescription.length() < maxDescriptionLength )
-            {
-                if ( currentLength > 0 )
-                {
+            if (currentLength + itemDescription.length() < maxDescriptionLength) {
+                if (currentLength > 0) {
                     strBuilder.append(", ");
                     currentLength += 2;
                 }
                 strBuilder.append(itemDescription);
                 currentLength += itemDescription.length();
-            }
-            else
-            {
+            } else {
                 strBuilder.append("...");
                 break;
             }

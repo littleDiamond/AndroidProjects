@@ -88,7 +88,7 @@ public class ReceiptActivity extends AppCompatActivity {
         }
         else if ( caller.equals("ReceiptList") )
         {
-            Intent intent = new Intent(this, ReceiptListActivity.class);
+            Intent intent = new Intent(this, ReceiptKeeperActivity.class);
             setResult(RESULT_OK, intent);
         }
 

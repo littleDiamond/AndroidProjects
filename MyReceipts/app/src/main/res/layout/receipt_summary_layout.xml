@@ -13,6 +13,7 @@
         android:layout_weight="45"
         android:text="Date"
         android:textAlignment="viewStart"
+        android:textStyle="bold"
         android:textSize="14sp" />
 
     <TextView
@@ -30,7 +31,7 @@
         android:layout_height="match_parent"
         android:layout_weight="35"
         android:text="@string/price"
-        android:textAlignment="viewStart"
+        android:textAlignment="center"
         android:textSize="14sp" />
 
 </LinearLayout>
