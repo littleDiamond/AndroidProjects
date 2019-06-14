@@ -14,7 +14,7 @@ public class LogoutDialog extends AppCompatDialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        Log.d(TAG,"onCreateDialog");
+        Log.d(TAG, "onCreateDialog");
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setIcon(R.drawable.ic_exit)
                 .setTitle("Logout")
@@ -35,7 +35,8 @@ public class LogoutDialog extends AppCompatDialogFragment {
                 });
         return builder.create();
     }
-    public interface LogoutDialogListener{
+
+    public interface LogoutDialogListener {
         void onConfirmClicked();
     }
 

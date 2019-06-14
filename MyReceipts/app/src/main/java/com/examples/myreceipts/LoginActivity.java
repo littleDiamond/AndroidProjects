@@ -28,66 +28,65 @@ public class LoginActivity extends AppCompatActivity {
 
         dbHandler = new UserDbHandler(this);
         mTextUsername = findViewById(R.id.etUsername);
-        mTextPassword =findViewById(R.id.etPassword);
+        mTextPassword = findViewById(R.id.etPassword);
 
         mBtnRegister = findViewById(R.id.btnRegister);
-        mBtnRegister.setOnClickListener(new View.OnClickListener(){
+        mBtnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent signUpIntent = new Intent(LoginActivity.this,
-                                                        SignUpActivity.class);
+                        SignUpActivity.class);
                 startActivity(signUpIntent);
             }
         });
 
         mBntLogin = findViewById(R.id.btnLogIn);
-        mBntLogin.setOnClickListener(new View.OnClickListener(){
+        mBntLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String user = mTextUsername.getText().toString().trim();
                 String pwd = mTextPassword.getText().toString().trim();
-                Boolean result = dbHandler.checkUser(user,pwd);
+                Boolean result = dbHandler.checkUser(user, pwd);
 
                 // Check user input the username and password match to database info
-                if(result == true){
+                if (result == true) {
                     Toast.makeText(LoginActivity.this,
-                            "Welcome",Toast.LENGTH_SHORT).show();
+                            "Welcome", Toast.LENGTH_SHORT).show();
                     openActivityHome();
-                }
-                else{
-                        Toast.makeText(LoginActivity.this,
+                } else {
+                    Toast.makeText(LoginActivity.this,
                             "Login error,No of attempts remain: "
-                                    + mCounter,Toast.LENGTH_SHORT).show();
+                                    + mCounter, Toast.LENGTH_SHORT).show();
 
-                        mCounter--;
-                            if(mCounter == 0){
-                                //Login fails more than 3 times, user's account will be locked
-                                mBntLogin.setEnabled(false);
-                                Toast.makeText(LoginActivity.this,
-                                        "Login Disabled for 2 minutes",
-                                        Toast.LENGTH_SHORT).show();
-                                handler = new Handler();
+                    mCounter--;
+                    if (mCounter == 0) {
+                        //Login fails more than 3 times, user's account will be locked
+                        mBntLogin.setEnabled(false);
+                        Toast.makeText(LoginActivity.this,
+                                "Login Disabled for 2 minutes",
+                                Toast.LENGTH_SHORT).show();
+                        handler = new Handler();
 
 
-                                handler.postDelayed(new Runnable()
-                                {   @Override
-                                public void run()
-                                {   mBntLogin.setEnabled(true);
-                                    mCounter = 3;
-                                }
-                                }, 120000);
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                mBntLogin.setEnabled(true);
+                                mCounter = 3;
                             }
+                        }, 120000);
+                    }
                 }
             }
         });
     } // end of onCreate
 
-   public void openActivityHome(){
+    public void openActivityHome() {
         // Send username and password to next activity and open next activity
-       String userName = mTextUsername.getText().toString();
-       Intent intent = new Intent(LoginActivity.this,
-                                            HomeActivity.class);
-       intent.putExtra(USER_NAME_TEXT, userName);
-       startActivity(intent);
-   }
+        String userName = mTextUsername.getText().toString();
+        Intent intent = new Intent(LoginActivity.this,
+                HomeActivity.class);
+        intent.putExtra(USER_NAME_TEXT, userName);
+        startActivity(intent);
+    }
 }

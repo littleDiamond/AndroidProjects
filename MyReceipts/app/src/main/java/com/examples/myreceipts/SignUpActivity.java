@@ -13,7 +13,7 @@ public class SignUpActivity extends AppCompatActivity {
     private static final String TAG = "SignUpActivity";
     UserDbHandler dbHandler;
     private Button mBtnCreateAccount;
-    private EditText mTextUsername, mTextEmail,mTextPassword, mTextCnfPassword;
+    private EditText mTextUsername, mTextEmail, mTextPassword, mTextCnfPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +29,7 @@ public class SignUpActivity extends AppCompatActivity {
         mTextCnfPassword = findViewById(R.id.etCnfPassword);
 
         mBtnCreateAccount = findViewById(R.id.btnCreateAccount);
-        mBtnCreateAccount.setOnClickListener(new View.OnClickListener(){
+        mBtnCreateAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 User user = new User();
@@ -45,7 +45,7 @@ public class SignUpActivity extends AppCompatActivity {
                 Boolean result = dbHandler.doesEmailExist(email);
 
                 //check if user's email has been register before
-                if(result){
+                if (result) {
                     Toast.makeText(SignUpActivity.this,
                             "Email exists. Try another one",
                             Toast.LENGTH_SHORT).show();
@@ -54,26 +54,24 @@ public class SignUpActivity extends AppCompatActivity {
                 }
 
                 //check if password and confirm password match
-                if (pwd.equals(cnf_pwd)){
-                   long value = dbHandler.addUser(user);
-                    if(value > 0) {
+                if (pwd.equals(cnf_pwd)) {
+                    long value = dbHandler.addUser(user);
+                    if (value > 0) {
                         Toast.makeText(SignUpActivity.this,
                                 "Account is created",
                                 Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(SignUpActivity.this,
-                                                                LoginActivity.class);
+                                LoginActivity.class);
                         startActivity(intent);
-                    }
-                    else{
-                            Toast.makeText(SignUpActivity.this,
-                                    "Registration error",
-                                    Toast.LENGTH_SHORT).show();
-                    }
-                }
-                else {
+                    } else {
                         Toast.makeText(SignUpActivity.this,
-                                "Password is not match",
+                                "Registration error",
                                 Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(SignUpActivity.this,
+                            "Password is not match",
+                            Toast.LENGTH_SHORT).show();
                 }
             }
         });

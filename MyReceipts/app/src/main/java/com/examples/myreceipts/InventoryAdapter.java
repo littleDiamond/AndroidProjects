@@ -8,12 +8,13 @@ import android.widget.ArrayAdapter;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.TextView;
+
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class InventoryAdapter extends ArrayAdapter<InventoryItem> implements Filterable {
-    private  static final String TAG = "InventoryAdapter";
+    private static final String TAG = "InventoryAdapter";
 
     // a backup for all the original items in the list view
     private ArrayList<InventoryItem> originalItems;
@@ -22,7 +23,7 @@ public class InventoryAdapter extends ArrayAdapter<InventoryItem> implements Fil
     private List<InventoryItem> filteredList;
 
 
-    public InventoryAdapter(Context context, ArrayList<InventoryItem> originalItems){
+    public InventoryAdapter(Context context, ArrayList<InventoryItem> originalItems) {
         super(context, 0, originalItems);
 
         // important to note that we use filtered list to reference to the current content
@@ -31,7 +32,7 @@ public class InventoryAdapter extends ArrayAdapter<InventoryItem> implements Fil
         // to list view
         this.filteredList = originalItems;
 
-   }
+    }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -39,9 +40,9 @@ public class InventoryAdapter extends ArrayAdapter<InventoryItem> implements Fil
         InventoryItem inventoryItem = getItem(position);
 
         //Check if an existing view is being reused, otherwise inflate the view
-        if(convertView == null){
+        if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.inventory_item_list_layout,
-                                                                parent, false);
+                    parent, false);
         }
 
         TextView mTextItem = convertView.findViewById(R.id.tvItem);
@@ -57,14 +58,14 @@ public class InventoryAdapter extends ArrayAdapter<InventoryItem> implements Fil
 
     public ArrayList<InventoryItem> getAllItems() {
         ArrayList<InventoryItem> currentItems = new ArrayList<InventoryItem>();
-        for(int i = 0 ; i < getCount(); ++i){
+        for (int i = 0; i < getCount(); ++i) {
             InventoryItem item = getItem(i);
             currentItems.add(item);
         }
         return currentItems;
     }
 
-    public long getItemId(int position){
+    public long getItemId(int position) {
         return position;
     }
 
@@ -81,17 +82,17 @@ public class InventoryAdapter extends ArrayAdapter<InventoryItem> implements Fil
                 // clear the current filter
                 filteredList.clear();
 
-                if(constraint == null || constraint.length() == 0){
-                 //   newFilterList .addAll(originalItems);
+                if (constraint == null || constraint.length() == 0) {
+                    //   newFilterList .addAll(originalItems);
                     filteredList.addAll(originalItems);
-                }else {
+                } else {
                     String filterPatten = constraint.toString().toLowerCase().trim();
 
-                    for (InventoryItem item: originalItems){
+                    for (InventoryItem item : originalItems) {
                         if (!item.getItemName().isEmpty() &&
-                                item.getItemName().toLowerCase().contains(filterPatten)){
-                          //  newFilterList .add(item);
-                            filteredList .add(item);
+                                item.getItemName().toLowerCase().contains(filterPatten)) {
+                            //  newFilterList .add(item);
+                            filteredList.add(item);
                         }
                     }
                 }

@@ -17,11 +17,11 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 
-public class HomeActivity extends AppCompatActivity implements LogoutDialog.LogoutDialogListener{
+public class HomeActivity extends AppCompatActivity implements LogoutDialog.LogoutDialogListener {
     private static final String TAG = "HomeActivity";
 
     private String mUserName;
-    private Button mBtnCreateList, mBtnPOS,mBtnKeeper;
+    private Button mBtnCreateList, mBtnPOS, mBtnKeeper;
 
     private ArrayList<InventoryItem> posInventoryItems;
 
@@ -37,11 +37,11 @@ public class HomeActivity extends AppCompatActivity implements LogoutDialog.Logo
         Intent intent = getIntent();
         mUserName = intent.getStringExtra(LoginActivity.USER_NAME_TEXT);
 
-        MyReceiptsApplication app = (MyReceiptsApplication)getApplication();
+        MyReceiptsApplication app = (MyReceiptsApplication) getApplication();
         app.setCurrentUser(mUserName);
 
         TextView mTextHelloUser = findViewById(R.id.tvHelloUser);
-        if(mUserName != null) {
+        if (mUserName != null) {
             mTextHelloUser.setText(mUserName);
         }
 
@@ -58,11 +58,11 @@ public class HomeActivity extends AppCompatActivity implements LogoutDialog.Logo
          * Tap create list button and open InventoryListActivity
          */
         mBtnCreateList = findViewById(R.id.btnCreateList);
-        mBtnCreateList.setOnClickListener(new View.OnClickListener(){
+        mBtnCreateList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(HomeActivity.this, "Manage inventory list",
-                        Toast.LENGTH_SHORT ).show();
+                        Toast.LENGTH_SHORT).show();
                 Intent inventoryIntent = new Intent(HomeActivity.this, InventoryListActivity.class);
                 startActivity(inventoryIntent);
             }
@@ -72,11 +72,11 @@ public class HomeActivity extends AppCompatActivity implements LogoutDialog.Logo
          * Tap checkout panel button and open PointOfSaleActivity.
          */
         mBtnPOS = findViewById(R.id.btnPOSMenu);
-        mBtnPOS.setOnClickListener(new View.OnClickListener(){
+        mBtnPOS.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(HomeActivity.this, "Start shopping",
-                                                Toast.LENGTH_SHORT ).show();
+                        Toast.LENGTH_SHORT).show();
                 Intent menuIntent = new Intent(HomeActivity.this, PointOfSaleActivity.class);
                 startActivity(menuIntent);
             }
@@ -86,19 +86,20 @@ public class HomeActivity extends AppCompatActivity implements LogoutDialog.Logo
          * Tap receipt keeper and show toast message for testing.
          */
         mBtnKeeper = findViewById(R.id.btnKeeper);
-        mBtnKeeper.setOnClickListener(new View.OnClickListener(){
+        mBtnKeeper.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(HomeActivity.this, "Fetching receipts...",
-                                                            Toast.LENGTH_SHORT ).show();
+                        Toast.LENGTH_SHORT).show();
                 Intent menuIntent = new Intent(HomeActivity.this, ReceiptKeeperActivity.class);
                 startActivity(menuIntent);
 
             }
         });
     }
+
     /**
-     *Set action bar menu
+     * Set action bar menu
      */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -106,30 +107,31 @@ public class HomeActivity extends AppCompatActivity implements LogoutDialog.Logo
         inflater.inflate(R.menu.home_menu, menu);
         return true;
     }
+
     /**
-     *Tab action bar menu cases, toast text to test they all work.
+     * Tab action bar menu cases, toast text to test they all work.
      */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        switch(item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.log_out:
                 LogoutDialog dialog = new LogoutDialog();
-                dialog.show(getSupportFragmentManager(),"Logout");
+                dialog.show(getSupportFragmentManager(), "Logout");
                 return true;
 
             case R.id.help:
-                Intent helpIntent = new Intent (this, HelpActivity.class);
+                Intent helpIntent = new Intent(this, HelpActivity.class);
                 startActivity(helpIntent);
                 return true;
 
             case R.id.feedback:
-                Intent feedbackIntent = new Intent (this, FeedBackActivity.class);
+                Intent feedbackIntent = new Intent(this, FeedBackActivity.class);
                 startActivity(feedbackIntent);
                 return true;
 
             case R.id.setting:
-                Intent asIntent = new Intent (this, AccountSettingActivity.class);
+                Intent asIntent = new Intent(this, AccountSettingActivity.class);
                 startActivity(asIntent);
                 return true;
 
@@ -143,7 +145,7 @@ public class HomeActivity extends AppCompatActivity implements LogoutDialog.Logo
      */
     @Override
     public void onConfirmClicked() {
-        Intent logoutIntent = new Intent(this,LoginActivity.class);
+        Intent logoutIntent = new Intent(this, LoginActivity.class);
         startActivity(logoutIntent);
     }
 

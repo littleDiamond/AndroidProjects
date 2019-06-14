@@ -4,92 +4,92 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:layout_marginStart="16dp"
     android:layout_marginEnd="16dp"
     android:focusableInTouchMode="true"
+    android:orientation="vertical"
     tools:context=".SignUpActivity">
 
     <TextView
-        android:textSize="28sp"
-        android:text="@string/sign_up_for_myreceipt"
-        android:fontFamily="sans-serif-medium"
-        android:textColor="@color/purple"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp" />
+        android:layout_marginTop="30dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="@string/sign_up_for_myreceipt"
+        android:textColor="@color/purple"
+        android:textSize="28sp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="User Name"
         android:fontFamily="sans-serif-light"
+        android:text="User Name"
         android:textColor="@color/purple"
-        android:textSize="20sp"/>
+        android:textSize="20sp" />
 
     <EditText
         android:id="@+id/etUsername"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:textSize="25sp"
+        android:fontFamily="sans-serif-light"
         android:inputType="text"
-        android:fontFamily="sans-serif-light" />
+        android:textSize="25sp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:text="Email"
         android:fontFamily="sans-serif-light"
+        android:text="Email"
         android:textColor="@color/purple"
-        android:textSize="20sp"/>
+        android:textSize="20sp" />
 
     <EditText
         android:id="@+id/etEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:textSize="25sp"
         android:fontFamily="sans-serif-light"
-        android:inputType="textEmailAddress" />
+        android:inputType="textEmailAddress"
+        android:textSize="25sp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:text="Password"
         android:fontFamily="sans-serif-light"
+        android:text="Password"
         android:textColor="@color/purple"
-        android:textSize="20sp"/>
+        android:textSize="20sp" />
 
     <EditText
         android:id="@+id/etPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:textSize="25sp"
         android:fontFamily="sans-serif-light"
-        android:inputType="textPassword" />
+        android:inputType="textPassword"
+        android:textSize="25sp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:text="Confirm Password"
         android:fontFamily="sans-serif-light"
+        android:text="Confirm Password"
         android:textColor="@color/purple"
-        android:textSize="20sp"/>
+        android:textSize="20sp" />
 
     <EditText
         android:id="@+id/etCnfPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:textSize="25sp"
         android:fontFamily="sans-serif-light"
-        android:inputType="textPassword" />
+        android:inputType="textPassword"
+        android:textSize="25sp" />
 
     <Button
         android:id="@+id/btnCreateAccount"
@@ -97,9 +97,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginTop="35dp"
+        android:fontFamily="sans-serif-medium"
         android:text="Create account"
         android:textAllCaps="false"
-        android:textSize="20sp"
-        android:fontFamily="sans-serif-medium" />
+        android:textSize="20sp" />
 
 </LinearLayout>

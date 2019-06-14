@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -8,24 +7,24 @@
         android:id="@+id/tvChooseOption"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20sp"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="sans-serif-medium"
         android:textAllCaps="false"
         android:textColor="@color/purple"
-        android:fontFamily="sans-serif-medium"
-        android:textSize="20sp"
-        android:layout_marginTop="20sp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"/>
+        android:textSize="20sp" />
 
     <LinearLayout
         android:id="@+id/edLayout"
-        android:layout_below="@id/tvChooseOption"
-        android:layout_marginTop="20sp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_horizontal">
+        android:layout_below="@id/tvChooseOption"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20sp"
+        android:layout_marginEnd="16dp"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
 
         <EditText
             android:id="@+id/edItemName"
@@ -33,7 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="2"
             android:inputType="textCapWords"
-            android:textSize="20sp"/>
+            android:textSize="20sp" />
 
         <EditText
             android:id="@+id/edItemPrice"
@@ -41,36 +40,36 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:inputType="numberDecimal"
-            android:textSize="20sp"/>
+            android:textSize="20sp" />
     </LinearLayout>
 
     <LinearLayout
-        android:layout_below="@id/edLayout"
-        android:layout_marginTop="20sp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/edLayout"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20sp"
+        android:layout_marginEnd="16dp"
         android:orientation="horizontal">
 
-    <Button
-        android:id="@+id/btnUpdate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="Update"
-        android:textAllCaps="false"
-        android:fontFamily="sans-serif-medium"
-        android:textColor="@color/colorPrimaryDark" />
+        <Button
+            android:id="@+id/btnUpdate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="sans-serif-medium"
+            android:text="Update"
+            android:textAllCaps="false"
+            android:textColor="@color/colorPrimaryDark" />
 
-    <Button
-        android:id="@+id/btnDelete"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="Delete"
-        android:textAllCaps="false"
-        android:fontFamily="sans-serif-medium"
-        android:textColor="@color/colorAccent" />
+        <Button
+            android:id="@+id/btnDelete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="sans-serif-medium"
+            android:text="Delete"
+            android:textAllCaps="false"
+            android:textColor="@color/colorAccent" />
     </LinearLayout>
 </RelativeLayout>

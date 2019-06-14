@@ -56,7 +56,7 @@ public class InventoryListActivity extends AppCompatActivity {
         mTextPrice = findViewById(R.id.etAddPrice);
 
         // get the inventory items for current user
-        MyReceiptsApplication app = (MyReceiptsApplication)getApplication();
+        MyReceiptsApplication app = (MyReceiptsApplication) getApplication();
         existingData = app.getUserInventoryItems();
 
         // create the mAdapter to convert the array to views
@@ -285,7 +285,7 @@ public class InventoryListActivity extends AppCompatActivity {
                 ArrayList<InventoryItem> allItems = listToSave.getAllItems();
 
                 // save it
-                MyReceiptsApplication app = (MyReceiptsApplication)getApplication();
+                MyReceiptsApplication app = (MyReceiptsApplication) getApplication();
                 app.saveInventoryItems(allItems);
 
                 startActivity(posIntent);
@@ -328,7 +328,7 @@ public class InventoryListActivity extends AppCompatActivity {
         InventoryAdapter listToSave = (InventoryAdapter) mItemList.getAdapter();
         ArrayList<InventoryItem> allItems = listToSave.getAllItems();
 
-        MyReceiptsApplication app = (MyReceiptsApplication)getApplication();
+        MyReceiptsApplication app = (MyReceiptsApplication) getApplication();
         app.saveInventoryItems(allItems);
     }
 }

@@ -13,54 +13,54 @@
 
     <TextView
         android:id="@+id/feedback_text1"
-        android:textSize="28sp"
-        android:text="How are we doing?"
-        android:fontFamily="sans-serif-medium"
-        android:textColor="@color/purple"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
         android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"/>
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="How are we doing?"
+        android:textColor="@color/purple"
+        android:textSize="28sp" />
 
 
     <TextView
         android:id="@+id/feedback_text2"
-        android:textSize="25sp"
-        android:text="@string/feedbackText"
-        android:fontFamily="sans-serif-light"
-        android:textColor="@android:color/black"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
         android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"/>
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="sans-serif-light"
+        android:text="@string/feedbackText"
+        android:textColor="@android:color/black"
+        android:textSize="25sp" />
 
     <Button
         android:id="@+id/btnHelp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="16dp"
         android:drawableLeft="@drawable/ic_help"
-        android:textAllCaps="false"
-        android:textSize="25sp"
         android:fontFamily="sans-serif-medium"
-        android:text="  Get to help" />
+        android:text="  Get to help"
+        android:textAllCaps="false"
+        android:textSize="25sp" />
 
     <Button
         android:id="@+id/btnBug"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="16dp"
         android:drawableLeft="@drawable/ic_bug_report"
-        android:textAllCaps="false"
-        android:textSize="25sp"
         android:fontFamily="sans-serif-medium"
-        android:text="  Report a bug" />
+        android:text="  Report a bug"
+        android:textAllCaps="false"
+        android:textSize="25sp" />
 
 
 </LinearLayout>

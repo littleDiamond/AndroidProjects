@@ -9,7 +9,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 public class EmailActivity extends AppCompatActivity {
-    private EditText mEditTextSubject,mEditTextMessage;
+    private EditText mEditTextSubject, mEditTextMessage;
     private Button btnSend, btnExit;
 
     @Override
@@ -38,8 +38,8 @@ public class EmailActivity extends AppCompatActivity {
         btnExit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent eIntent = new Intent (EmailActivity.this,
-                                                    FeedBackActivity.class);
+                Intent eIntent = new Intent(EmailActivity.this,
+                        FeedBackActivity.class);
                 setResult(RESULT_OK, eIntent);
                 finish();
             }

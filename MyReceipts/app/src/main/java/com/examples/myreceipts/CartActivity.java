@@ -45,7 +45,7 @@ public class CartActivity extends AppCompatActivity {
 
         tvTotalAmount = findViewById(R.id.tvTotalAmount);
         updateSaleTotal();
-        
+
         btnCheckout = findViewById(R.id.btnCheckOut);
         btnCheckout.setOnClickListener(new View.OnClickListener() {
             @Override

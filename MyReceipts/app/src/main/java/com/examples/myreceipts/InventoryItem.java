@@ -13,9 +13,9 @@ public class InventoryItem implements Parcelable {
     private String mItemName;
     private double mItemPrice;
 
-    public InventoryItem(String newItem, double newPrice){
-         this.mItemName = newItem;
-         this.mItemPrice = newPrice;
+    public InventoryItem(String newItem, double newPrice) {
+        this.mItemName = newItem;
+        this.mItemPrice = newPrice;
     }
 
     public InventoryItem(Parcel in) {
@@ -27,17 +27,19 @@ public class InventoryItem implements Parcelable {
         mItemPrice = in.readDouble();
     }
 
-    public void setItemName(String itemName){
+    public void setItemName(String itemName) {
         this.mItemName = itemName;
     }
-    public String getItemName(){
-         return mItemName;
+
+    public String getItemName() {
+        return mItemName;
     }
 
-    public void setItemPrice(double itemPrice){
+    public void setItemPrice(double itemPrice) {
         this.mItemPrice = itemPrice;
     }
-    public double getItemPrice(){
+
+    public double getItemPrice() {
         return mItemPrice;
     }
 
