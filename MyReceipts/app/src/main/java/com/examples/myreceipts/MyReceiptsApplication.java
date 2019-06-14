@@ -2,6 +2,7 @@ package com.examples.myreceipts;
 
 import android.app.Application;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -28,23 +29,6 @@ public final class MyReceiptsApplication extends Application {
         return userInventoryItems;
     }
 
-    public void saveReceipt(Receipt newReceipt)
-    {
-        userReceipts.add(newReceipt);
-
-        // save all the receipts to user preference file
-        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
-        SharedPreferences.Editor editor = settings.edit();
-
-        Gson gson = new Gson();
-        globalUserReceipts.put(currentUserName.toLowerCase(),
-                userReceipts.toArray(new Receipt[userReceipts.size()]));
-        String jsonString = gson.toJson(globalUserReceipts);
-        editor.putString(USER_RECEIPTS, jsonString);
-
-        editor.commit();    // Commit the edits!
-    }
-
     public ArrayList<Receipt> getUserReceipts()
     {
         return userReceipts;
@@ -56,6 +40,7 @@ public final class MyReceiptsApplication extends Application {
         SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
         String inventoryItemsInJson = settings.getString(USER_INVENTORY_ITEMS, "");
         String receiptsInJson = settings.getString(USER_RECEIPTS, "");
+        int globalReceiptID = settings.getInt(RECEIPT_ID, 0);
 
         // if we have existing user data
         Gson gson = new Gson();
@@ -87,19 +72,52 @@ public final class MyReceiptsApplication extends Application {
                 }
             }
         }
+
+        Receipt.updateGlobalReceiptID(globalReceiptID);
     }
 
     public void saveInventoryItems(ArrayList<InventoryItem> updatedInventoryItems)
     {
+        userInventoryItems = updatedInventoryItems;
+
         // save the inventory list to user preference file
         SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
         SharedPreferences.Editor editor = settings.edit();
 
         Gson gson = new Gson();
         globalUserInvetoryItems.put(currentUserName.toLowerCase(),
-                updatedInventoryItems.toArray(new InventoryItem[updatedInventoryItems.size()]));
+                userInventoryItems.toArray(new InventoryItem[userInventoryItems.size()]));
         String jsonString = gson.toJson(globalUserInvetoryItems);
         editor.putString(USER_INVENTORY_ITEMS, jsonString);
+
+        editor.commit();    // Commit the edits!
+    }
+
+    public void saveReceipt(Receipt newReceipt)
+    {
+        userReceipts.add(newReceipt);
+
+        // save all the receipts to user preference file
+        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+        SharedPreferences.Editor editor = settings.edit();
+
+        Gson gson = new Gson();
+        globalUserReceipts.put(currentUserName.toLowerCase(),
+                userReceipts.toArray(new Receipt[userReceipts.size()]));
+        String jsonString = gson.toJson(globalUserReceipts);
+        editor.putString(USER_RECEIPTS, jsonString);
+
+        editor.commit();    // Commit the edits!
+    }
+
+    public void saveGlobalReceiptID() {
+
+        Log.d("App data", "save the global receipt id to user preference file");
+
+        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+        SharedPreferences.Editor editor = settings.edit();
+
+        editor.putInt(RECEIPT_ID, Receipt.getGlobalReceiptID());
 
         editor.commit();    // Commit the edits!
     }
@@ -111,6 +129,8 @@ public final class MyReceiptsApplication extends Application {
 
     @Override
     public void onTerminate() {
+        saveGlobalReceiptID();
+
         super.onTerminate();
     }
 
@@ -127,4 +147,5 @@ public final class MyReceiptsApplication extends Application {
     private static final String PREFS_NAME = "PreferenceFile";
     private static final String USER_INVENTORY_ITEMS = "USER_DATA";
     private static final String USER_RECEIPTS = "USER_RECEIPTS";
+    private static final String RECEIPT_ID = "RECEIPT_ID";
 }

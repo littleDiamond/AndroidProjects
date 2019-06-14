@@ -14,13 +14,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".ReceiptActivity"
-            android:parentActivityName=".PointOfSaleActivity"/>
+            android:name=".ReceiptActivity"/>
         <activity
             android:name=".AccountSettingActivity"/>
         <activity
             android:name=".CartActivity"
-            android:launchMode="singleTop"
             android:parentActivityName=".PointOfSaleActivity" />
         <activity
             android:name=".EmailActivity"

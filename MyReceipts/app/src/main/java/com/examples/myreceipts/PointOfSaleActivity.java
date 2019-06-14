@@ -40,9 +40,11 @@ public class PointOfSaleActivity extends AppCompatActivity {
         manager = new GridLayoutManager(this, 3, GridLayoutManager.VERTICAL, false);
         rvPOS.setLayoutManager(manager);
 
+        MyReceiptsApplication app = (MyReceiptsApplication)getApplication();
+
         // populate the grid with inventory items
-        ArrayList<InventoryItem> inventoryItems = getIntent().getExtras().
-                getParcelableArrayList("InventoryItem");
+        ArrayList<InventoryItem> inventoryItems = app.getUserInventoryItems();
+
         for (InventoryItem item : inventoryItems) {
             saleItems.add(new SaleItem(item, 1));
         }
@@ -70,7 +72,8 @@ public class PointOfSaleActivity extends AppCompatActivity {
                 // otherwise, pass the current shopping cart in the POS activity
                 Intent cartIntent = new Intent(this, CartActivity.class);
                 cartIntent.putExtra("ShoppingCart", mPOSAdapter.getShoppingCart());
-                startActivityForResult(cartIntent, 1);
+                //startActivityForResult(cartIntent, 1);
+                startActivity(cartIntent);
                 return true;
 
             case R.id.new_order:
@@ -101,10 +104,6 @@ public class PointOfSaleActivity extends AppCompatActivity {
             {
                 mPOSAdapter.clearShoppingCart();
             }
-        }
-        else if (resultCode == RESULT_CANCELED) {
-            Toast.makeText(PointOfSaleActivity.this, "Data lost",
-                    Toast.LENGTH_SHORT).show();
         }
     }
 }// end
