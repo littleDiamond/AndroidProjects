@@ -21,20 +21,19 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-public class ReceiptListActivity extends AppCompatActivity {
+public class ReceiptKeeperActivity extends AppCompatActivity {
 
-        private static final String TAG = "ReceiptListActivity";
+        private static final String TAG = "ReceiptKeeperActivity";
         private ListView mReceiptList;
         private TextView mReceiptsTotal;
 
         private ArrayList<Receipt> myReceipts = new ArrayList<>();
-        private ReceiptListAdapter mAdapter;
-
+        private ReceiptKeeperAdapter mAdapter;
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_receipt_list);
+            setContentView(R.layout.activity_receipt_keeper);
             Log.d(TAG, "onCreate: Started.");
 
             Toolbar toolbar = findViewById(R.id.toolbar);
@@ -50,7 +49,7 @@ public class ReceiptListActivity extends AppCompatActivity {
             myReceipts = app.getUserReceipts();
 
             // create the mAdapter to convert the array to views
-            mAdapter = new ReceiptListAdapter(ReceiptListActivity.this, myReceipts);
+            mAdapter = new ReceiptKeeperAdapter(ReceiptKeeperActivity.this, myReceipts);
             mReceiptList.setAdapter(mAdapter); //attach the mAdapter to a ListView
 
             mReceiptList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -58,7 +57,7 @@ public class ReceiptListActivity extends AppCompatActivity {
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                     // open the receipt view activity
                     Receipt currentReceipt = (Receipt) mReceiptList.getItemAtPosition(i);
-                    Intent receiptIntent = new Intent(ReceiptListActivity.this, ReceiptActivity.class);
+                    Intent receiptIntent = new Intent(ReceiptKeeperActivity.this, ReceiptActivity.class);
                     receiptIntent.putExtra("ShoppingCart", currentReceipt.getOrder());
                     receiptIntent.putExtra("caller", "ReceiptList");
                     startActivity(receiptIntent);

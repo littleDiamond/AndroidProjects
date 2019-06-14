@@ -20,7 +20,7 @@ public final class MyReceiptsApplication extends Application {
         return currentUserName;
     }
 
-    public void setCurretUser(String newUserName) {
+    public void setCurrentUser(String newUserName) {
         currentUserName = newUserName;
     }
 

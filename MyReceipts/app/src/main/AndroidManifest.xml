@@ -45,7 +45,7 @@
             android:launchMode="singleTop"
             android:parentActivityName=".HomeActivity" />
         <activity
-            android:name=".ReceiptListActivity"
+            android:name=".ReceiptKeeperActivity"
             android:label="My Receipts"
             android:launchMode="singleTop"
             android:parentActivityName=".HomeActivity" />

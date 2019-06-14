@@ -8,12 +8,13 @@ import android.widget.ArrayAdapter;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.TextView;
+
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class ReceiptListAdapter extends ArrayAdapter<Receipt> implements Filterable {
-    private  static final String TAG = "InventoryAdapter";
+public class ReceiptKeeperAdapter extends ArrayAdapter<Receipt> implements Filterable {
+    private static final String TAG = "InventoryAdapter";
 
     // a backup for all the original items in the list view
     private ArrayList<Receipt> allReceipts;
@@ -22,7 +23,7 @@ public class ReceiptListAdapter extends ArrayAdapter<Receipt> implements Filtera
     private List<Receipt> filteredList;
 
 
-    public ReceiptListAdapter(Context context, ArrayList<Receipt> newReceipts){
+    public ReceiptKeeperAdapter(Context context, ArrayList<Receipt> newReceipts) {
         super(context, 0, newReceipts);
 
         // important to note that we use filtered list to reference to the current content
@@ -38,7 +39,7 @@ public class ReceiptListAdapter extends ArrayAdapter<Receipt> implements Filtera
         Receipt receipt = getItem(position);
 
         //Check if an existing view is being reused, otherwise inflate the view
-        if(convertView == null){
+        if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.receipt_summary_layout,
                     parent, false);
         }
@@ -50,7 +51,7 @@ public class ReceiptListAdapter extends ArrayAdapter<Receipt> implements Filtera
         //Populate the data into the template view using the data objects
         mTextDate.setText(receipt.getDateStr());
         mTextDescription.setText(receipt.getDescription());
-        mTextPrice.setText(Double.toString(receipt.getOrder().getSaleTotal()));
+        mTextPrice.setText("$" + Double.toString(receipt.getOrder().getSaleTotal()));
 
         //return the completed view to render on screen
         return convertView;
@@ -58,14 +59,14 @@ public class ReceiptListAdapter extends ArrayAdapter<Receipt> implements Filtera
 
     public ArrayList<Receipt> getReceipts() {
         ArrayList<Receipt> currentItems = new ArrayList<Receipt>();
-        for(int i = 0 ; i < getCount(); ++i){
+        for (int i = 0; i < getCount(); ++i) {
             Receipt item = getItem(i);
             currentItems.add(item);
         }
         return currentItems;
     }
 
-    public long getItemId(int position){
+    public long getItemId(int position) {
         return position;
     }
 
@@ -82,16 +83,16 @@ public class ReceiptListAdapter extends ArrayAdapter<Receipt> implements Filtera
                 // clear the current filter
                 filteredList.clear();
 
-                if(constraint == null || constraint.length() == 0){
+                if (constraint == null || constraint.length() == 0) {
                     filteredList.addAll(allReceipts);
-                }else {
+                } else {
                     String filterPatten = constraint.toString().toLowerCase().trim();
 
-                    for (Receipt receipt: allReceipts){
+                    for (Receipt receipt : allReceipts) {
                         if (!receipt.getDescription().isEmpty() &&
-                                receipt.getDescription().toLowerCase().contains(filterPatten)){
+                                receipt.getDescription().toLowerCase().contains(filterPatten)) {
                             //  newFilterList .add(item);
-                            filteredList .add(receipt);
+                            filteredList.add(receipt);
                         }
                     }
                 }

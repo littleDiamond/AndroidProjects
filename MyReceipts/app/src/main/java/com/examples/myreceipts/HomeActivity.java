@@ -2,7 +2,6 @@ package com.examples.myreceipts;
 
 import android.content.Intent;
 
-import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -39,7 +38,7 @@ public class HomeActivity extends AppCompatActivity implements LogoutDialog.Logo
         mUserName = intent.getStringExtra(LoginActivity.USER_NAME_TEXT);
 
         MyReceiptsApplication app = (MyReceiptsApplication)getApplication();
-        app.setCurretUser(mUserName);
+        app.setCurrentUser(mUserName);
 
         TextView mTextHelloUser = findViewById(R.id.tvHelloUser);
         if(mUserName != null) {
@@ -94,7 +93,7 @@ public class HomeActivity extends AppCompatActivity implements LogoutDialog.Logo
             public void onClick(View v) {
                 Toast.makeText(HomeActivity.this, "Fetching receipts...",
                                                             Toast.LENGTH_SHORT ).show();
-                Intent menuIntent = new Intent(HomeActivity.this, ReceiptListActivity.class);
+                Intent menuIntent = new Intent(HomeActivity.this, ReceiptKeeperActivity.class);
                 startActivity(menuIntent);
 
             }
