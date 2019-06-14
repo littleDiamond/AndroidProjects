@@ -45,14 +45,14 @@ public class CartActivity extends AppCompatActivity {
 
         tvTotalAmount = findViewById(R.id.tvTotalAmount);
         updateSaleTotal();
-
-        //FIXME: A BUG HERE, DOES NOT GO TO RECEIPT ACTIVITY
+        
         btnCheckout = findViewById(R.id.btnCheckOut);
         btnCheckout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent receiptIntent = new Intent(CartActivity.this, ReceiptActivity.class);
                 receiptIntent.putExtra("ShoppingCart", shoppingCart);
+                receiptIntent.putExtra("caller", "ShoppingCart");
                 startActivity(receiptIntent);
             }
         });

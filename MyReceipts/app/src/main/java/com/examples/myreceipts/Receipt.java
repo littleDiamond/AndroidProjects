@@ -29,9 +29,46 @@ public class Receipt {
         this.userName = userName;
     }
 
-    public String getDateTime() {
+    public String getDateTimeStr() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy,   HH:mm:ss");
-        return  dateTime.format(formatter);
+        return dateTime.format(formatter);
+    }
+
+    public String getDateStr() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        return dateTime.format(formatter);
+    }
+
+    public LocalDateTime getDateTime() { return dateTime; }
+
+    /*
+    get a brief description of the order
+     */
+    public String getDescription() {
+        final int maxDescriptionLength = 70;
+        StringBuilder strBuilder = new StringBuilder();
+
+        int currentLength = 0;
+        for(SaleItem saleItem : order.getItems())
+        {
+            String itemDescription = saleItem.getDescription();
+            if ( currentLength + itemDescription.length() < maxDescriptionLength )
+            {
+                if ( currentLength > 0 )
+                {
+                    strBuilder.append(", ");
+                    currentLength += 2;
+                }
+                strBuilder.append(itemDescription);
+                currentLength += itemDescription.length();
+            }
+            else
+            {
+                strBuilder.append("...");
+                break;
+            }
+        }
+        return strBuilder.toString();
     }
 
     public ShoppingCart getOrder() {
