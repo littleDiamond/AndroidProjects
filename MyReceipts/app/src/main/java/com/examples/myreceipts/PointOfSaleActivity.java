@@ -82,7 +82,7 @@ public class PointOfSaleActivity extends AppCompatActivity {
                 // for user wants to cancel the order
                 mPOSAdapter.clearShoppingCart();
                 Toast.makeText(getApplicationContext(),
-                        "clear all items", Toast.LENGTH_SHORT).show();
+                        "Clear all items", Toast.LENGTH_SHORT).show();
                 return true;
 
             default:
