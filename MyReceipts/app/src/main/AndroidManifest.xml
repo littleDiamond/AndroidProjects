@@ -44,6 +44,11 @@
             android:label="Inventory List"
             android:launchMode="singleTop"
             android:parentActivityName=".HomeActivity" />
+        <activity
+            android:name=".ReceiptListActivity"
+            android:label="My Receipts"
+            android:launchMode="singleTop"
+            android:parentActivityName=".HomeActivity" />
         <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

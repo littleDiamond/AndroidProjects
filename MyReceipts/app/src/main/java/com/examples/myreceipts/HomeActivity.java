@@ -15,16 +15,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-
-import static com.examples.myreceipts.InventoryListActivity.PREFS_NAME;
-import static com.examples.myreceipts.InventoryListActivity.USER_DATA;
 
 
 public class HomeActivity extends AppCompatActivity implements LogoutDialog.LogoutDialogListener{
@@ -33,8 +24,6 @@ public class HomeActivity extends AppCompatActivity implements LogoutDialog.Logo
     private String mUserName;
     private Button mBtnCreateList, mBtnPOS,mBtnKeeper;
 
-    private Map<String, InventoryItem[]> mUserDataMap = new
-            HashMap<String, InventoryItem[]>();
     private ArrayList<InventoryItem> posInventoryItems;
 
     @Override
@@ -63,26 +52,9 @@ public class HomeActivity extends AppCompatActivity implements LogoutDialog.Logo
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
-        // FIXME: this is duplicate from InventoryListActivity
         // read save user data from preference file
-        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
-        String itemsInJson = settings.getString(USER_DATA, "");
-
-        // if we have existing user data
-
-        if ( !itemsInJson.isEmpty() ) {
-            Gson gson = new Gson();  // Deserialize user data from json string
-            mUserDataMap = gson.fromJson(itemsInJson, new TypeToken<Map<String,
-                    InventoryItem[]>>() {}.getType());
-            // find the data specific to the current user
-            if ( mUserDataMap != null ) {
-                InventoryItem[] itemList = mUserDataMap.get(mUserName.toLowerCase());
-                if ( itemList != null && itemList.length > 0 ) {
-                    posInventoryItems = new ArrayList<>(Arrays.asList(itemList));
-                }
-            }
-        }
+        app.loadUserData();
+        posInventoryItems = app.getUserInventoryItems();
 
         /**
          * Tap create list button and open InventoryListActivity
@@ -91,8 +63,9 @@ public class HomeActivity extends AppCompatActivity implements LogoutDialog.Logo
         mBtnCreateList.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+                Toast.makeText(HomeActivity.this, "Manage inventory list",
+                        Toast.LENGTH_SHORT ).show();
                 Intent inventoryIntent = new Intent(HomeActivity.this, InventoryListActivity.class);
-                inventoryIntent.putExtra(LoginActivity.USER_NAME_TEXT, mUserName);
                 startActivity(inventoryIntent);
             }
         });
@@ -104,7 +77,7 @@ public class HomeActivity extends AppCompatActivity implements LogoutDialog.Logo
         mBtnPOS.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Toast.makeText(HomeActivity.this, "Menu selected",
+                Toast.makeText(HomeActivity.this, "Start shopping",
                                                 Toast.LENGTH_SHORT ).show();
                 Intent menuIntent = new Intent(HomeActivity.this, PointOfSaleActivity.class);
                 menuIntent.putParcelableArrayListExtra("InventoryItem", posInventoryItems);
@@ -119,8 +92,11 @@ public class HomeActivity extends AppCompatActivity implements LogoutDialog.Logo
         mBtnKeeper.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Toast.makeText(HomeActivity.this, "Keeper selected",
+                Toast.makeText(HomeActivity.this, "Fetching receipts...",
                                                             Toast.LENGTH_SHORT ).show();
+                Intent menuIntent = new Intent(HomeActivity.this, ReceiptListActivity.class);
+                startActivity(menuIntent);
+
             }
         });
     }

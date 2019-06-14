@@ -6,7 +6,6 @@ import android.view.MenuItem;
 import android.widget.SearchView;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,7 +13,6 @@ import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.ActionMode;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.widget.AdapterView;
@@ -25,15 +23,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Map;
 
 public class InventoryListActivity extends AppCompatActivity {
     private ListView mItemList;
@@ -41,17 +33,9 @@ public class InventoryListActivity extends AppCompatActivity {
     private Button mBtnAdd;
 
     private static final String TAG = "InventoryListActivity";
-    public static final String PREFS_NAME = "PreferenceFile";
-    public static final String USER_DATA = "USER_DATA";
 
     ArrayList<InventoryItem> existingData = new ArrayList<>();
     private InventoryAdapter mAdapter;
-    private String mUserName;
-
-    // a map between user name and user data
-    private Map<String, InventoryItem[]> mUserDataMap = new
-            HashMap<String, InventoryItem[]>();
-    private ActionMode actionMode = null;
 
     private boolean mItemNameValid;
     private boolean mItemPriceValid;
@@ -62,9 +46,6 @@ public class InventoryListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_item_list);
         Log.d(TAG, "onCreate: Started.");
 
-        Intent intent = getIntent();
-        mUserName = intent.getStringExtra(LoginActivity.USER_NAME_TEXT);
-
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar ab = getSupportActionBar();
@@ -74,24 +55,9 @@ public class InventoryListActivity extends AppCompatActivity {
         mTextItem = findViewById(R.id.etAddItem);
         mTextPrice = findViewById(R.id.etAddPrice);
 
-        // read save user data from preference file
-        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
-        String itemsInJson = settings.getString(USER_DATA, "");
-
-        // if we have existing user data
-        if (!itemsInJson.isEmpty()) {
-            Gson gson = new Gson();  // Deserialize user data from json string
-            mUserDataMap = gson.fromJson(itemsInJson, new TypeToken<Map<String,
-                    InventoryItem[]>>() {
-            }.getType());
-            // find the data specific to the current user
-            if (mUserDataMap != null) {
-                InventoryItem[] itemList = mUserDataMap.get(mUserName.toLowerCase());
-                if (itemList != null && itemList.length > 0) {
-                    existingData = new ArrayList<>(Arrays.asList(itemList));
-                }
-            }
-        }
+        // get the inventory items for current user
+        MyReceiptsApplication app = (MyReceiptsApplication)getApplication();
+        existingData = app.getUserInventoryItems();
 
         // create the mAdapter to convert the array to views
         mAdapter = new InventoryAdapter(InventoryListActivity.this, existingData);
@@ -151,8 +117,8 @@ public class InventoryListActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start,
                                       int before, int count) {
                 try {
-                    double price = Double.parseDouble(s.toString());
-                    mItemPriceValid = true;
+                    // price needs to be a positive double to be valid
+                    mItemPriceValid = Double.parseDouble(s.toString()) > 0;
                 } catch (NumberFormatException e) {
                     mItemPriceValid = false;
                 }
@@ -354,19 +320,12 @@ public class InventoryListActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        // save the inventory list to user preference file
-        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
-        SharedPreferences.Editor editor = settings.edit();
 
         // get the list of items from list view
         InventoryAdapter listToSave = (InventoryAdapter) mItemList.getAdapter();
         ArrayList<InventoryItem> allItems = listToSave.getAllItems();
 
-        Gson gson = new Gson();
-        mUserDataMap.put(mUserName.toLowerCase(), allItems.toArray(new InventoryItem[allItems.size()]));
-        String jsonString = gson.toJson(mUserDataMap);
-        editor.putString(USER_DATA, jsonString);
-
-        editor.commit();    // Commit the edits!
+        MyReceiptsApplication app = (MyReceiptsApplication)getApplication();
+        app.saveInventoryItems(allItems);
     }
 }

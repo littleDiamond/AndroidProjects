@@ -8,7 +8,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class ReceiptActivity extends AppCompatActivity {
     private UserDbHandler dbHandler;
@@ -22,6 +21,8 @@ public class ReceiptActivity extends AppCompatActivity {
             tvAreaAddress, tvPhoneNumber, tvGST,
             tvDate, tvOrderNumber,
             tvGSTAmount, tvTotal;
+
+    private String caller;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,10 +53,14 @@ public class ReceiptActivity extends AppCompatActivity {
         tvGST.setText(user.getGST());
 
         // =============  Receipt data =======================
+
+        order = getIntent().getExtras().getParcelable("ShoppingCart");
+        caller = getIntent().getExtras().getString("caller");
+
         newReceipt = new Receipt(userName, order);
 
         tvDate = findViewById(R.id.tvDate);
-        tvDate.setText(newReceipt.getDateTime());
+        tvDate.setText(newReceipt.getDateTimeStr());
 
         tvOrderNumber = findViewById(R.id.tvOrderNumber);
         tvOrderNumber.setText(String.valueOf(newReceipt.getReceiptID()));
@@ -64,7 +69,6 @@ public class ReceiptActivity extends AppCompatActivity {
         manager = new LinearLayoutManager(this, LinearLayout.VERTICAL, false);
         rvReceiptList.setLayoutManager(manager);
 
-        order = getIntent().getExtras().getParcelable("ShoppingCart");
         mReceiptAdapter = new ReceiptAdapter(this, order);
         rvReceiptList.setAdapter(mReceiptAdapter);
 
@@ -74,9 +78,20 @@ public class ReceiptActivity extends AppCompatActivity {
     }
 
     public void onCloseReceiptClick(View v) {
-        Toast.makeText(this, "Receipt is closed", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(this, PointOfSaleActivity.class);
-        setResult(RESULT_OK, intent);
+        if ( caller.equals("ShoppingCart") )
+        {
+            MyReceiptsApplication app = (MyReceiptsApplication)getApplication();
+            app.saveReceipt(newReceipt);
+
+            Intent intent = new Intent(this, PointOfSaleActivity.class);
+            setResult(RESULT_OK, intent);
+        }
+        else if ( caller.equals("ReceiptList") )
+        {
+            Intent intent = new Intent(this, ReceiptListActivity.class);
+            setResult(RESULT_OK, intent);
+        }
+
         finish();
     }
     public void updateSaleTotal() {

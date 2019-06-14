@@ -67,6 +67,11 @@ public final class SaleItem implements Parcelable {
                 inventoryItem.getItemName(), inventoryItem.getItemPrice(), quantity);
     }
 
+    public String getDescription() {
+        return String.format("%s $ %.2f x %d",
+                inventoryItem.getItemName(), inventoryItem.getItemPrice(), quantity);
+    }
+
     @Override
     public int describeContents() {
         return 0;
