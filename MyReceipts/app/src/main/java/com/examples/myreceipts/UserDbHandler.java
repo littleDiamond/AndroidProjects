@@ -88,9 +88,10 @@ public class UserDbHandler extends SQLiteOpenHelper {
         cValues.put(KEY_NAME,  user.getName().toLowerCase());
         cValues.put(KEY_EMAIL, user.getEmail().toLowerCase());
         cValues.put(KEY_PASSWORD, user.getPassword());
-        cValues.put(KEY_COMPANY, user.getCompanyName().toLowerCase());
-        cValues.put(KEY_STREET_ADDRESS, user.getStreetAddress().toLowerCase());
-        cValues.put(KEY_AREA_ADDRESS, user.getAreaAddress().toLowerCase());
+
+        cValues.put(KEY_COMPANY, user.getCompanyName());
+        cValues.put(KEY_STREET_ADDRESS, user.getStreetAddress());
+        cValues.put(KEY_AREA_ADDRESS, user.getAreaAddress());
         cValues.put(KEY_PHONE_NUMBER, user.getPhoneNumber());
         cValues.put(KEY_GST, user.getGST());
 
